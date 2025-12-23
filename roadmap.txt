@@ -1,0 +1,17 @@
+alias Pikan="n3"
+
+alias Zeroql="eshan"
+
+first things first:
+
+-----------------------
+
+Pikan will handle the "simple" parsing
+grab everything with gnl (while freeing all buffered lines), replace commas with whitespaces,
+then process each individual info given (atoi might have to accept decimals) and
+store their info appropriately in individual structs (remember, USE FLOATS, NOT INTS).
+
+while Zeroql will handle... uhhh... idk ig whatever math there is to be done rn
+
+no deadline for now as we don't have any planned pace but a deadline
+-----------------------

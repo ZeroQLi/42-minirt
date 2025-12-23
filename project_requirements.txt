@@ -1,0 +1,6 @@
+# make sure its safe to use the student-modified minilibX as that would save us 
+years of stress and white hair
+
+we need 3 objects minimum: sphere, plane, and cylinder
+
+and.. yea pretty much it

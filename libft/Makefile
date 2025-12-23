@@ -63,16 +63,16 @@ OFILES = $(SRC:%.c=%.o)
 all: $(NAME)
 
 %.o: %.c
-	$(COMP) $(FLAGS) -o $@ -c $<
+	@$(COMP) $(FLAGS) -o $@ -c $<
 
 $(NAME): $(OFILES)
-	ar rcs $(NAME) $(OFILES)
+	@ar rcs $(NAME) $(OFILES)
 
 clean:
-	rm -f $(OFILES)
+	@rm -f $(OFILES)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 
