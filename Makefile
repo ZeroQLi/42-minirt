@@ -4,10 +4,10 @@ OBJ_PATH = src/obj/
 LIBFT_PATH = libft/
 MLX_DIR = ./mlx
 
-
 # Program & build names
 NAME = minirt
 LIBFT = $(LIBFT_PATH)libft.a
+MLX_LIB = $(MLX_DIR)/libmlx.a
 
 # Program sauce files
 SRC = $(SRC_DIR)minirt.c \
@@ -39,11 +39,11 @@ RESET = \033[0m
 MAKEFLAGS += --no-print-directory
 
 # Build magicc
-all: $(NAME)
+all: $(OBJ_PATH) $(LIBFT) $(MLX_LIB) $(NAME)
 
-$(NAME): $(LIBFT) $(OBJ_PATH) $(OBJ_PATH2) $(OBJ)
+$(NAME): $(OBJ) $(LIBFT) $(MLX_LIB) 
 	@echo "$(WHITE)Compiling $(BWHITE)$(NAME)$(WHITE) program...$(RESET)"
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) $(LIBFT) -o $(NAME)
 	@echo "$(BWHITE)$(NAME)$(WHITE) program is $(BGREEN)ready! $(RESET)✅"
 
 $(LIBFT):
@@ -56,6 +56,11 @@ $(OBJ_PATH)%.o : src/%.c
 
 $(OBJ_PATH):
 	@mkdir -p $(OBJ_PATH)
+
+$(MLX_LIB):
+	@echo "$(WHITE)Compiling $(BWHITE)MinilibX$(WHITE)...$(RESET)"
+	@make -C $(MLX_DIR)
+	@echo "$(WHITE)MinilibX is $(BGREEN)ready! $(RESET)✅"
 
 clean:
 	@rm -rf $(OBJ_PATH)
