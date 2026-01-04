@@ -12,4 +12,7 @@
 
 #include "../includes/minirt.h"
 
-int	main(){return(0);} // make compile test
+int	main()
+{
+	
+}

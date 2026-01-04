@@ -7,9 +7,11 @@ first things first:
 -----------------------
 
 Pikan will handle the "simple" parsing
-grab everything with gnl (while freeing all buffered lines), replace commas with whitespaces,
-then process each individual info given (atoi might have to accept decimals) and
-store their info appropriately in individual structs (remember, USE FLOATS, NOT INTS).
+1. scan one line at a time and track & check for the following:
+- if its one of the acceptable elements (if not, free any leftovers and return Error)
+- if valid, will save the variable in the struct and check for its corresponding info sequence (for each valid info, store them in the struct given)
+2. The format of which we'll store them is through an array of structs containing each respective info (A = store in Ambient struct, int R, int G, int B, etc..) (some arent floats fyi)
+- only exception for getting an array is C(amera), A(mbient), and for now, L(ight).
 
 while Zeroql will handle... uhhh... idk ig whatever math there is to be done rn
 
