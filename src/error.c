@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_destroy_display.c                              :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mg <mg@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/03 18:56:35 by mg                #+#    #+#             */
-/*   Updated: 2020/10/04 01:55:35 by mg               ###   ########.fr       */
+/*   Created: 2026/01/08 01:26:16 by nanasser          #+#    #+#             */
+/*   Updated: 2026/01/08 01:26:16 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx_int.h"
+#include "../includes/minirt.h"
+#include "../includes/macros.h"
 
-int	mlx_destroy_display(t_xvar *xvar)
+// prints the passed error msg and returns the passed int value (ret)
+int	error_msg(char *str, int ret)
 {
-	XCloseDisplay(xvar->display);
+	ft_putendl_fd(str, 2);
+	return (ret);
 }

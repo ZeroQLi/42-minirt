@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.c                                           :+:      :+:    :+:   */
+/*   cleanup_linux.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/23 19:48:03 by nanasser          #+#    #+#             */
-/*   Updated: 2025/12/23 19:48:27 by nanasser         ###   ########.fr       */
+/*   Created: 2026/01/08 01:36:08 by nanasser          #+#    #+#             */
+/*   Updated: 2026/01/08 01:36:08 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 #include "../includes/macros.h"
 
-int	main(int ac, char **av)
+void	brain_washer(t_data	*data)
 {
-	t_data	data;
-
-	data = (t_data){0};
-	if (ac != 2)
-	{
-		ft_putendl_fd(ARGUMENT_ERROR, 2);
-		return (1);
-	}
-	if (!parse_file(&data, av[1]))
-		return (1);
-	ft_printf(GREEN "SUCCCESS 👍\n" RESET);
-	return (0);
+	
 }

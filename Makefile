@@ -2,31 +2,37 @@
 SRC_DIR = ./src/
 OBJ_PATH = src/obj/
 LIBFT_PATH = libft/
-MLX_DIR = ./mlx
 
 # Program & build names
-NAME = minirt
+NAME = miniRT
 LIBFT = $(LIBFT_PATH)libft.a
-MLX_LIB = $(MLX_DIR)/libmlx.a
 
 # Program sauce files
 SRC = $(SRC_DIR)minirt.c \
 $(SRC_DIR)parser.c \
+$(SRC_DIR)error.c \
+# $(SRC_DIR)cleanup_linux \
 
 SRC2 = 
 
 # Object files
 OBJ = $(SRC:src/%.c=$(OBJ_PATH)%.o)
 
+ifeq ($(shell uname), Linux)
+	MLX_DIR := ./minilibx_linux
+	MLX := mlx_linux
+	MLX_FLAGS = -L$(MLX_DIR) -l$(MLX) -L/usr/lib/X11 -lXext -lX11
+else
+	MLX_DIR := ./minilibx_macos
+	MLX := mlx
+	MLX_FLAGS = -L$(MLX_DIR) -l$(MLX) -framework OpenGL -framework AppKit
+endif
+
 # Compiler n flags
 CC		=		cc
 CFLAGS	= -Wall -Wextra -Werror -Iincludes/ -I$(MLX_DIR)
 
-ifeq ($(shell uname), Linux)
-	MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
-else
-	MLX_FLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
-endif
+MLX_LIB = $(MLX_DIR)/libmlx.a
 
 # Color codes ✨
 WHITE = \033[0;37m
@@ -75,7 +81,7 @@ re: fclean $(NAME)
 
 # Complies and runs the program at once (does not re)
 runngun: all
-	./minishell
+	@./minirt
 
 # Only recompiles the src files and the program, ignoring libft as its always the same.
 remake:

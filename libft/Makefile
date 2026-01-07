@@ -1,4 +1,5 @@
 NAME = libft.a
+OBJ_PATH = obj/
 
 COMP = cc
 
@@ -58,18 +59,21 @@ SRC = ft_atoi.c \
 	ft_lstiter.c \
 	ft_lstmap.c \
 
-OFILES = $(SRC:%.c=%.o)
+OFILES = $(SRC:%.c=$(OBJ_PATH)%.o)
 
 all: $(NAME)
 
-%.o: %.c
+$(OBJ_PATH)%.o: %.c
 	@$(COMP) $(FLAGS) -o $@ -c $<
 
-$(NAME): $(OFILES)
+$(OBJ_PATH):
+	@mkdir -p $(OBJ_PATH)
+
+$(NAME): $(OBJ_PATH) $(OFILES)
 	@ar rcs $(NAME) $(OFILES)
 
 clean:
-	@rm -f $(OFILES)
+	@rm -rf $(OBJ_PATH)
 
 fclean: clean
 	@rm -f $(NAME)
