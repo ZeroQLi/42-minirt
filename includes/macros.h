@@ -36,8 +36,8 @@
 # define NO 0
 
 // error strings
-# define ARGUMENT_ERROR RED"Argument format: ./minirt [scene_name].rt"RESET
-# define INVALID_FILE RED"Invalid file! Make sure it exists and has a .rt \
-extension!"RESET
+# define ARG_ERROR "\033[0;31mArgument format: ./minirt [scene_name].rt\033[0m"
+# define INVALID_FILE "\033[0;31mInvalid file! Make sure it exists and has a \
+.rt extension!\033[0m"
 
 #endif

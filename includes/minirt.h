@@ -78,7 +78,7 @@ typedef struct s_sphere
 	float	fade_size; // will try to utilize?
 }	t_sphere;
 
-typedef struct	s_light
+typedef struct s_light
 {
 	float	px;
 	float	py;
@@ -89,7 +89,7 @@ typedef struct	s_light
 	int		cb;
 }	t_light;
 
-typedef struct	s_camera
+typedef struct s_camera
 {
 	float	px;
 	float	py;
@@ -100,7 +100,7 @@ typedef struct	s_camera
 	float	fov; // range 0-180
 }	t_camera;
 
-typedef struct	s_ambient
+typedef struct s_ambient
 {
 	float	al_ratio; // range [0.0, 1.0]
 	int		cr; // RGB range [0-255]
@@ -108,7 +108,7 @@ typedef struct	s_ambient
 	int		cb;
 }	t_ambient;
 
-typedef struct	s_elements
+typedef struct s_elements
 {
 	t_ambient	*amb;
 	t_camera	*cam;
@@ -118,19 +118,37 @@ typedef struct	s_elements
 	t_cylinder	*cy;
 }	t_elements;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	t_elements	*elements;
 }	t_data;
 
+int		array_len(char **arr);
+
 //--------------------------//
 //		Error & Cleanup		//
 //--------------------------//
-int	error_msg(char *str, int ret);
+int		error_msg(char *str, int ret);
+void	free_arr(char ***arr);
 
 //--------------------------//
 //		Parsing stuff		//
 //--------------------------//
-int	parse_file(t_data *data, char *file);
+int		parse_file(t_data *data, char *file);
+int		is_empty_or_comment(char *line);
+
+// Shapes Parsing
+int		parse_ambient(char **t, t_data *d);
+int		parse_camera(char **t, t_data *d);
+int		parse_light(char **t, t_data *d);
+int		parse_sphere(char **t, t_data *d);
+int		parse_plane(char **t, t_data *d);
+int		parse_cylinder(char **t, t_data *d);
+
+// Info Parsing
+int		parse_vec3(char *s, float *x, float *y, float *z);
+int		parse_normal(char *s, float *x, float *y, float *z); // checks [-1,1]
+int		parse_rgb(char *s, int *r, int *g, int *b);
+int		parse_ratio(char *s, float *v);
 
 #endif

@@ -13,7 +13,21 @@
 #include "../includes/minirt.h"
 #include "../includes/macros.h"
 
-void	brain_washer(t_data	*data)
+void	free_arr(char ***arr)
 {
-	
+	int	i;
+
+	if (!arr || !*arr)
+		return ;
+	i = -1;
+	while ((*arr)[++i])
+	{
+		free((*arr)[i]);
+		(*arr)[i] = NULL;
+	}
 }
+
+// void	brain_washer(t_data	*data)
+// {
+
+// }

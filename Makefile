@@ -1,5 +1,6 @@
 # Object and source path directories
 SRC_DIR = ./src/
+SRC_DIR2 = $(SRC_DIR)shapes_parser/
 OBJ_PATH = src/obj/
 LIBFT_PATH = libft/
 
@@ -13,10 +14,12 @@ $(SRC_DIR)parser.c \
 $(SRC_DIR)error.c \
 # $(SRC_DIR)cleanup_linux \
 
-SRC2 = 
+SRC2 = $(SRC_DIR)$(SRC_DIR2)sphere.c \
+$(SRC_DIR)$(SRC_DIR2)plane.c \
+$(SRC_DIR)$(SRC_DIR2)cylinder.c \
 
 # Object files
-OBJ = $(SRC:src/%.c=$(OBJ_PATH)%.o)
+OBJ = $(SRC:src/%.c=$(OBJ_PATH)%.o) $(SRC2:src/%.c=$(OBJ_PATH)%.o)
 
 ifeq ($(shell uname), Linux)
 	MLX_DIR := ./minilibx_linux
@@ -62,6 +65,7 @@ $(OBJ_PATH)%.o : src/%.c
 
 $(OBJ_PATH):
 	@mkdir -p $(OBJ_PATH)
+	@mkdir -p $(OBJ_PATH)$(SRC_DIR2)
 
 $(MLX_LIB):
 	@echo "$(WHITE)Compiling $(BWHITE)MinilibX$(WHITE)...$(RESET)"

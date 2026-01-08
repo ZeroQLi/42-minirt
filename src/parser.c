@@ -23,19 +23,52 @@ int	check_ext(char *file)
 	return (1);
 }
 
-// static int	read_lines(t_data *d, int fd)
-// {
-// 	char	*line;
+int	parse_line(char *line, t_data *data)
+{
+	char	**values;
 
-// 	line = get_next_line(fd);
-// 	while (line)
-// 	{
-// 		if (!ft_strncmp(line, "\n", 1) || ft_strncmp(line, "#", 1))
-			
-// 		line = get_next_line(fd);
-// 	}
-// 	return (1);
-// }
+	values = ft_split(line, ' ');
+	if (!values || !values[0])
+	{
+		free_arr(values);
+		return (0);
+	}
+	if (ft_strcmp(values[0], "A") == 0)
+		return (parse_ambient(values, data));
+	if (ft_strcmp(values[0], "C") == 0)
+		return (parse_camera(values, data));
+	if (ft_strcmp(values[0], "L") == 0)
+		return (parse_light(values, data));
+	if (ft_strcmp(values[0], "sp") == 0)
+		return (parse_sphere(values, data));
+	if (ft_strcmp(values[0], "pl") == 0)
+		return (parse_plane(values, data));
+	if (ft_strcmp(values[0], "cy") == 0)
+		return (parse_cylinder(values, data));
+	free_arr(values);
+	return (error_msg("Unknown identifier", 0));
+}
+
+static int	parse_line(t_data *d, int fd)
+{
+	char	*line;
+
+	line = get_next_line(fd);
+	while (line)
+	{
+		if (!is_empty_or_comment(line))
+		{
+			if (!parse_line(line, d))
+			{
+				// free_next_line(line, fd); will remove the rest of the lines
+				return (error_msg("wrong parser ig", 0));
+			}
+		}
+		free(line);
+		line = get_next_line(fd);
+	}
+	return (1);
+}
 
 // checks if the file is legit and runs parsing operation code 67
 int	parse_file(t_data *data, char *file)
@@ -50,6 +83,7 @@ int	parse_file(t_data *data, char *file)
 			(close(fd));
 		return (error_msg(INVALID_FILE, 0));
 	}
-	// if (read_lines(data, fd))
+	if (parse_line(data, fd))
+		return (error_msg("parsing FAILED!", 0));
 	return (1);
 }

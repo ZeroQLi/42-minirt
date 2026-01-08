@@ -20,7 +20,7 @@ int	main(int ac, char **av)
 	data = (t_data){0};
 	if (ac != 2)
 	{
-		ft_putendl_fd(ARGUMENT_ERROR, 2);
+		ft_putendl_fd(ARG_ERROR, 2);
 		return (1);
 	}
 	if (!parse_file(&data, av[1]))
