@@ -19,12 +19,12 @@ int	parse_sphere(char **t, t_data *d)
 
 	if (array_len(t) != 4)
 		return (error_msg("Invalid sphere format", 0));
-	sp = malloc(sizeof(t_sphere));
+	sp = ft_calloc(1, sizeof(t_sphere));
 	if (!sp)
 		return (0);
+	sp->diameter = ft_atof(t[2]);
 	if (!parse_vec3(t[1], &sp->px, &sp->py, &sp->pz)
-		|| !parse_float(t[2], &sp->diameter) || sp->diameter <= 0
-		|| !parse_rgb(t[3], &sp->cr, &sp->cg, &sp->cb))
+		|| sp->diameter <= 0 || !parse_rgb(t[3], &sp->cr, &sp->cg, &sp->cb))
 	{
 		free(sp);
 		return (0);

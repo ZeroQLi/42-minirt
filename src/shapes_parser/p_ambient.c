@@ -19,11 +19,15 @@ int	parse_ambient(char **t, t_data *d)
 
 	if (array_len(t) != 3)
 		return (error_msg("Invalid ambient format", 0));
-	amb = malloc(sizeof(t_ambient));
+	else if (d->amb_exists)
+		return (error_msg(MULTIPLE_AMBIENT_ERR, 0));
+	d->amb_exists = YES;
+	amb = ft_calloc(1, sizeof(t_ambient));
 	if (!amb)
 		return (0);
-	if (!parse_ratio(t[1], &amb->al_ratio) || !parse_rgb(t[2], &amb->cr,
-			&amb->cg, &amb->cb) || !in_range(amb->al_ratio, 0.0, 1.0))
+	amb->al_ratio = ft_atof(t[1]);
+	if (amb->al_ratio < 0.0 || amb->al_ratio > 1.0
+		|| !parse_rgb(t[2], &amb->cr, &amb->cg, &amb->cb))
 	{
 		free(amb);
 		return (0);

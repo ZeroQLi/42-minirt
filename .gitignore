@@ -4,6 +4,7 @@
 # Programs
 minirt
 minirt_bonus
+obj/
 
 # Object files
 *.o

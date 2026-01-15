@@ -12,11 +12,16 @@ LIBFT = $(LIBFT_PATH)libft.a
 SRC = $(SRC_DIR)minirt.c \
 $(SRC_DIR)parser.c \
 $(SRC_DIR)error.c \
-# $(SRC_DIR)cleanup_linux \
+$(SRC_DIR)cleanup_linux.c \
+$(SRC_DIR)utils.c \
 
-SRC2 = $(SRC_DIR)$(SRC_DIR2)sphere.c \
-$(SRC_DIR)$(SRC_DIR2)plane.c \
-$(SRC_DIR)$(SRC_DIR2)cylinder.c \
+SRC2 = $(SRC_DIR2)p_ambient.c \
+$(SRC_DIR2)p_camera.c \
+$(SRC_DIR2)p_cylinder.c \
+$(SRC_DIR2)p_light.c \
+$(SRC_DIR2)p_plane.c \
+$(SRC_DIR2)p_sphere.c \
+$(SRC_DIR2)parse_functions.c \
 
 # Object files
 OBJ = $(SRC:src/%.c=$(OBJ_PATH)%.o) $(SRC2:src/%.c=$(OBJ_PATH)%.o)
@@ -97,5 +102,12 @@ remake:
 # Will only print any errors found (which it shouldn't)
 norm:
 	norminette includes/ src/ | grep -e Error -e Global
+
+leak: all
+	valgrind --leak-check=full --leak-resolution=high -s --track-origins=yes \
+    --num-callers=500 --show-mismatched-frees=yes --show-leak-kinds=all \
+    --track-fds=yes --trace-children=yes --gen-suppressions=no \
+    --error-limit=no --undef-value-errors=yes --expensive-definedness-checks=yes \
+    --read-var-info=yes --keep-debuginfo=yes ./minirt a.rt
 
 .PHONY: all clean fclean re norm

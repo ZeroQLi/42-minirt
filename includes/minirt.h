@@ -15,6 +15,7 @@
 
 # include "../libft/libft.h"
 # include <fcntl.h> // for open()
+# include <stdbool.h>
 # include "macros.h"
 
 
@@ -31,6 +32,7 @@ typedef struct s_cylinder
 	int		cr; // RGB range [0-255]
 	int		cg;
 	int		cb;
+	struct s_cylinder *next;
 }	t_cylinder;
 
 typedef struct s_plane
@@ -45,6 +47,7 @@ typedef struct s_plane
 	int		cr; // RGB range [0-255]
 	int		cg;
 	int		cb;
+	struct s_plane *next;
 }	t_plane;
 
 typedef struct s_sphere
@@ -59,7 +62,7 @@ typedef struct s_sphere
 	int		cr; // RGB range [0-255]
 	int		cg;
 	int		cb;
-	float	fade_size; // will try to utilize?
+	struct s_sphere *next;
 }	t_sphere;
 
 typedef struct s_light
@@ -71,6 +74,8 @@ typedef struct s_light
 	int		cr; // RGB range [0-255]
 	int		cg;
 	int		cb;
+	float	fade_size; // will try to utilize?
+	struct s_light *next;
 }	t_light;
 
 typedef struct s_camera
@@ -113,6 +118,9 @@ typedef struct s_tuple
 typedef struct s_data
 {
 	t_elements	*elements;
+	bool		amb_exists;
+	bool		cam_exists;
+	char		**values; // to make freeing less repetitive and save lines
 }	t_data;
 
 int		array_len(char **arr);
@@ -121,7 +129,8 @@ int		array_len(char **arr);
 //		Error & Cleanup		//
 //--------------------------//
 int		error_msg(char *str, int ret);
-void	free_arr(char ***arr);
+char	*free_arr(char ***arr);
+void	brain_washer(t_data	*data);
 
 //--------------------------//
 //		Parsing stuff		//
@@ -141,6 +150,5 @@ int		parse_cylinder(char **t, t_data *d);
 int		parse_vec3(char *s, float *x, float *y, float *z);
 int		parse_normal(char *s, float *x, float *y, float *z); // checks [-1,1]
 int		parse_rgb(char *s, int *r, int *g, int *b);
-int		parse_ratio(char *s, float *v);
 
 #endif
