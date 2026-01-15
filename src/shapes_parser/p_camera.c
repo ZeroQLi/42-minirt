@@ -19,11 +19,15 @@ int	parse_camera(char **t, t_data *d)
 
 	if (array_len(t) != 4)
 		return (error_msg("Invalid camera format", 0));
+	else if (d->cam_exists)
+		return (error_msg(MULTIPLE_CAMERA_ERR, 0));
+	d->cam_exists = YES;
 	cam = malloc(sizeof(t_camera));
 	if (!cam)
 		return (0);
+	cam->fov = ft_atoi(t[3]);
 	if (!parse_vec3(t[1], &cam->px, &cam->py, &cam->pz) || !parse_normal(t[2],
-			&cam->rx, &cam->ry, &cam->rz) || !parse_fov(t[3], &cam->fov))
+		&cam->rx, &cam->ry, &cam->rz) || cam->fov < 0 || cam->fov > 180)
 	{
 		free(cam);
 		return (0);

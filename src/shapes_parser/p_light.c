@@ -22,8 +22,9 @@ int	parse_light(char **t, t_data *d)
 	l = malloc(sizeof(t_light));
 	if (!l)
 		return (0);
-	if (!parse_vec3(t[1], &l->px, &l->py, &l->pz) || !parse_ratio(t[2],
-			&l->emission) || !parse_rgb(t[3], &l->cr, &l->cg, &l->cb))
+	l->emission = ft_atof(t[2]);
+	if (!parse_vec3(t[1], &l->px, &l->py, &l->pz) || l->emission < 0.0
+		|| l->emission > 1.0 || !parse_rgb(t[3], &l->cr, &l->cg, &l->cb))
 	{
 		free(l);
 		return (0);

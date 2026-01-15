@@ -23,30 +23,40 @@ int	check_ext(char *file)
 	return (1);
 }
 
-int	parse_line(char *line, t_data *data)
+int	check_element(char *line, t_data *data)
 {
-	char	**values;
-
-	values = ft_split(line, ' ');
-	if (!values || !values[0])
+	data->values = ft_split(line, ' ');
+	if (!data->values || !data->values[0])
 	{
-		free_arr(values);
+		free_arr(&data->values);
 		return (0);
 	}
-	if (ft_strcmp(values[0], "A") == 0)
-		return (parse_ambient(values, data));
-	if (ft_strcmp(values[0], "C") == 0)
-		return (parse_camera(values, data));
-	if (ft_strcmp(values[0], "L") == 0)
-		return (parse_light(values, data));
-	if (ft_strcmp(values[0], "sp") == 0)
-		return (parse_sphere(values, data));
-	if (ft_strcmp(values[0], "pl") == 0)
-		return (parse_plane(values, data));
-	if (ft_strcmp(values[0], "cy") == 0)
-		return (parse_cylinder(values, data));
-	free_arr(values);
+	if (ft_strcmp(data->values[0], "A") == 0)
+		return (parse_ambient(data->values, data));
+	if (ft_strcmp(data->values[0], "C") == 0)
+		return (parse_camera(data->values, data));
+	if (ft_strcmp(data->values[0], "L") == 0)
+		return (parse_light(data->values, data));
+	if (ft_strcmp(data->values[0], "sp") == 0)
+		return (parse_sphere(data->values, data));
+	if (ft_strcmp(data->values[0], "pl") == 0)
+		return (parse_plane(data->values, data));
+	if (ft_strcmp(data->values[0], "cy") == 0)
+		return (parse_cylinder(data->values, data));
 	return (error_msg("Unknown identifier", 0));
+}
+
+void free_next_line(char *line, int fd)
+{
+	if (line)
+		free(line);
+	line = get_next_line(fd);
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
 }
 
 static int	parse_line(t_data *d, int fd)
@@ -58,16 +68,16 @@ static int	parse_line(t_data *d, int fd)
 	{
 		if (!is_empty_or_comment(line))
 		{
-			if (!parse_line(line, d))
+			if (!check_element(line, d))
 			{
-				// free_next_line(line, fd); will remove the rest of the lines
+				free_next_line(line, fd);
 				return (error_msg("wrong parser ig", 0));
 			}
 		}
 		free(line);
 		line = get_next_line(fd);
 	}
-	return (1);
+	return (1); // Success!
 }
 
 // checks if the file is legit and runs parsing operation code 67
@@ -75,7 +85,9 @@ int	parse_file(t_data *data, char *file)
 {
 	int	fd;
 
-	(void)data;
+	data->elements = malloc(sizeof(t_elements));
+	if (!data->elements)
+		return (error_msg("MALLOC_ERROR idk how", 0));
 	fd = open(file, O_RDONLY);
 	if (fd < 0 || !check_ext(file))
 	{
@@ -83,7 +95,7 @@ int	parse_file(t_data *data, char *file)
 			(close(fd));
 		return (error_msg(INVALID_FILE, 0));
 	}
-	if (parse_line(data, fd))
+	if (!parse_line(data, fd))
 		return (error_msg("parsing FAILED!", 0));
 	return (1);
 }

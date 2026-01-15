@@ -24,7 +24,11 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	if (!parse_file(&data, av[1]))
+	{
+		brain_washer(&data);
 		return (1);
+	}
+	brain_washer(&data);
 	ft_printf(GREEN "SUCCCESS 👍\n" RESET);
 	return (0);
 }

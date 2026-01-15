@@ -22,10 +22,11 @@ int	parse_cylinder(char **t, t_data *d)
 	cy = malloc(sizeof(t_cylinder));
 	if (!cy)
 		return (0);
+	cy->diameter = ft_atof(t[3]);
+	cy->height = ft_atof(t[4]);
 	if (!parse_vec3(t[1], &cy->px, &cy->py, &cy->pz) || !parse_normal(t[2],
-			&cy->rx, &cy->ry, &cy->rz) || (!parse_float(t[3], &cy->diameter)
-			|| cy->diameter <= 0) || (!parse_float(t[4], &cy->height)
-			|| cy->height <= 0) || !parse_rgb(t[5], &cy->cr, &cy->cg, &cy->cb))
+		&cy->rx, &cy->ry, &cy->rz) || cy->diameter <= 0 || cy->height <= 0
+		|| !parse_rgb(t[5], &cy->cr, &cy->cg, &cy->cb))
 	{
 		free(cy);
 		return (0);
