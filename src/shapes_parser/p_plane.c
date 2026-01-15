@@ -19,7 +19,7 @@ int	parse_plane(char **t, t_data *d)
 
 	if (array_len(t) != 4)
 		return (error_msg("Invalid plane format", 0));
-	pl = malloc(sizeof(t_plane));
+	pl = ft_calloc(1, sizeof(t_plane));
 	if (!pl)
 		return (0);
 	if (!parse_vec3(t[1], &pl->px, &pl->py, &pl->pz)

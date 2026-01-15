@@ -22,7 +22,7 @@ int	parse_camera(char **t, t_data *d)
 	else if (d->cam_exists)
 		return (error_msg(MULTIPLE_CAMERA_ERR, 0));
 	d->cam_exists = YES;
-	cam = malloc(sizeof(t_camera));
+	cam = ft_calloc(1, sizeof(t_camera));
 	if (!cam)
 		return (0);
 	cam->fov = ft_atoi(t[3]);

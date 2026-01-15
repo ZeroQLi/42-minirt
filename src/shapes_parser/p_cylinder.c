@@ -19,7 +19,7 @@ int	parse_cylinder(char **t, t_data *d)
 
 	if (array_len(t) != 6)
 		return (error_msg("Invalid cylinder format", 0));
-	cy = malloc(sizeof(t_cylinder));
+	cy = ft_calloc(1, sizeof(t_cylinder));
 	if (!cy)
 		return (0);
 	cy->diameter = ft_atof(t[3]);

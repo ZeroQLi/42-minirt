@@ -22,7 +22,7 @@ int	parse_ambient(char **t, t_data *d)
 	else if (d->amb_exists)
 		return (error_msg(MULTIPLE_AMBIENT_ERR, 0));
 	d->amb_exists = YES;
-	amb = malloc(sizeof(t_ambient));
+	amb = ft_calloc(1, sizeof(t_ambient));
 	if (!amb)
 		return (0);
 	amb->al_ratio = ft_atof(t[1]);

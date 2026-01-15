@@ -71,10 +71,12 @@ static int	parse_line(t_data *d, int fd)
 			if (!check_element(line, d))
 			{
 				free_next_line(line, fd);
+				free_arr(&d->values);
 				return (error_msg("wrong parser ig", 0));
 			}
 		}
 		free(line);
+		free_arr(&d->values);
 		line = get_next_line(fd);
 	}
 	return (1); // Success!
@@ -85,7 +87,7 @@ int	parse_file(t_data *data, char *file)
 {
 	int	fd;
 
-	data->elements = malloc(sizeof(t_elements));
+	data->elements = ft_calloc(1, sizeof(t_elements));
 	if (!data->elements)
 		return (error_msg("MALLOC_ERROR idk how", 0));
 	fd = open(file, O_RDONLY);

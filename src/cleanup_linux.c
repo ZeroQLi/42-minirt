@@ -32,6 +32,18 @@ void	brain_washer(t_data	*data)
 {
 	if (data->values)
 		free_arr(&data->values);
+	if (data->elements->amb)
+		free(data->elements->amb);
+	if (data->elements->cam)
+		free(data->elements->cam);
+	if (data->elements->l)
+		free(data->elements->l);
+	if (data->elements->sp)
+		free(data->elements->sp);
+	if (data->elements->pl)
+		free(data->elements->pl);
+	if (data->elements->cy)
+		free(data->elements->cy);
 	if (data->elements)
 		free(data->elements);
 }

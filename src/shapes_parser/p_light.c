@@ -19,7 +19,7 @@ int	parse_light(char **t, t_data *d)
 
 	if (array_len(t) != 4)
 		return (error_msg("Invalid light format", 0));
-	l = malloc(sizeof(t_light));
+	l = ft_calloc(1, sizeof(t_light));
 	if (!l)
 		return (0);
 	l->emission = ft_atof(t[2]);
