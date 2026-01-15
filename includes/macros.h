@@ -40,4 +40,5 @@
 # define INVALID_FILE "\033[0;31mInvalid file! Make sure it exists and has a \
 .rt extension!\033[0m"
 
+# define EPSILON 0.00001
 #endif
