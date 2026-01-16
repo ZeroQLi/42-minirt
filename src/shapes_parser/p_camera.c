@@ -12,6 +12,7 @@
 
 #include "../../includes/minirt.h"
 #include "../../includes/macros.h"
+#include <stdio.h>
 
 int	parse_camera(char **t, t_data *d)
 {
@@ -32,6 +33,7 @@ int	parse_camera(char **t, t_data *d)
 		free(cam);
 		return (0);
 	}
+	printf("\n%f\n\n\n\n\n", cam->px);
 	d->elements->cam = cam;
 	return (1);
 }

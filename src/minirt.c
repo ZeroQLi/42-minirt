@@ -28,6 +28,7 @@ int	main(int ac, char **av)
 		brain_washer(&data);
 		return (1);
 	}
+	print_elements(data.elements);
 	brain_washer(&data);
 	ft_printf(GREEN "SUCCCESS 👍\n" RESET);
 	return (0);

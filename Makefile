@@ -14,6 +14,7 @@ $(SRC_DIR)parser.c \
 $(SRC_DIR)error.c \
 $(SRC_DIR)cleanup_linux.c \
 $(SRC_DIR)utils.c \
+$(SRC_DIR)print_elements.c \ # REMEMBER TO NOT SUBMIT THIS - REMOVE WHEN DONE USE
 
 SRC2 = $(SRC_DIR2)p_ambient.c \
 $(SRC_DIR2)p_camera.c \

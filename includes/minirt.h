@@ -159,4 +159,9 @@ int		parse_vec3(char *s, float *x, float *y, float *z);
 int		parse_normal(char *s, float *x, float *y, float *z); // checks [-1,1]
 int		parse_rgb(char *s, int *r, int *g, int *b);
 
+//--------------------------//
+//		Debug Utils			//
+//--------------------------//
+void	print_elements(t_elements *elements);
+
 #endif
