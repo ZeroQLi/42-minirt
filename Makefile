@@ -27,11 +27,11 @@ $(SRC_DIR2)parse_functions.c \
 OBJ = $(SRC:src/%.c=$(OBJ_PATH)%.o) $(SRC2:src/%.c=$(OBJ_PATH)%.o)
 
 ifeq ($(shell uname), Linux)
-	MLX_DIR := ./minilibx_linux
-	MLX := mlx_linux
+	MLX_DIR := ./mlx
+	MLX := mlx
 	MLX_FLAGS = -L$(MLX_DIR) -l$(MLX) -L/usr/lib/X11 -lXext -lX11
 else
-	MLX_DIR := ./minilibx_macos
+	MLX_DIR := ./mlx
 	MLX := mlx
 	MLX_FLAGS = -L$(MLX_DIR) -l$(MLX) -framework OpenGL -framework AppKit
 endif
@@ -108,6 +108,6 @@ leak: all
     --num-callers=500 --show-mismatched-frees=yes --show-leak-kinds=all \
     --track-fds=yes --trace-children=yes --gen-suppressions=no \
     --error-limit=no --undef-value-errors=yes --expensive-definedness-checks=yes \
-    --read-var-info=yes --keep-debuginfo=yes ./minirt a.rt
+    --read-var-info=yes --keep-debuginfo=yes ./$(NAME) a.rt
 
 .PHONY: all clean fclean re norm
