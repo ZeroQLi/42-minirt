@@ -38,61 +38,61 @@
 
 typedef struct s_cylinder
 {
-	float	px;
-	float	py;
-	float	pz;
-	float	rx; // range [-1, 1]
-	float	ry;
-	float	rz;
-	float	diameter;
-	float	height;
-	int		cr; // RGB range [0-255]
-	int		cg;
-	int		cb;
-	struct s_cylinder *next;
+	float				px;
+	float				py;
+	float				pz;
+	float				rx; // range [-1, 1]
+	float				ry;
+	float				rz;
+	float				diameter;
+	float				height;
+	int					cr; // RGB range [0-255]
+	int					cg;
+	int					cb;
+	struct s_cylinder	*next;
 }	t_cylinder;
 
 typedef struct s_plane
 {
-	float	px;
-	float	py;
-	float	pz;
-	float	rx; // range [-1, 1]
-	float	ry;
-	float	rz;
-	float	size;
-	int		cr; // RGB range [0-255]
-	int		cg;
-	int		cb;
-	struct s_plane *next;
+	float			px;
+	float			py;
+	float			pz;
+	float			rx; // range [-1, 1]
+	float			ry;
+	float			rz;
+	float			size;
+	int				cr; // RGB range [0-255]
+	int				cg;
+	int				cb;
+	struct s_plane	*next;
 }	t_plane;
 
 typedef struct s_sphere
 {
-	float	px;
-	float	py;
-	float	pz;
-	float	rx; // range [-1, 1]
-	float	ry;
-	float	rz;
-	float	diameter;
-	int		cr; // RGB range [0-255]
-	int		cg;
-	int		cb;
-	struct s_sphere *next;
+	float			px;
+	float			py;
+	float			pz;
+	float			rx; // range [-1, 1]
+	float			ry;
+	float			rz;
+	float			diameter;
+	int				cr; // RGB range [0-255]
+	int				cg;
+	int				cb;
+	struct s_sphere	*next;
 }	t_sphere;
 
 typedef struct s_light
 {
-	float	px;
-	float	py;
-	float	pz;
-	float	emission; // range [0.0, 1.0]
-	int		cr; // RGB range [0-255]
-	int		cg;
-	int		cb;
-	float	fade_size; // will try to utilize?
-	struct s_light *next;
+	float			px;
+	float			py;
+	float			pz;
+	float			emission; // range [0.0, 1.0]
+	int				cr; // RGB range [0-255]
+	int				cg;
+	int				cb;
+	float			fade_size; // will try to utilize?
+	struct s_light	*next;
 }	t_light;
 
 typedef struct s_camera
@@ -153,7 +153,6 @@ void	free_spheres(t_sphere *sp);
 void	free_cylinders(t_cylinder *sp);
 void	free_planes(t_plane *sp);
 void	free_all_shapes(t_elements *e);
-
 
 //--------------------------//
 //		Error & Cleanup		//

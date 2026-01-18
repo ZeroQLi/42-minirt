@@ -46,7 +46,7 @@ int	check_element(char *line, t_data *data)
 	return (error_msg(YES, "Unknown identifier", 0));
 }
 
-void free_next_line(char *line, int fd)
+void	free_next_line(char *line, int fd)
 {
 	if (line)
 		free(line);
@@ -79,7 +79,7 @@ static int	parse_line(t_data *d, int fd)
 		free_arr(&d->values);
 		line = get_next_line(fd);
 	}
-	return (1); // Success!
+	return (1);
 }
 
 // checks if the file is legit and runs parsing operation code 67
@@ -99,5 +99,10 @@ int	parse_file(t_data *data, char *file)
 	}
 	if (!parse_line(data, fd))
 		return (error_msg(NO, "parsing FAILED!", 0));
+	close(fd);
+	if (!data->elements->cam || !data->elements->amb)
+		return (error_msg(YES, "bro? where da cam/ambient at?? add both", 0));
+	if (!data->elements->sp && !data->elements->cy && !data->elements->pl)
+		return (error_msg(YES, "where da shapes at??? add one shape pls", 0));
 	return (1);
 }

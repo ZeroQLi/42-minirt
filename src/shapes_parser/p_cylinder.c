@@ -21,15 +21,15 @@ int	parse_cylinder(char **t, t_data *d)
 		return (error_msg(YES, "Invalid cylinder format", 0));
 	cy = ft_calloc(1, sizeof(t_cylinder));
 	if (!cy)
-		return (0);
+		return (error_msg(YES, "malloc fail *sigh* yes i sighed in text", 0));
 	cy->diameter = ft_atof(t[3]);
 	cy->height = ft_atof(t[4]);
 	if (!parse_vec3(t[1], &cy->px, &cy->py, &cy->pz) || !parse_normal(t[2],
-		&cy->rx, &cy->ry, &cy->rz) || cy->diameter <= 0 || cy->height <= 0
+			&cy->rx, &cy->ry, &cy->rz) || cy->diameter <= 0 || cy->height <= 0
 		|| !parse_rgb(t[5], &cy->cr, &cy->cg, &cy->cb))
 	{
 		free(cy);
-		return (0);
+		return (error_msg(YES, "Invalid cylinder format", 0));
 	}
 	add_cylinder(d->elements, cy);
 	return (1);

@@ -3,12 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   tuple_operations.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 15:09:32 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/01/15 17:35:30 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/01/18 23:34:37 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
-

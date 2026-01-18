@@ -25,6 +25,8 @@ char	*free_arr(char ***arr)
 		free((*arr)[i]);
 		(*arr)[i] = NULL;
 	}
+	free(*arr);
+	*arr = NULL;
 	return (NULL);
 }
 
@@ -39,12 +41,6 @@ void	brain_washer(t_data	*data)
 		free(data->elements->cam);
 	if (data->elements->l)
 		free(data->elements->l);
-	// if (data->elements->sp)
-	// 	free(data->elements->sp);
-	// if (data->elements->pl)
-	// 	free(data->elements->pl);
-	// if (data->elements->cy)
-	// 	free(data->elements->cy);
 	if (data->elements)
 		free(data->elements);
 }

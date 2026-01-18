@@ -28,7 +28,7 @@
 
 void	free_planes(t_plane *pl)
 {
-	t_plane *next;
+	t_plane	*next;
 
 	while (pl)
 	{
@@ -41,7 +41,7 @@ void	free_planes(t_plane *pl)
 
 void	free_cylinders(t_cylinder *cy)
 {
-	t_cylinder *next;
+	t_cylinder	*next;
 
 	while (cy)
 	{
@@ -54,7 +54,7 @@ void	free_cylinders(t_cylinder *cy)
 
 void	free_spheres(t_sphere *sp)
 {
-	t_sphere *next;
+	t_sphere	*next;
 
 	while (sp)
 	{

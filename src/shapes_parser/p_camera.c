@@ -24,13 +24,13 @@ int	parse_camera(char **t, t_data *d)
 	d->cam_exists = YES;
 	cam = ft_calloc(1, sizeof(t_camera));
 	if (!cam)
-		return (0);
+		return (error_msg(YES, "malloc fail, you know the routine", 0));
 	cam->fov = ft_atoi(t[3]);
 	if (!parse_vec3(t[1], &cam->px, &cam->py, &cam->pz) || !parse_normal(t[2],
-		&cam->rx, &cam->ry, &cam->rz) || cam->fov < 0 || cam->fov > 180)
+			&cam->rx, &cam->ry, &cam->rz) || cam->fov < 0 || cam->fov > 180)
 	{
 		free(cam);
-		return (0);
+		return (error_msg(YES, "Invalid camera format", 0));
 	}
 	d->elements->cam = cam;
 	return (1);

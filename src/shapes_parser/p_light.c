@@ -24,13 +24,13 @@ int	parse_light(char **t, t_data *d)
 	d->light_exists = YES;
 	l = ft_calloc(1, sizeof(t_light));
 	if (!l)
-		return (0);
+		return (error_msg(YES, "alloc fail? if only ram didnt cost a LUNG", 0));
 	l->emission = ft_atof(t[2]);
 	if (!parse_vec3(t[1], &l->px, &l->py, &l->pz) || l->emission < 0.0
 		|| l->emission > 1.0 || !parse_rgb(t[3], &l->cr, &l->cg, &l->cb))
 	{
 		free(l);
-		return (0);
+		return (error_msg(YES, "Invalid light format", 0));
 	}
 	d->elements->l = l;
 	return (1);

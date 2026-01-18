@@ -24,13 +24,13 @@ int	parse_ambient(char **t, t_data *d)
 	d->amb_exists = YES;
 	amb = ft_calloc(1, sizeof(t_ambient));
 	if (!amb)
-		return (0);
+		return (error_msg(YES, "malloc FAILED!", 0));
 	amb->al_ratio = ft_atof(t[1]);
 	if (amb->al_ratio < 0.0 || amb->al_ratio > 1.0
 		|| !parse_rgb(t[2], &amb->cr, &amb->cg, &amb->cb))
 	{
 		free(amb);
-		return (0);
+		return (error_msg(YES, "Invalid ambient format", 0));
 	}
 	d->elements->amb = amb;
 	return (1);
