@@ -18,7 +18,7 @@ int	parse_plane(char **t, t_data *d)
 	t_plane	*pl;
 
 	if (array_len(t) != 4)
-		return (error_msg("Invalid plane format", 0));
+		return (error_msg(YES, "Invalid plane format", 0));
 	pl = ft_calloc(1, sizeof(t_plane));
 	if (!pl)
 		return (0);
@@ -29,6 +29,6 @@ int	parse_plane(char **t, t_data *d)
 		free(pl);
 		return (0);
 	}
-	d->elements->pl = pl;
+	add_plane(d->elements, pl);
 	return (1);
 }

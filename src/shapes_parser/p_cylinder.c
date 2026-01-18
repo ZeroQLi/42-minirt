@@ -18,7 +18,7 @@ int	parse_cylinder(char **t, t_data *d)
 	t_cylinder	*cy;
 
 	if (array_len(t) != 6)
-		return (error_msg("Invalid cylinder format", 0));
+		return (error_msg(YES, "Invalid cylinder format", 0));
 	cy = ft_calloc(1, sizeof(t_cylinder));
 	if (!cy)
 		return (0);
@@ -31,6 +31,6 @@ int	parse_cylinder(char **t, t_data *d)
 		free(cy);
 		return (0);
 	}
-	d->elements->cy = cy;
+	add_cylinder(d->elements, cy);
 	return (1);
 }

@@ -18,9 +18,9 @@ int	parse_camera(char **t, t_data *d)
 	t_camera	*cam;
 
 	if (array_len(t) != 4)
-		return (error_msg("Invalid camera format", 0));
+		return (error_msg(YES, "Invalid camera format", 0));
 	else if (d->cam_exists)
-		return (error_msg(MULTIPLE_CAMERA_ERR, 0));
+		return (error_msg(YES, MULTIPLE_CAMERA_ERR, 0));
 	d->cam_exists = YES;
 	cam = ft_calloc(1, sizeof(t_camera));
 	if (!cam)

@@ -14,6 +14,8 @@ $(SRC_DIR)parser.c \
 $(SRC_DIR)error.c \
 $(SRC_DIR)cleanup_linux.c \
 $(SRC_DIR)utils.c \
+$(SRC_DIR)print_elements.c
+# REMOVE THIS BEFORE SUBMITTING. ONLY TESTING
 
 SRC2 = $(SRC_DIR2)p_ambient.c \
 $(SRC_DIR2)p_camera.c \
@@ -22,6 +24,8 @@ $(SRC_DIR2)p_light.c \
 $(SRC_DIR2)p_plane.c \
 $(SRC_DIR2)p_sphere.c \
 $(SRC_DIR2)parse_functions.c \
+$(SRC_DIR2)add_lists.c \
+$(SRC_DIR2)free_lists.c \
 
 # Object files
 OBJ = $(SRC:src/%.c=$(OBJ_PATH)%.o) $(SRC2:src/%.c=$(OBJ_PATH)%.o)
@@ -88,10 +92,6 @@ fclean: clean
 
 re: fclean $(NAME)
 
-# Complies and runs the program at once (does not re)
-runngun: all
-	@./minirt
-
 # Only recompiles the src files and the program, ignoring libft as its always the same.
 remake:
 	@rm -f $(NAME)
@@ -104,10 +104,12 @@ norm:
 	norminette includes/ src/ | grep -e Error -e Global
 
 leak: all
-	valgrind --leak-check=full --leak-resolution=high -s --track-origins=yes \
+	@valgrind --leak-check=full --leak-resolution=high -s --track-origins=yes \
     --num-callers=500 --show-mismatched-frees=yes --show-leak-kinds=all \
     --track-fds=yes --trace-children=yes --gen-suppressions=no \
     --error-limit=no --undef-value-errors=yes --expensive-definedness-checks=yes \
-    --read-var-info=yes --keep-debuginfo=yes ./$(NAME) a.rt
+    --read-var-info=yes --keep-debuginfo=yes ./$(NAME) $(filter-out $@,$(MAKECMDGOALS))
+%:
+	@:
 
-.PHONY: all clean fclean re norm
+.PHONY: all clean fclean re remake norm leak

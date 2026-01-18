@@ -18,7 +18,10 @@ int	parse_light(char **t, t_data *d)
 	t_light	*l;
 
 	if (array_len(t) != 4)
-		return (error_msg("Invalid light format", 0));
+		return (error_msg(YES, "Invalid light format", 0));
+	else if (d->light_exists)
+		return (error_msg(YES, MULTIPLE_LIGHT_ERR, 0));
+	d->light_exists = YES;
 	l = ft_calloc(1, sizeof(t_light));
 	if (!l)
 		return (0);

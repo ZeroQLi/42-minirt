@@ -18,9 +18,9 @@ int	parse_ambient(char **t, t_data *d)
 	t_ambient	*amb;
 
 	if (array_len(t) != 3)
-		return (error_msg("Invalid ambient format", 0));
+		return (error_msg(YES, "Invalid ambient format", 0));
 	else if (d->amb_exists)
-		return (error_msg(MULTIPLE_AMBIENT_ERR, 0));
+		return (error_msg(YES, MULTIPLE_AMBIENT_ERR, 0));
 	d->amb_exists = YES;
 	amb = ft_calloc(1, sizeof(t_ambient));
 	if (!amb)

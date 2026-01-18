@@ -18,6 +18,23 @@
 # include <stdbool.h>
 # include "macros.h"
 
+/* Colors ✨ */
+/* Pls use appropriately */
+# define RED   "\033[0;31m"
+# define BRED  "\033[1;31m"
+# define YELLOW  "\033[0;33m"
+# define BYELLOW "\033[1;33m"
+# define GREEN   "\033[0;32m"
+# define BGREEN  "\033[1;32m"
+# define BLUE    "\033[0;34m"
+# define BBLUE   "\033[1;34m"
+# define MAGENTA "\033[0;35m"
+# define BMAGENTA "\033[1;35m"
+# define CYAN    "\033[0;36m"
+# define BCYAN   "\033[1;36m"
+# define WHITE   "\033[0;37m"
+# define BWHITE  "\033[1;37m"
+# define RESET "\033[0m"
 
 typedef struct s_cylinder
 {
@@ -120,15 +137,28 @@ typedef struct s_data
 	t_elements	*elements;
 	bool		amb_exists;
 	bool		cam_exists;
+	bool		light_exists;
 	char		**values; // to make freeing less repetitive and save lines
 }	t_data;
 
 int		array_len(char **arr);
 
 //--------------------------//
+//		Shapes linklist		//
+//--------------------------//
+void	add_sphere(t_elements *e, t_sphere *new);
+void	add_cylinder(t_elements *e, t_cylinder *new);
+void	add_plane(t_elements *e, t_plane *new);
+void	free_spheres(t_sphere *sp);
+void	free_cylinders(t_cylinder *sp);
+void	free_planes(t_plane *sp);
+void	free_all_shapes(t_elements *e);
+
+
+//--------------------------//
 //		Error & Cleanup		//
 //--------------------------//
-int		error_msg(char *str, int ret);
+int		error_msg(bool err, char *str, int ret);
 char	*free_arr(char ***arr);
 void	brain_washer(t_data	*data);
 
@@ -150,5 +180,8 @@ int		parse_cylinder(char **t, t_data *d);
 int		parse_vec3(char *s, float *x, float *y, float *z);
 int		parse_normal(char *s, float *x, float *y, float *z); // checks [-1,1]
 int		parse_rgb(char *s, int *r, int *g, int *b);
+
+// value table print tester
+void	print_elements(t_elements *elements);
 
 #endif

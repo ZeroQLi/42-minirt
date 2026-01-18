@@ -43,7 +43,7 @@ int	check_element(char *line, t_data *data)
 		return (parse_plane(data->values, data));
 	if (ft_strcmp(data->values[0], "cy") == 0)
 		return (parse_cylinder(data->values, data));
-	return (error_msg("Unknown identifier", 0));
+	return (error_msg(YES, "Unknown identifier", 0));
 }
 
 void free_next_line(char *line, int fd)
@@ -72,7 +72,7 @@ static int	parse_line(t_data *d, int fd)
 			{
 				free_next_line(line, fd);
 				free_arr(&d->values);
-				return (error_msg("wrong parser ig", 0));
+				return (0);
 			}
 		}
 		free(line);
@@ -89,15 +89,15 @@ int	parse_file(t_data *data, char *file)
 
 	data->elements = ft_calloc(1, sizeof(t_elements));
 	if (!data->elements)
-		return (error_msg("MALLOC_ERROR idk how", 0));
+		return (error_msg(YES, "MALLOC_ERROR idk how", 0));
 	fd = open(file, O_RDONLY);
 	if (fd < 0 || !check_ext(file))
 	{
 		if (fd >= 0)
 			(close(fd));
-		return (error_msg(INVALID_FILE, 0));
+		return (error_msg(YES, INVALID_FILE, 0));
 	}
 	if (!parse_line(data, fd))
-		return (error_msg("parsing FAILED!", 0));
+		return (error_msg(NO, "parsing FAILED!", 0));
 	return (1);
 }

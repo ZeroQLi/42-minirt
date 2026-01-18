@@ -18,7 +18,7 @@ int	parse_sphere(char **t, t_data *d)
 	t_sphere	*sp;
 
 	if (array_len(t) != 4)
-		return (error_msg("Invalid sphere format", 0));
+		return (error_msg(YES, "Invalid sphere format", 0));
 	sp = ft_calloc(1, sizeof(t_sphere));
 	if (!sp)
 		return (0);
@@ -29,6 +29,6 @@ int	parse_sphere(char **t, t_data *d)
 		free(sp);
 		return (0);
 	}
-	d->elements->sp = sp;
+	add_sphere(d->elements, sp);
 	return (1);
 }

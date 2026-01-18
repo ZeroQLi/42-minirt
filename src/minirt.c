@@ -21,6 +21,7 @@ int	main(int ac, char **av)
 	if (ac != 2)
 	{
 		ft_putendl_fd(ARG_ERROR, 2);
+		ft_putendl_fd("Must only have o̲n̲e̲ argument", 2);
 		return (1);
 	}
 	if (!parse_file(&data, av[1]))
@@ -28,6 +29,7 @@ int	main(int ac, char **av)
 		brain_washer(&data);
 		return (1);
 	}
+	print_elements(data.elements);
 	brain_washer(&data);
 	ft_printf(GREEN "SUCCCESS 👍\n" RESET);
 	return (0);
