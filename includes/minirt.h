@@ -183,9 +183,9 @@ int		parse_normal(char *s, float *x, float *y, float *z); // checks [-1,1]
 int		parse_rgb(char *s, int *r, int *g, int *b);
 
 // tuple utils
-t_tuple	create_tuple(double x, double y, double z, double w);
-t_tuple	create_point(double x, double y, double z);
-t_tuple	create_vector(double x, double y, double z);
+t_tuple	create_tuple(float x, float y, float z, float w);
+t_tuple	create_point(float x, float y, float z);
+t_tuple	create_vector(float x, float y, float z);
 int		is_point(t_tuple tuple);
 int		is_equal(float a, float b);
 

@@ -61,7 +61,7 @@ all: $(OBJ_PATH) $(LIBFT) $(MLX_LIB) $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT) $(MLX_LIB) 
 	@echo "$(WHITE)Compiling $(BWHITE)$(NAME)$(WHITE) program...$(RESET)"
-	@$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) $(LIBFT) -lm -o $(NAME)
 	@echo "$(BWHITE)$(NAME)$(WHITE) program is $(BGREEN)ready! $(RESET)✅"
 
 $(LIBFT):
