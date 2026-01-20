@@ -1,6 +1,7 @@
 # Object and source path directories
 SRC_DIR = ./src/
 SRC_DIR2 = $(SRC_DIR)shapes_parser/
+SRC_DIR3 = $(SRC_DIR)tuples/
 OBJ_PATH = src/obj/
 LIBFT_PATH = libft/
 
@@ -27,22 +28,21 @@ $(SRC_DIR2)parse_functions.c \
 $(SRC_DIR2)add_lists.c \
 $(SRC_DIR2)free_lists.c \
 
-# Object files
-OBJ = $(SRC:src/%.c=$(OBJ_PATH)%.o) $(SRC2:src/%.c=$(OBJ_PATH)%.o)
+SRC3 = $(SRC_DIR3)tuple_utils.c \
+$(SRC_DIR3)tuple_operations.c \
+$(SRC_DIR3)scalar_operations.c \
+$(SRC_DIR3)vector_operations.c \
 
-ifeq ($(shell uname), Linux)
-	MLX_DIR := ./mlx
+# Object files
+OBJ = $(SRC:src/%.c=$(OBJ_PATH)%.o) $(SRC2:src/%.c=$(OBJ_PATH)%.o) $(SRC3:src/%.c=$(OBJ_PATH)%.o)
+
+MLX_DIR := ./mlx
 	MLX := mlx
 	MLX_FLAGS = -L$(MLX_DIR) -l$(MLX) -L/usr/lib/X11 -lXext -lX11
-else
-	MLX_DIR := ./mlx
-	MLX := mlx
-	MLX_FLAGS = -L$(MLX_DIR) -l$(MLX) -framework OpenGL -framework AppKit
-endif
 
 # Compiler n flags
 CC		=		cc
-CFLAGS	= -Wall -Wextra -Werror -Iincludes/ -I$(MLX_DIR)
+CFLAGS	= -Wall -Wextra -Werror -Iincludes/ -lm -I$(MLX_DIR)
 
 MLX_LIB = $(MLX_DIR)/libmlx.a
 

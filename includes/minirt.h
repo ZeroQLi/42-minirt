@@ -16,6 +16,8 @@
 # include "../libft/libft.h"
 # include <fcntl.h> // for open()
 # include <stdbool.h>
+# include <math.h>
+# include <stdio.h>
 # include "macros.h"
 
 /* Colors ✨ */
@@ -179,6 +181,28 @@ int		parse_cylinder(char **t, t_data *d);
 int		parse_vec3(char *s, float *x, float *y, float *z);
 int		parse_normal(char *s, float *x, float *y, float *z); // checks [-1,1]
 int		parse_rgb(char *s, int *r, int *g, int *b);
+
+// tuple utils
+t_tuple	create_tuple(double x, double y, double z, double w);
+t_tuple	create_point(double x, double y, double z);
+t_tuple	create_vector(double x, double y, double z);
+int		is_point(t_tuple tuple);
+int		is_equal(float a, float b);
+
+// tuple operations
+t_tuple	add_tuples(t_tuple a, t_tuple b);
+t_tuple sub_tuples(t_tuple a, t_tuple b);
+t_tuple	negate_tuple(t_tuple a);
+
+// scalar operations
+t_tuple	scalar_multiply(t_tuple a, float num);
+t_tuple	scalar_divide(t_tuple a, float num);
+float	scalar_magnitude(t_tuple a);
+t_tuple	scalar_normalize(t_tuple a);
+
+//vector operations
+float	dot_product(t_tuple a, t_tuple b);
+t_tuple	cross_product(t_tuple a, t_tuple b);
 
 // value table print tester
 void	print_elements(t_elements *elements);

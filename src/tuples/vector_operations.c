@@ -1,13 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tuple_operations.c                                 :+:      :+:    :+:   */
+/*   vector_operations.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/15 15:09:32 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/01/18 23:34:37 by nanasser         ###   ########.fr       */
+/*   Created: 2026/01/20 21:38:20 by mtangalv          #+#    #+#             */
+/*   Updated: 2026/01/20 21:48:19 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
+
+float	dot_product(t_tuple a, t_tuple b)
+{
+	return (a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w);
+}
+
+t_tuple	cross_product(t_tuple a, t_tuple b)
+{
+	return (create_vector(
+			a.y * b.z - a.z * b.y,
+			a.z * b.x - a.x * b.z,
+			a.x * b.y - a.y * b.x));
+}

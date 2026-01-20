@@ -3,43 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   tuple_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 15:09:38 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/01/18 23:34:26 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/01/20 21:54:51 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
-t_tuple	create_point(double x, double y, double z)
+t_tuple	create_tuple(float x, float y, float z, float w)
 {
-	t_tuple	point;
+	t_tuple	tuple;
 
-	point.x = x;
-	point.y = y;
-	point.z = z;
-	point.w = 1.0; // w = 1 for points
-	return (point);
+	tuple.x = x;
+	tuple.y = y;
+	tuple.z = z;
+	tuple.w = w;
+	return (tuple);
 }
 
-t_tuple	create_vector(double x, double y, double z)
+t_tuple	create_point(float x, float y, float z)
 {
-	t_tuple	vector;
-
-	vector.x = x;
-	vector.y = y;
-	vector.z = z;
-	vector.w = 0.0; // w = 0 for vectors
-	return (vector);
+	return (create_tuple(x, y, z, 1.0f));
 }
 
-int	is_point(t_tuple tuple)
+t_tuple	create_vector(float x, float y, float z)
 {
-	return (tuple.w == 1.0);
+	return (create_tuple(x, y, z, 0.0f));
 }
 
 int	is_equal(float a, float b)
 {
-	return (fabs(a - b) < EPSILON);
+	return (fabsf(a - b) < EPSILON);
+}
+
+int	is_point(t_tuple tuple)
+{
+	return (is_equal(tuple.w, 1.0f));
 }
