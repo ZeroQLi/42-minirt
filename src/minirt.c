@@ -18,6 +18,9 @@ int	main(int ac, char **av)
 	t_data	data;
 
 	data = (t_data){0};
+	t_tuple point;
+	point = create_point(3, -2, 5, 1);
+	vector = create_vector(2, 3, 4, 0);
 	if (ac != 2)
 	{
 		ft_putendl_fd(ARG_ERROR, 2);

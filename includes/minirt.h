@@ -16,6 +16,7 @@
 # include "../libft/libft.h"
 # include <fcntl.h> // for open()
 # include <stdbool.h>
+# include <math.h>
 # include "macros.h"
 
 

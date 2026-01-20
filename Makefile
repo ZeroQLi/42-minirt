@@ -14,6 +14,8 @@ $(SRC_DIR)parser.c \
 $(SRC_DIR)error.c \
 $(SRC_DIR)cleanup_linux.c \
 $(SRC_DIR)utils.c \
+$(SRC_DIR)tuple_operations.c \
+$(SRC_DIR)tuple_utils.c \
 
 SRC2 = $(SRC_DIR2)p_ambient.c \
 $(SRC_DIR2)p_camera.c \
@@ -22,6 +24,7 @@ $(SRC_DIR2)p_light.c \
 $(SRC_DIR2)p_plane.c \
 $(SRC_DIR2)p_sphere.c \
 $(SRC_DIR2)parse_functions.c \
+
 
 # Object files
 OBJ = $(SRC:src/%.c=$(OBJ_PATH)%.o) $(SRC2:src/%.c=$(OBJ_PATH)%.o)
@@ -38,7 +41,7 @@ endif
 
 # Compiler n flags
 CC		=		cc
-CFLAGS	= -Wall -Wextra -Werror -Iincludes/ -I$(MLX_DIR)
+CFLAGS	= -Wall -Wextra -Werror -Iincludes/ -I$(MLX_DIR) -lm
 
 MLX_LIB = $(MLX_DIR)/libmlx.a
 
