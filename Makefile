@@ -32,6 +32,7 @@ SRC3 = $(SRC_DIR3)tuple_utils.c \
 $(SRC_DIR3)tuple_operations.c \
 $(SRC_DIR3)scalar_operations.c \
 $(SRC_DIR3)vector_operations.c \
+$(SRC_DIR3)color_operations.c \
 
 # Object files
 OBJ = $(SRC:src/%.c=$(OBJ_PATH)%.o) $(SRC2:src/%.c=$(OBJ_PATH)%.o) $(SRC3:src/%.c=$(OBJ_PATH)%.o)

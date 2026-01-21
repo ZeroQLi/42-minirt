@@ -15,12 +15,11 @@
 
 static void test_operations(void)
 {
-	t_tuple a = create_vector(1,2,3);
-	t_tuple b = create_vector(2,3,4);
-	t_tuple res = cross_product(a, b);
-	printf("Cross Product of a and b: (%f, %f, %f, %f)\n", res.x, res.y, res.z, res.w);
-	t_tuple res2 = cross_product(b,a);
-	printf("Cross Product of b and a: (%f, %f, %f, %f)\n", res2.x, res2.y, res2.z, res2.w);
+	t_color color1 = create_color(1, 0.2, 0.4);
+	t_color color2 = create_color(0.9, 1, 0.1);
+
+	t_color res = hadamard_product(color1, color2);
+	printf("%f, %f, %f\n", res.r, res.g, res.b);
 }
 
 int	main(int ac, char **av)

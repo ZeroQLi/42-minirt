@@ -13,6 +13,11 @@
 #ifndef MACROS_H
 # define MACROS_H
 
+#define EPSILON 0.00001
+
+#define WIN_WIDTH 1366
+#define WIN_HEIGHT 768
+
 // yes.
 # define YES 1
 # define NO 0
@@ -29,5 +34,4 @@ enough to catch you aura farming off-screen. There must only be 1 instance of a\
 # define MULTIPLE_LIGHT_ERR "\033[0;31mSowwy, no GPU drivers = fried air fryer.\
  There must only be 1 instance of light.\033[0m"
 
-# define EPSILON 0.00001
 #endif

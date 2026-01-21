@@ -6,11 +6,21 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 15:09:32 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/01/20 21:52:13 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/01/21 12:04:54 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
+
+int	is_equal(float a, float b)
+{
+	return (fabsf(a - b) < EPSILON);
+}
+
+int	is_point(t_tuple tuple)
+{
+	return (is_equal(tuple.w, 1.0f));
+}
 
 t_tuple	add_tuples(t_tuple a, t_tuple b)
 {
