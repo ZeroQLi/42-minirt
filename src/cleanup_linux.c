@@ -30,6 +30,20 @@ char	*free_arr(char ***arr)
 	return (NULL);
 }
 
+void	free_canvas(t_canvas *canvas)
+{
+	if (!canvas)
+		return;
+	if (canvas->img)
+		mlx_destroy_image(canvas->mlx, canvas->img);
+	if (canvas->mlx_win)
+		mlx_destroy_window(canvas->mlx, canvas->mlx_win);
+	if (canvas->mlx)
+		mlx_destroy_display(canvas->mlx);
+	free(canvas->mlx);
+	free(canvas);
+}
+
 void	brain_washer(t_data	*data)
 {
 	if (data->values)

@@ -14,11 +14,15 @@
 # define MINIRT_H
 
 # include "../libft/libft.h"
+
 # include <fcntl.h> // for open()
 # include <stdbool.h>
 # include <math.h>
 # include <stdio.h>
+# include <mlx.h>
+
 # include "macros.h"
+# include "shapes.h"
 
 /* Colors ✨ */
 /* Pls use appropriately */
@@ -37,84 +41,6 @@
 # define WHITE   "\033[0;37m"
 # define BWHITE  "\033[1;37m"
 # define RESET "\033[0m"
-
-typedef struct s_cylinder
-{
-	float				px;
-	float				py;
-	float				pz;
-	float				rx; // range [-1, 1]
-	float				ry;
-	float				rz;
-	float				diameter;
-	float				height;
-	int					cr; // RGB range [0-255]
-	int					cg;
-	int					cb;
-	struct s_cylinder	*next;
-}	t_cylinder;
-
-typedef struct s_plane
-{
-	float			px;
-	float			py;
-	float			pz;
-	float			rx; // range [-1, 1]
-	float			ry;
-	float			rz;
-	float			size;
-	int				cr; // RGB range [0-255]
-	int				cg;
-	int				cb;
-	struct s_plane	*next;
-}	t_plane;
-
-typedef struct s_sphere
-{
-	float			px;
-	float			py;
-	float			pz;
-	float			rx; // range [-1, 1]
-	float			ry;
-	float			rz;
-	float			diameter;
-	int				cr; // RGB range [0-255]
-	int				cg;
-	int				cb;
-	struct s_sphere	*next;
-}	t_sphere;
-
-typedef struct s_light
-{
-	float			px;
-	float			py;
-	float			pz;
-	float			emission; // range [0.0, 1.0]
-	int				cr; // RGB range [0-255]
-	int				cg;
-	int				cb;
-	float			fade_size; // will try to utilize?
-	struct s_light	*next;
-}	t_light;
-
-typedef struct s_camera
-{
-	float	px;
-	float	py;
-	float	pz;
-	float	rx; // range [-1, 1]
-	float	ry;
-	float	rz;
-	float	fov; // range 0-180
-}	t_camera;
-
-typedef struct s_ambient
-{
-	float	al_ratio; // range [0.0, 1.0]
-	int		cr; // RGB range [0-255]
-	int		cg;
-	int		cb;
-}	t_ambient;
 
 typedef struct s_elements
 {
@@ -140,6 +66,19 @@ typedef struct s_color
 	float	g;
 	float	b;
 }	t_color;
+
+typedef struct	s_canvas
+{
+	void	*mlx;
+	void	*mlx_win;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		width;
+	int		height;
+	t_color pixels[WIN_HEIGHT][WIN_WIDTH];
+}	t_canvas;
 
 typedef struct s_data
 {
@@ -198,10 +137,10 @@ int		is_equal(float a, float b);
 
 // color utils and operations
 t_color	create_color(float r, float g, float b);
-t_color multiply_colors(t_color a, float num);
-t_color add_colors(t_color a, t_color b);
-t_color sub_colors(t_color a, t_color b);
-t_color hadamard_product(t_color a, t_color b);
+t_color	multiply_colors(t_color a, float num);
+t_color	add_colors(t_color a, t_color b);
+t_color	sub_colors(t_color a, t_color b);
+t_color	hadamard_product(t_color a, t_color b);
 
 // tuple operations
 t_tuple add_tuples(t_tuple a, t_tuple b);
@@ -217,6 +156,12 @@ t_tuple	scalar_normalize(t_tuple a);
 //vector operations
 float	dot_product(t_tuple a, t_tuple b);
 t_tuple	cross_product(t_tuple a, t_tuple b);
+
+// canvas operations
+t_canvas	*create_canvas(void);
+void		write_pixel(t_canvas *canvas, int x, int y, t_color color);
+t_color		pixel_at(t_canvas *canvas, int x, int y);
+void		free_canvas(t_canvas *canvas);
 
 // value table print tester
 void	print_elements(t_elements *elements);

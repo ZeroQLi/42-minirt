@@ -2,6 +2,7 @@
 SRC_DIR = ./src/
 SRC_DIR2 = $(SRC_DIR)shapes_parser/
 SRC_DIR3 = $(SRC_DIR)tuples/
+SRC_DIR4 = $(SRC_DIR)canvas/
 OBJ_PATH = src/obj/
 LIBFT_PATH = libft/
 
@@ -15,8 +16,9 @@ $(SRC_DIR)parser.c \
 $(SRC_DIR)error.c \
 $(SRC_DIR)cleanup_linux.c \
 $(SRC_DIR)utils.c \
-$(SRC_DIR)print_elements.c
-# REMOVE THIS BEFORE SUBMITTING. ONLY TESTING
+$(SRC_DIR)print_elements.c \
+$(SRC_DIR)testing.c \
+# REMOVE ABOVE 2 BEFORE SUBMITTING. ONLY TESTING
 
 SRC2 = $(SRC_DIR2)p_ambient.c \
 $(SRC_DIR2)p_camera.c \
@@ -34,8 +36,10 @@ $(SRC_DIR3)scalar_operations.c \
 $(SRC_DIR3)vector_operations.c \
 $(SRC_DIR3)color_operations.c \
 
+SRC4 = $(SRC_DIR4)canvas_operations.c \
+
 # Object files
-OBJ = $(SRC:src/%.c=$(OBJ_PATH)%.o) $(SRC2:src/%.c=$(OBJ_PATH)%.o) $(SRC3:src/%.c=$(OBJ_PATH)%.o)
+OBJ = $(SRC:src/%.c=$(OBJ_PATH)%.o) $(SRC2:src/%.c=$(OBJ_PATH)%.o) $(SRC3:src/%.c=$(OBJ_PATH)%.o) $(SRC4:src/%.c=$(OBJ_PATH)%.o)
 
 MLX_DIR := ./mlx
 	MLX := mlx
@@ -43,7 +47,7 @@ MLX_DIR := ./mlx
 
 # Compiler n flags
 CC		=		cc
-CFLAGS	= -Wall -Wextra -Werror -Iincludes/ -lm -I$(MLX_DIR)
+CFLAGS	= -Wall -Wextra -Werror -g3 -Iincludes/ -lm -I$(MLX_DIR)
 
 MLX_LIB = $(MLX_DIR)/libmlx.a
 

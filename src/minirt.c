@@ -12,14 +12,35 @@
 
 #include "../includes/minirt.h"
 #include "../includes/macros.h"
+#include "../includes/testing.h"
+
 
 static void test_operations(void)
 {
-	t_color color1 = create_color(1, 0.2, 0.4);
-	t_color color2 = create_color(0.9, 1, 0.1);
+	t_projectile proj;
+	t_environment env;
+	t_canvas *canvas;
+	t_color red;
+	int x, y;
 
-	t_color res = hadamard_product(color1, color2);
-	printf("%f, %f, %f\n", res.r, res.g, res.b);
+	red = create_color(1, 0, 0);
+	canvas = create_canvas();
+	proj.position = create_point(0, 1, 0);
+	proj.velocity = scalar_normalize(create_vector(1, 1.8, 0));
+	proj.velocity = scalar_multiply(proj.velocity, 11.25);
+	env.gravity = create_vector(0, -0.1, 0);
+	env.wind = create_vector(-0.01, 0, 0);
+
+	while (proj.position.y > 0)
+	{
+		x = (int)proj.position.x;
+		y = WIN_HEIGHT - (int)proj.position.y;
+		write_pixel(canvas, x, y, red);
+		proj = tick(&env, &proj); // Move AFTER drawing
+	}
+	mlx_put_image_to_window(canvas->mlx, canvas->mlx_win,
+							canvas->img, 0, 0);
+	mlx_loop(canvas->mlx);
 }
 
 int	main(int ac, char **av)
