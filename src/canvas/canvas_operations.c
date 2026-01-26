@@ -6,7 +6,7 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:53:39 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/01/25 12:01:56 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/01/26 19:33:06 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ static int	setup_mlx(t_canvas *canvas)
 
 	canvas->mlx = mlx_init();
 	if (!canvas->mlx)
-		return (1);
+		return (0);
 	canvas->mlx_win = mlx_new_window(canvas->mlx, canvas->width,
 			canvas->height, "miniRT");
 	if (!canvas->mlx_win)
-		return (1);
+		return (0);
 	canvas->img = mlx_new_image(canvas->mlx, canvas->width, canvas->height);
 	canvas->addr = mlx_get_data_addr(canvas->img, &canvas->bits_per_pixel,
 			&canvas->line_length, &endian);
-	return (0);
+	return (1);
 }
 
 t_canvas	*create_canvas(void)

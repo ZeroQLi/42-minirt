@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   testing.h                                          :+:      :+:    :+:   */
+/*   matrix_oprations.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/25 11:38:21 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/01/25 21:31:57 by mtangalv         ###   ########.fr       */
+/*   Created: 2026/01/26 19:22:51 by mtangalv          #+#    #+#             */
+/*   Updated: 2026/01/26 19:30:06 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TESTING_H
-# define TESTING_H
+# include "../../includes/minirt.h"
 
-# include "minirt.h"
-
-typedef struct	s_projectile
+int	matrix4_equal(t_matrix4 a, t_matrix4 b)
 {
-	t_tuple	position;
-	t_tuple	velocity;
-}	t_projectile;
+	int	i;
+	int	j;
 
-typedef struct	s_environment
-{
-	t_tuple	gravity;
-	t_tuple	wind;
-}	t_environment;
-
-t_projectile	tick(t_environment *env, t_projectile *proj);
-void			print_matrix4(t_matrix4 matrix);
-#endif
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			if (!is_equal(a.data[i][j], b.data[i][j]))
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}

@@ -23,6 +23,8 @@
 
 # include "macros.h"
 # include "shapes.h"
+# include "tuples.h"
+# include "matrices.h"
 
 /* Colors ✨ */
 /* Pls use appropriately */
@@ -51,21 +53,6 @@ typedef struct s_elements
 	t_plane		*pl;
 	t_cylinder	*cy;
 }	t_elements;
-
-typedef struct s_tuple
-{
-	float	x;
-	float	y;
-	float	z;
-	float	w; // 1.0 for point, 0.0 for vector
-}	t_tuple;
-
-typedef struct s_color
-{
-	float	r;
-	float	g;
-	float	b;
-}	t_color;
 
 typedef struct	s_canvas
 {
@@ -127,25 +114,6 @@ int		parse_cylinder(char **t, t_data *d);
 int		parse_vec3(char *s, float *x, float *y, float *z);
 int		parse_normal(char *s, float *x, float *y, float *z); // checks [-1,1]
 int		parse_rgb(char *s, int *r, int *g, int *b);
-
-// tuple utils
-t_tuple	create_tuple(float x, float y, float z, float w);
-t_tuple	create_point(float x, float y, float z);
-t_tuple	create_vector(float x, float y, float z);
-int		is_point(t_tuple tuple);
-int		is_equal(float a, float b);
-
-// color utils and operations
-t_color	create_color(float r, float g, float b);
-t_color	multiply_colors(t_color a, float num);
-t_color	add_colors(t_color a, t_color b);
-t_color	sub_colors(t_color a, t_color b);
-t_color	hadamard_product(t_color a, t_color b);
-
-// tuple operations
-t_tuple add_tuples(t_tuple a, t_tuple b);
-t_tuple	sub_tuples(t_tuple a, t_tuple b);
-t_tuple	negate_tuple(t_tuple a);
 
 // scalar operations
 t_tuple	scalar_multiply(t_tuple a, float num);
