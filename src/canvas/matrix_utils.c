@@ -5,76 +5,54 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/25 12:17:38 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/01/26 19:20:22 by mtangalv         ###   ########.fr       */
+/*   Created: 2026/01/26 22:25:31 by mtangalv          #+#    #+#             */
+/*   Updated: 2026/01/26 22:38:36 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minirt.h"
+#include "../../includes/minirt.h"
 
-t_matrix4	create_matrix4(void)
+t_matrix4	create_identity(void)
 {
-	t_matrix4	matrix;
+	t_matrix4	identity;
+	int			i;
+	int			j;
 
-	ft_bzero(&matrix, sizeof(t_matrix4));
-	return (matrix);
-}
-
-t_matrix3	create_matrix3(void)
-{
-	t_matrix3	matrix;
-
-	ft_bzero(&matrix, sizeof(t_matrix3));
-	return (matrix);
-}
-
-int	fill_matrix4(t_matrix4 *matrix, t_tuple data[4])
-{
-	int	i;
-
-	if (!matrix || !data)
-		return (0);
+	identity = create_matrix4();
 	i = 0;
 	while (i < 4)
 	{
-		matrix->data[i][0] = data[i].x;
-		matrix->data[i][1] = data[i].y;
-		matrix->data[i][2] = data[i].z;
-		matrix->data[i][3] = data[i].w;
+		j = 0;
+		while (j < 4)
+		{
+			if (i == j)
+				identity.data[i][j] = 1.0;
+			else
+				identity.data[i][j] = 0.0;
+			j++;
+		}
 		i++;
 	}
-	return (1);
+	return (identity);
 }
 
-int	fill_matrix3(t_matrix3 *matrix, t_tuple data[3])
+t_matrix4	transpose_matrix4(t_matrix4 m)
 {
-	int i;
+	t_matrix4	result;
+	int			i;
+	int			j;
 
-	if (!matrix || !data)
-		return (0);
+	result = create_matrix4();
 	i = 0;
-	while (i < 3)
+	while (i < 4)
 	{
-		matrix->data[i][0] = data[i].x;
-		matrix->data[i][1] = data[i].y;
-		matrix->data[i][2] = data[i].z;
+		j = 0;
+		while (j < 4)
+		{
+			result.data[j][i] = m.data[i][j];
+			j++;
+		}
 		i++;
 	}
-	return (1);
-}
-
-int	fill_matrix2(t_matrix4 *matrix, t_tuple data[2])
-{
-	int	i;
-
-	if (!matrix || !data)
-		return (0);
-	i = 0;
-	while (i < 2)
-	{
-		matrix->data[i][0] = data[i].x;
-		matrix->data[i][1] = data[i].y;
-		i++;
-	}
-	return (1);
+	return (result);
 }

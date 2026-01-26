@@ -16,7 +16,15 @@
 
 static void test_operations(void)
 {
-	
+	t_tuple a;
+	t_matrix4 identity;
+	t_tuple result;
+
+	a = create_tuple(1, 2, 3, 1);
+	identity = create_identity();
+
+	result = matrix4_tuple_multiply(identity, a);
+	print_tuple(result);
 }
 
 int	main(int ac, char **av)

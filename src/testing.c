@@ -6,7 +6,7 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 15:24:09 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/01/25 21:31:38 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/01/26 22:36:33 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ t_projectile	tick(t_environment *env, t_projectile *proj)
 	new_proj.velocity = add_tuples(new_proj.velocity,
 			env->wind);
 	return (new_proj);
+}
+
+void	print_tuple(t_tuple t)
+{
+	printf("(%f, %f, %f, %f)\n", t.x, t.y, t.z, t.w);
 }
 
 void	print_matrix4(t_matrix4 matrix)
