@@ -1,58 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_utils.c                                     :+:      :+:    :+:   */
+/*   determinants.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/26 22:25:31 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/01/27 17:13:06 by mtangalv         ###   ########.fr       */
+/*   Created: 2026/01/27 17:18:40 by mtangalv          #+#    #+#             */
+/*   Updated: 2026/01/27 22:00:22 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
 
-t_matrix4	create_identity(void)
+int	determinant_2x2(t_matrix4 m)
 {
-	t_matrix4	identity;
-	int			i;
-	int			j;
-
-	identity = create_matrix4();
-	i = 0;
-	while (i < 4)
-	{
-		j = 0;
-		while (j < 4)
-		{
-			if (i == j)
-				identity.data[i][j] = 1.0;
-			else
-				identity.data[i][j] = 0.0;
-			j++;
-		}
-		i++;
-	}
-	return (identity);
+	return ((m.data[0][0] * m.data[1][1]) - (m.data[0][1] * m.data[1][0]));
 }
 
-t_matrix4	transpose_matrix4(t_matrix4 m)
+t_matrix3	create_submatrix(t_matrix4 m, int row, int col)
 {
-	t_matrix4	result;
+	t_matrix3	sub;
 	int			i;
 	int			j;
+	int			sub_i;
+	int			sub_j;
 
-	result = create_matrix4();
+	sub = create_matrix3();
+	sub_i = 0;
 	i = 0;
 	while (i < 4)
 	{
+		if (i == row)
+			continue ;
+		sub_j = 0;
 		j = 0;
 		while (j < 4)
 		{
-			result.data[j][i] = m.data[i][j];
-			j++;
+			if (j == col)
+				continue ;
+			sub.data[sub_i][sub_j++] = m.data[i][j++];
 		}
+		sub_i++;
 		i++;
 	}
-	return (result);
+	return (sub);
 }

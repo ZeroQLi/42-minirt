@@ -16,17 +16,17 @@
 
 static void test_operations(void)
 {
-	t_tuple a;
-	t_matrix4 identity;
-	t_tuple result;
+	t_matrix4 a;
 
-	a = create_tuple(1, 2, 3, 1);
-	identity = create_identity();
+	a = create_matrix4();
+	t_tuple nums[2];
 
-	result = matrix4_tuple_multiply(identity, a);
-	print_tuple(result);
+	nums[0] = create_tuple(1, 5, 0, 0);
+	nums[1] = create_tuple(-3, 2, 0, 0);
+	fill_matrix2(&a, nums);
+
+	printf("%i\n", determinant_2x2(a));
 }
-
 int	main(int ac, char **av)
 {
 	t_data	data;

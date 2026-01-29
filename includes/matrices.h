@@ -6,7 +6,7 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 12:41:28 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/01/26 22:34:01 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/01/27 21:05:06 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef union u_matrix3
 t_matrix4	create_matrix4(void);
 t_matrix3	create_matrix3(void);
 t_matrix4	create_identity(void);
+t_matrix4	transpose_matrix4(t_matrix4 m);
 
 int			fill_matrix4(t_matrix4 *matrix, t_tuple data[4]);
 int			fill_matrix3(t_matrix3 *matrix, t_tuple data[3]);
@@ -52,5 +53,8 @@ int			matrix4_equal(t_matrix4 a, t_matrix4 b);
 int			matrix3_equal(t_matrix3 a, t_matrix3 b);
 t_matrix4	matrix_multiply(t_matrix4 a, t_matrix4 b);
 t_tuple		matrix4_tuple_multiply(t_matrix4 m, t_tuple t);
+
+// determinants
+int			determinant_2x2(t_matrix4 m);
 
 #endif
