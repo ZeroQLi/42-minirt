@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   testing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 11:38:21 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/01/26 22:36:45 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/01 15:20:03 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,5 @@ typedef struct	s_environment
 t_projectile	tick(t_environment *env, t_projectile *proj);
 void			print_tuple(t_tuple t);
 void			print_matrix4(t_matrix4 matrix);
+void			print_matrix3(t_matrix3 matrix);
 #endif

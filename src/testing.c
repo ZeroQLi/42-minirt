@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   testing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 15:24:09 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/01/26 22:36:33 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/01 15:21:09 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,22 @@ void	print_matrix4(t_matrix4 matrix)
 	{
 		j = 0;
 		while (j < 4)
+			printf("%f ", matrix.data[i][j++]);
+		printf("\n");
+		i++;
+	}
+}
+
+void	print_matrix3(t_matrix3 matrix)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < 3)
+	{
+		j = 0;
+		while (j < 3)
 			printf("%f ", matrix.data[i][j++]);
 		printf("\n");
 		i++;
