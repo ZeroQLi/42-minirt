@@ -6,7 +6,7 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 12:41:28 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/01 15:24:22 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/01 16:53:43 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ int			fill_matrix4(t_matrix4 *matrix, t_tuple data[4]);
 int			fill_matrix3(t_matrix3 *matrix, t_tuple data[3]);
 int			fill_matrix2(t_matrix4 *matrix, t_tuple data[2]);
 
+t_matrix4	create_submatrix2(t_matrix3 m, int row, int col);
+t_matrix3	create_submatrix3(t_matrix4 m, int row, int col);
+
 // matrix operations
 int			matrix4_equal(t_matrix4 a, t_matrix4 b);
 int			matrix3_equal(t_matrix3 a, t_matrix3 b);
@@ -56,6 +59,5 @@ t_tuple		matrix4_tuple_multiply(t_matrix4 m, t_tuple t);
 
 // determinants
 int			determinant_2x2(t_matrix4 m);
-t_matrix4	create_submatrix2(t_matrix3 m, int row, int col);
-t_matrix3	create_submatrix3(t_matrix4 m, int row, int col);
+int			minor_3x3(t_matrix3 m, int row, int col);
 #endif

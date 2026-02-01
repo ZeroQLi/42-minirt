@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   matrices.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 12:17:38 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/01/26 22:25:22 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/01 16:49:48 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
 
-t_matrix4 create_matrix4(void)
+t_matrix4	create_matrix4(void)
 {
 	t_matrix4 matrix;
 
@@ -20,7 +20,7 @@ t_matrix4 create_matrix4(void)
 	return (matrix);
 }
 
-t_matrix3 create_matrix3(void)
+t_matrix3	create_matrix3(void)
 {
 	t_matrix3 matrix;
 
@@ -28,7 +28,7 @@ t_matrix3 create_matrix3(void)
 	return (matrix);
 }
 
-int fill_matrix4(t_matrix4 *matrix, t_tuple data[4])
+int	fill_matrix4(t_matrix4 *matrix, t_tuple data[4])
 {
 	int i;
 
@@ -46,7 +46,7 @@ int fill_matrix4(t_matrix4 *matrix, t_tuple data[4])
 	return (1);
 }
 
-int fill_matrix3(t_matrix3 *matrix, t_tuple data[3])
+int	fill_matrix3(t_matrix3 *matrix, t_tuple data[3])
 {
 	int i;
 
@@ -63,7 +63,7 @@ int fill_matrix3(t_matrix3 *matrix, t_tuple data[3])
 	return (1);
 }
 
-int fill_matrix2(t_matrix4 *matrix, t_tuple data[2])
+int	fill_matrix2(t_matrix4 *matrix, t_tuple data[2])
 {
 	int i;
 
