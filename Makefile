@@ -41,6 +41,7 @@ $(SRC_DIR4)matrix_utils.c \
 $(SRC_DIR4)matrix_operations.c \
 $(SRC_DIR4)matrices.c \
 $(SRC_DIR4)determinants.c \
+$(SRC_DIR4)cofactors.c \
 
 # Object files
 OBJ = $(SRC:src/%.c=$(OBJ_PATH)%.o) $(SRC2:src/%.c=$(OBJ_PATH)%.o) $(SRC3:src/%.c=$(OBJ_PATH)%.o) $(SRC4:src/%.c=$(OBJ_PATH)%.o)

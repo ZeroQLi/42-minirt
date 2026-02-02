@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrices.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 12:41:28 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/01 16:53:43 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/02 13:20:14 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,13 @@ int			matrix3_equal(t_matrix3 a, t_matrix3 b);
 t_matrix4	matrix_multiply(t_matrix4 a, t_matrix4 b);
 t_tuple		matrix4_tuple_multiply(t_matrix4 m, t_tuple t);
 
+//cofactors and minors
+float			minor_3x3(t_matrix3 m, int row, int col);
+float			cofactor_3x3(t_matrix3 m, int row, int col);
+float			cofactor_4x4(t_matrix4 m, int row, int col);
+
 // determinants
-int			determinant_2x2(t_matrix4 m);
-int			minor_3x3(t_matrix3 m, int row, int col);
+float			determinant_2x2(t_matrix4 m);
+float			determinant_3x3(t_matrix3 m);
+float			determinant_4x4(t_matrix4 m);
 #endif
