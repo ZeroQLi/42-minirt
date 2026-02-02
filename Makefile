@@ -2,7 +2,8 @@
 SRC_DIR = ./src/
 SRC_DIR2 = $(SRC_DIR)shapes_parser/
 SRC_DIR3 = $(SRC_DIR)tuples/
-SRC_DIR4 = $(SRC_DIR)canvas/
+SRC_DIR4 = $(SRC_DIR)matrix/
+SRC_DIR5 = $(SRC_DIR)canvas/
 OBJ_PATH = src/obj/
 LIBFT_PATH = libft/
 
@@ -36,15 +37,16 @@ $(SRC_DIR3)scalar_operations.c \
 $(SRC_DIR3)vector_operations.c \
 $(SRC_DIR3)color_operations.c \
 
-SRC4 = $(SRC_DIR4)canvas_operations.c \
-$(SRC_DIR4)matrix_utils.c \
+SRC4 = $(SRC_DIR4)matrix_utils.c \
 $(SRC_DIR4)matrix_operations.c \
 $(SRC_DIR4)matrices.c \
 $(SRC_DIR4)determinants.c \
 $(SRC_DIR4)cofactors.c \
 
+SRC5 = $(SRC_DIR5)canvas_operations.c \
+
 # Object files
-OBJ = $(SRC:src/%.c=$(OBJ_PATH)%.o) $(SRC2:src/%.c=$(OBJ_PATH)%.o) $(SRC3:src/%.c=$(OBJ_PATH)%.o) $(SRC4:src/%.c=$(OBJ_PATH)%.o)
+OBJ = $(SRC:src/%.c=$(OBJ_PATH)%.o) $(SRC2:src/%.c=$(OBJ_PATH)%.o) $(SRC3:src/%.c=$(OBJ_PATH)%.o) $(SRC4:src/%.c=$(OBJ_PATH)%.o) $(SRC5:src/%.c=$(OBJ_PATH)%.o)
 
 MLX_DIR := ./mlx
 	MLX := mlx
