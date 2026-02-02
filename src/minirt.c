@@ -49,7 +49,6 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	// print_elements(data.elements);
-
 	test_operations();
 	brain_washer(&data);
 	ft_printf(GREEN "SUCCCESS 👍\n" RESET);

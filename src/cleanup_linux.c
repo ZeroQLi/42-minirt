@@ -46,6 +46,8 @@ void	free_canvas(t_canvas *canvas)
 
 void	brain_washer(t_data	*data)
 {
+	// if (data->canvas)
+	// 	free_canvas(data->canvas);
 	if (data->values)
 		free_arr(&data->values);
 	free_all_shapes(data->elements);

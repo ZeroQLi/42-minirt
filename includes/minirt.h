@@ -74,6 +74,7 @@ typedef struct s_data
 	bool		cam_exists;
 	bool		light_exists;
 	char		**values; // to make freeing less repetitive and save lines
+	t_canvas	*canvas;
 }	t_data;
 
 int		array_len(char **arr);
