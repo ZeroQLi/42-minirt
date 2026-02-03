@@ -54,7 +54,7 @@ typedef struct s_elements
 	t_cylinder	*cy;
 }	t_elements;
 
-typedef struct	s_canvas
+typedef struct s_canvas
 {
 	void	*mlx;
 	void	*mlx_win;
@@ -64,7 +64,7 @@ typedef struct	s_canvas
 	int		line_length;
 	int		width;
 	int		height;
-	t_color pixels[WIN_HEIGHT][WIN_WIDTH];
+	t_color	pixels[WIN_HEIGHT][WIN_WIDTH];
 }	t_canvas;
 
 typedef struct s_data
@@ -77,54 +77,54 @@ typedef struct s_data
 	t_canvas	*canvas;
 }	t_data;
 
-int		array_len(char **arr);
+int			array_len(char **arr);
 
 //--------------------------//
 //		Shapes linklist		//
 //--------------------------//
-void	add_sphere(t_elements *e, t_sphere *new);
-void	add_cylinder(t_elements *e, t_cylinder *new);
-void	add_plane(t_elements *e, t_plane *new);
-void	free_spheres(t_sphere *sp);
-void	free_cylinders(t_cylinder *sp);
-void	free_planes(t_plane *sp);
-void	free_all_shapes(t_elements *e);
+void		add_sphere(t_elements *e, t_sphere *new);
+void		add_cylinder(t_elements *e, t_cylinder *new);
+void		add_plane(t_elements *e, t_plane *new);
+void		free_spheres(t_sphere *sp);
+void		free_cylinders(t_cylinder *sp);
+void		free_planes(t_plane *sp);
+void		free_all_shapes(t_elements *e);
 
 //--------------------------//
 //		Error & Cleanup		//
 //--------------------------//
-int		error_msg(bool err, char *str, int ret);
-char	*free_arr(char ***arr);
-void	brain_washer(t_data	*data);
+int			error_msg(bool err, char *str, int ret);
+char		*free_arr(char ***arr);
+void		brain_washer(t_data	*data);
 
 //--------------------------//
 //		Parsing stuff		//
 //--------------------------//
-int		parse_file(t_data *data, char *file);
-int		is_empty_or_comment(char *line);
+int			parse_file(t_data *data, char *file);
+int			is_empty_or_comment(char *line);
 
 // Shapes Parsing
-int		parse_ambient(char **t, t_data *d);
-int		parse_camera(char **t, t_data *d);
-int		parse_light(char **t, t_data *d);
-int		parse_sphere(char **t, t_data *d);
-int		parse_plane(char **t, t_data *d);
-int		parse_cylinder(char **t, t_data *d);
+int			parse_ambient(char **t, t_data *d);
+int			parse_camera(char **t, t_data *d);
+int			parse_light(char **t, t_data *d);
+int			parse_sphere(char **t, t_data *d);
+int			parse_plane(char **t, t_data *d);
+int			parse_cylinder(char **t, t_data *d);
 
 // Info Parsing
-int		parse_vec3(char *s, float *x, float *y, float *z);
-int		parse_normal(char *s, float *x, float *y, float *z); // checks [-1,1]
-int		parse_rgb(char *s, int *r, int *g, int *b);
+int			parse_vec3(char *s, float *x, float *y, float *z);
+int			parse_normal(char *s, float *x, float *y, float *z); //checks [-1,1]
+int			parse_rgb(char *s, int *r, int *g, int *b);
 
 // scalar operations
-t_tuple	scalar_multiply(t_tuple a, float num);
-t_tuple	scalar_divide(t_tuple a, float num);
-float	scalar_magnitude(t_tuple a);
-t_tuple	scalar_normalize(t_tuple a);
+t_tuple		scalar_multiply(t_tuple a, float num);
+t_tuple		scalar_divide(t_tuple a, float num);
+float		scalar_magnitude(t_tuple a);
+t_tuple		scalar_normalize(t_tuple a);
 
 //vector operations
-float	dot_product(t_tuple a, t_tuple b);
-t_tuple	cross_product(t_tuple a, t_tuple b);
+float		dot_product(t_tuple a, t_tuple b);
+t_tuple		cross_product(t_tuple a, t_tuple b);
 
 // canvas operations
 t_canvas	*create_canvas(void);
@@ -133,6 +133,6 @@ t_color		pixel_at(t_canvas *canvas, int x, int y);
 void		free_canvas(t_canvas *canvas);
 
 // value table print tester
-void	print_elements(t_elements *elements);
+void		print_elements(t_elements *elements);
 
 #endif

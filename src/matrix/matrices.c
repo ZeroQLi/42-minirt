@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrices.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 12:17:38 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/01 16:49:48 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/03 22:52:24 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_matrix4	create_matrix4(void)
 {
-	t_matrix4 matrix;
+	t_matrix4	matrix;
 
 	ft_bzero(&matrix, sizeof(t_matrix4));
 	return (matrix);
@@ -22,7 +22,7 @@ t_matrix4	create_matrix4(void)
 
 t_matrix3	create_matrix3(void)
 {
-	t_matrix3 matrix;
+	t_matrix3	matrix;
 
 	ft_bzero(&matrix, sizeof(t_matrix3));
 	return (matrix);
@@ -30,7 +30,7 @@ t_matrix3	create_matrix3(void)
 
 int	fill_matrix4(t_matrix4 *matrix, t_tuple data[4])
 {
-	int i;
+	int	i;
 
 	if (!matrix || !data)
 		return (0);
@@ -48,7 +48,7 @@ int	fill_matrix4(t_matrix4 *matrix, t_tuple data[4])
 
 int	fill_matrix3(t_matrix3 *matrix, t_tuple data[3])
 {
-	int i;
+	int	i;
 
 	if (!matrix || !data)
 		return (0);
@@ -65,7 +65,7 @@ int	fill_matrix3(t_matrix3 *matrix, t_tuple data[3])
 
 int	fill_matrix2(t_matrix4 *matrix, t_tuple data[2])
 {
-	int i;
+	int	i;
 
 	if (!matrix || !data)
 		return (0);

@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   color_operations.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 13:14:16 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/01/21 13:36:19 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/03 22:51:27 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
-t_color add_colors(t_color a, t_color b)
+t_color	add_colors(t_color a, t_color b)
 {
-	t_color result;
+	t_color	result;
 
 	result.r = a.r + b.r;
 	result.g = a.g + b.g;
@@ -22,9 +22,9 @@ t_color add_colors(t_color a, t_color b)
 	return (result);
 }
 
-t_color sub_colors(t_color a, t_color b)
+t_color	sub_colors(t_color a, t_color b)
 {
-	t_color result;
+	t_color	result;
 
 	result.r = a.r - b.r;
 	result.g = a.g - b.g;
@@ -32,9 +32,9 @@ t_color sub_colors(t_color a, t_color b)
 	return (result);
 }
 
-t_color multiply_colors(t_color a, float num)
+t_color	multiply_colors(t_color a, float num)
 {
-	t_color result;
+	t_color	result;
 
 	result.r = a.r * num;
 	result.g = a.g * num;
@@ -42,9 +42,9 @@ t_color multiply_colors(t_color a, float num)
 	return (result);
 }
 
-t_color hadamard_product(t_color a, t_color b)
+t_color	hadamard_product(t_color a, t_color b)
 {
-	t_color result;
+	t_color	result;
 
 	result.r = a.r * b.r;
 	result.g = a.g * b.g;

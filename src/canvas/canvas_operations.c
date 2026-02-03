@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   canvas_operations.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:53:39 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/01/26 19:33:06 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/03 22:56:28 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void	write_pixel(t_canvas *canvas, int x, int y, t_color color)
 	if (x >= 0 && x < WIN_WIDTH && y >= 0 && y < WIN_HEIGHT)
 	{
 		canvas->pixels[y][x] = color;
-		pxl = canvas->addr + (y * canvas->line_length + x * (canvas->bits_per_pixel / 8));
+		pxl = canvas->addr + (y * canvas->line_length + x
+				* (canvas->bits_per_pixel / 8));
 		*(unsigned int *)pxl = color_to_int(color);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 22:25:31 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/01 19:02:35 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/03 22:51:55 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,14 @@ t_matrix4	transpose_matrix4(t_matrix4 m)
 	return (result);
 }
 
-t_matrix3 create_submatrix3(t_matrix4 m, int row, int col)
+t_matrix3	create_submatrix3(t_matrix4 m, int row, int col)
 {
 	t_matrix3	sub;
 	int			i;
 	int			j;
 	int			sub_i;
 	int			sub_j;
+
 	sub = create_matrix3();
 	sub_i = 0;
 	i = -1;

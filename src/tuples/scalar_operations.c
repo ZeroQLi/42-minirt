@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scalar_operations.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 19:36:02 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/01/20 21:57:04 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/03 22:50:44 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_tuple	scalar_multiply(t_tuple a, float num)
 {
 	t_tuple	result;
-	
+
 	result.x = a.x * num;
 	result.y = a.y * num;
 	result.z = a.z * num;
@@ -23,9 +23,9 @@ t_tuple	scalar_multiply(t_tuple a, float num)
 	return (result);
 }
 
-t_tuple scalar_divide(t_tuple a, float num)
+t_tuple	scalar_divide(t_tuple a, float num)
 {
-	t_tuple result;
+	t_tuple	result;
 
 	if (fabsf(num) < EPSILON)
 	{

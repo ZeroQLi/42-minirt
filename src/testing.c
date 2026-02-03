@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   testing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 15:24:09 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/01 15:21:09 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/03 22:53:53 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	print_tuple(t_tuple t)
 
 void	print_matrix4(t_matrix4 matrix)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < 4)
@@ -48,8 +48,8 @@ void	print_matrix4(t_matrix4 matrix)
 
 void	print_matrix3(t_matrix3 matrix)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < 3)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tuple_operations.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 15:09:32 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/01/21 12:04:54 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/03 23:27:52 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ t_tuple	add_tuples(t_tuple a, t_tuple b)
 	if (is_equal(a.w + b.w, 2.0))
 	{
 		ft_dprintf(2, "Error: Cannot add two points together.\n");
-		exit(1); // or handle error differently
+		exit(1); // or handle error differently (REMOVE/CHANGE LATER)
 	}
-
 	result.x = a.x + b.x;
 	result.y = a.y + b.y;
 	result.z = a.z + b.z;
@@ -48,7 +47,6 @@ t_tuple	sub_tuples(t_tuple a, t_tuple b)
 		ft_dprintf(2, "Error: Cannot subtract a point from a vector.\n");
 		exit(1);
 	}
-
 	result.x = a.x - b.x;
 	result.y = a.y - b.y;
 	result.z = a.z - b.z;

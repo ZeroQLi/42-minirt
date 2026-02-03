@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cofactors.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 13:18:51 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/02 13:19:19 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/03 22:52:48 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

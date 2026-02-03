@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   determinants.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 17:18:40 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/02 13:20:05 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/03 22:52:37 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ float	determinant_3x3(t_matrix3 m)
 		det += m.data[0][col] * cofactor_3x3(m, 0, col);
 		col++;
 	}
-	
 	return (det);
 }
 

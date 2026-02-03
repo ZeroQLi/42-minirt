@@ -13,10 +13,10 @@
 #ifndef MACROS_H
 # define MACROS_H
 
-#define EPSILON 0.00001
+# define EPSILON 0.00001
 
-#define WIN_WIDTH 1366
-#define WIN_HEIGHT 768
+# define WIN_WIDTH 1366
+# define WIN_HEIGHT 768
 
 // yes.
 # define YES 1

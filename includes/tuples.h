@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tuples.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 21:51:58 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/01/26 19:12:10 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/03 22:57:35 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 typedef union u_tuple
 {
-	float data[4];
+	float	data[4];
 	struct
 	{
-		float x;
-		float y;
-		float z;
-		float w;
+		float	x;
+		float	y;
+		float	z;
+		float	w;
 	};
-} t_tuple;
+}	t_tuple;
 
 typedef struct s_color
 {
-	float r;
-	float g;
-	float b;
-} t_color;
+	float	r;
+	float	g;
+	float	b;
+}	t_color;
 
 // tuple utils
 t_tuple	create_tuple(float x, float y, float z, float w);

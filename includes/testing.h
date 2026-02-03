@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   testing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 11:38:21 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/01 15:20:03 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/03 22:57:52 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 # include "minirt.h"
 
-typedef struct	s_projectile
+typedef struct s_projectile
 {
 	t_tuple	position;
 	t_tuple	velocity;
 }	t_projectile;
 
-typedef struct	s_environment
+typedef struct s_environment
 {
 	t_tuple	gravity;
 	t_tuple	wind;

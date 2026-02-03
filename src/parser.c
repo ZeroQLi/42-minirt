@@ -101,7 +101,7 @@ int	parse_file(t_data *data, char *file)
 		return (error_msg(NO, "parsing FAILED!", 0));
 	close(fd);
 	if (!data->elements->cam && !data->elements->amb && !data->elements->sp
-			&& !data->elements->cy && !data->elements->pl)
+		&& !data->elements->cy && !data->elements->pl)
 		return (error_msg(YES, "aint nothin in here boi", 0));
 	if (!data->elements->cam || !data->elements->amb)
 		return (error_msg(YES, "bro? where da cam/ambient at?? add both", 0));
