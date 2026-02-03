@@ -105,6 +105,8 @@ int	parse_file(t_data *data, char *file)
 		return (error_msg(YES, "aint nothin in here boi", 0));
 	if (!data->elements->cam || !data->elements->amb)
 		return (error_msg(YES, "bro? where da cam/ambient at?? add both", 0));
+	if (!data->elements->l)
+		return (error_msg(YES, "you can have enough light in your life, please.", 0));
 	if (!data->elements->sp && !data->elements->cy && !data->elements->pl)
 		return (error_msg(YES, "where da shapes at??? add one shape pls", 0));
 	return (1);
