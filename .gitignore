@@ -6,6 +6,7 @@ minirt
 miniRT
 minirt_bonus
 obj/
+mlx/
 
 # Object files
 *.o
