@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix_operations.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 19:22:51 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/01/26 22:38:07 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/05 17:12:32 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,26 @@ t_tuple	matrix4_tuple_multiply(t_matrix4 m, t_tuple t)
 		+ m.data[2][2] * t.z + m.data[2][3] * t.w;
 	result.w = m.data[3][0] * t.x + m.data[3][1] * t.y
 		+ m.data[3][2] * t.z + m.data[3][3] * t.w;
+	return (result);
+}
+
+t_matrix4	transpose_matrix4(t_matrix4 m)
+{
+	t_matrix4	result;
+	int			i;
+	int			j;
+
+	result = create_matrix4();
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			result.data[j][i] = m.data[i][j];
+			j++;
+		}
+		i++;
+	}
 	return (result);
 }

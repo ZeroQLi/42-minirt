@@ -16,20 +16,23 @@
 
 static void	test_operations(void)
 {
-	t_matrix4	matrix;
-	t_tuple		data[4];
-	t_matrix4	res;
+	t_matrix4	m;
+	t_tuple		t;
 
-	data[0] = create_tuple(9, 3, 0, 9);
-	data[1] = create_tuple(-5, -2, -6, -3);
-	data[2] = create_tuple(-4, 9, 6, 4);
-	data[3] = create_tuple(-7, 6, 6, 2);
-	matrix = create_matrix4();
-	matrix = create_identity();
-	fill_matrix4(&matrix, data);
-	res = invert_4x4(matrix);
-	res = matrix_multiply(matrix, res);
-	print_matrix4(res);
+	m = rotation_x(M_PI / 4);
+	t = create_point(0, 1, 0);
+	t = matrix4_tuple_multiply(m, t);
+	print_tuple(t);
+
+	m = rotation_y(M_PI / 4);
+	t = create_point(0, 0, 1);
+	t = matrix4_tuple_multiply(m, t);
+	print_tuple(t);
+
+	m = rotation_z(M_PI / 4);
+	t = create_point(0, 1, 0);
+	t = matrix4_tuple_multiply(m, t);
+	print_tuple(t);
 }
 
 int	main(int ac, char **av)

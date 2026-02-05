@@ -6,7 +6,7 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 12:41:28 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/05 14:28:45 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/05 17:03:59 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,11 @@ float			determinant_4x4(t_matrix4 m);
 // invertible
 int				is_invertible(t_matrix4 m);
 t_matrix4		invert_4x4(t_matrix4 m);
+
+// transformations
+t_matrix4		scaling(float x, float y, float z);
+t_matrix4		translation(float x, float y, float z);
+t_matrix4		rotation_x(float rad);
+t_matrix4		rotation_y(float rad);
+t_matrix4		rotation_z(float rad);
 #endif
