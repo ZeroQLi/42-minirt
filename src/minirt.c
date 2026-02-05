@@ -16,23 +16,27 @@
 
 static void	test_operations(void)
 {
-	t_matrix4	m;
-	t_tuple		t;
+	t_canvas	*canvas;
+	t_tuple		origin;
+	t_matrix4		hour;
+	t_tuple			twelve;
+	t_tuple			point;
 
-	m = rotation_x(M_PI / 4);
-	t = create_point(0, 1, 0);
-	t = matrix4_tuple_multiply(m, t);
-	print_tuple(t);
-
-	m = rotation_y(M_PI / 4);
-	t = create_point(0, 0, 1);
-	t = matrix4_tuple_multiply(m, t);
-	print_tuple(t);
-
-	m = rotation_z(M_PI / 4);
-	t = create_point(0, 1, 0);
-	t = matrix4_tuple_multiply(m, t);
-	print_tuple(t);
+	canvas = create_canvas();
+	mlx_put_image_to_window(canvas->mlx, canvas->mlx_win, canvas->img, 0, 0);
+	origin = create_point(WIN_WIDTH / 2, WIN_HEIGHT / 2, 3);
+	twelve = create_point(0, WIN_HEIGHT / 3, 1);
+	for (int i = 0; i < 64; i++)
+	{
+		point = origin;
+		hour = rotation_z(i * (M_PI / 32));
+		point = matrix4_tuple_multiply(hour, twelve);
+		point.x += origin.x;
+		point.y += origin.y;
+		write_pixel(canvas, point.x, point.y, create_color(0, 255, 255));
+	}
+	//write_pixel(canvas, origin.x, origin.y, create_color(255, 0, 0));
+	mlx_loop(canvas->mlx);
 }
 
 int	main(int ac, char **av)

@@ -6,51 +6,11 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 19:22:51 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/05 17:12:32 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/05 17:36:35 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
-
-int	matrix4_equal(t_matrix4 a, t_matrix4 b)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < 4)
-	{
-		j = 0;
-		while (j < 4)
-		{
-			if (!is_equal(a.data[i][j], b.data[i][j]))
-				return (0);
-			j++;
-		}
-		i++;
-	}
-	return (1);
-}
-
-int	matrix3_equal(t_matrix3 a, t_matrix3 b)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < 3)
-	{
-		j = 0;
-		while (j < 3)
-		{
-			if (!is_equal(a.data[i][j], b.data[i][j]))
-				return (0);
-			j++;
-		}
-		i++;
-	}
-	return (1);
-}
 
 t_matrix4	matrix_multiply(t_matrix4 a, t_matrix4 b)
 {
