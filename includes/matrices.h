@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrices.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 12:41:28 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/03 22:59:32 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/02/05 14:28:45 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,8 @@ float			cofactor_4x4(t_matrix4 m, int row, int col);
 float			determinant_2x2(t_matrix4 m);
 float			determinant_3x3(t_matrix3 m);
 float			determinant_4x4(t_matrix4 m);
+
+// invertible
+int				is_invertible(t_matrix4 m);
+t_matrix4		invert_4x4(t_matrix4 m);
 #endif

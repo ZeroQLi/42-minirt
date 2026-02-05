@@ -42,6 +42,7 @@ $(SRC_DIR4)matrix_operations.c \
 $(SRC_DIR4)matrices.c \
 $(SRC_DIR4)determinants.c \
 $(SRC_DIR4)cofactors.c \
+$(SRC_DIR4)inversion.c \
 
 SRC5 = $(SRC_DIR5)canvas_operations.c \
 

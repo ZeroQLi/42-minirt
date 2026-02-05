@@ -18,18 +18,18 @@ static void	test_operations(void)
 {
 	t_matrix4	matrix;
 	t_tuple		data[4];
+	t_matrix4	res;
 
-	data[0] = create_tuple(-2, -8, 3, 5);
-	data[1] = create_tuple(-3, 1, 7, 3);
-	data[2] = create_tuple(1, 2, -9, 6);
-	data[3] = create_tuple(-6, 7, 7, -9);
+	data[0] = create_tuple(9, 3, 0, 9);
+	data[1] = create_tuple(-5, -2, -6, -3);
+	data[2] = create_tuple(-4, 9, 6, 4);
+	data[3] = create_tuple(-7, 6, 6, 2);
 	matrix = create_matrix4();
+	matrix = create_identity();
 	fill_matrix4(&matrix, data);
-	printf("%f, %f, %f, %f, %f\n", cofactor_4x4(matrix, 0, 0),
-		cofactor_4x4(matrix, 0, 1),
-		cofactor_4x4(matrix, 0, 2),
-		cofactor_4x4(matrix, 0, 3),
-		determinant_4x4(matrix));
+	res = invert_4x4(matrix);
+	res = matrix_multiply(matrix, res);
+	print_matrix4(res);
 }
 
 int	main(int ac, char **av)
