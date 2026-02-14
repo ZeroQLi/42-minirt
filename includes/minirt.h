@@ -99,7 +99,7 @@ void		free_all_shapes(t_elements *e);
 //--------------------------//
 int			error_msg(bool err, char *str, int ret);
 char		*free_arr(char ***arr);
-void		brain_washer(t_data	*data);
+int			brain_washer(t_data	*data);
 
 //--------------------------//
 //		Parsing stuff		//

@@ -37,20 +37,25 @@ void	free_canvas(t_canvas *canvas)
 	if (canvas->img)
 		mlx_destroy_image(canvas->mlx, canvas->img);
 	if (canvas->mlx_win)
+	{
+		mlx_clear_window(canvas->mlx, canvas->mlx_win);
 		mlx_destroy_window(canvas->mlx, canvas->mlx_win);
+	}
 	if (canvas->mlx)
 		mlx_destroy_display(canvas->mlx);
 	free(canvas->mlx);
 	free(canvas);
 }
 
-void	brain_washer(t_data	*data)
+int	brain_washer(t_data	*data)
 {
-	// if (data->canvas)
-	// 	free_canvas(data->canvas);
+
+	if (data->canvas)
+		free_canvas(data->canvas);
 	if (data->values)
 		free_arr(&data->values);
-	free_all_shapes(data->elements);
+	if (data->elements)
+		free_all_shapes(data->elements);
 	if (data->elements->amb)
 		free(data->elements->amb);
 	if (data->elements->cam)
@@ -59,4 +64,5 @@ void	brain_washer(t_data	*data)
 		free(data->elements->l);
 	if (data->elements)
 		free(data->elements);
+	return (0);
 }

@@ -35,7 +35,8 @@ static void	test_operations(void)
 		point.y += origin.y;
 		write_pixel(canvas, point.x, point.y, create_color(0, 255, 255));
 	}
-	//write_pixel(canvas, origin.x, origin.y, create_color(255, 0, 0));
+	// write_pixel(canvas, origin.x, origin.y, create_color(255, 0, 0));
+	// mlx_hook(canvas->mlx_win, 17, 0, brain_washer, canvas);
 	mlx_loop(canvas->mlx);
 }
 
@@ -57,7 +58,7 @@ int	main(int ac, char **av)
 	}
 	// print_elements(data.elements);
 	test_operations();
-	brain_washer(&data);
+	// brain_washer(&data);
 	ft_printf(GREEN "SUCCCESS 👍\n" RESET);
 	return (0);
 }
