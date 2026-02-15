@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 11:38:21 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/03 22:57:52 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/02/16 01:35:00 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,5 @@ t_projectile	tick(t_environment *env, t_projectile *proj);
 void			print_tuple(t_tuple t);
 void			print_matrix4(t_matrix4 matrix);
 void			print_matrix3(t_matrix3 matrix);
+void			test_matrix4_system(void);
 #endif

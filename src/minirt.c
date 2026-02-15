@@ -57,8 +57,9 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	// print_elements(data.elements);
-	test_operations();
-	// brain_washer(&data);
+	// test_operations();
+	test_matrix4_system();
+	brain_washer(&data);
 	ft_printf(GREEN "SUCCCESS 👍\n" RESET);
 	return (0);
 }

@@ -56,7 +56,7 @@ MLX_DIR := ./mlx
 
 # Compiler n flags
 CC		=		cc
-CFLAGS	= -Wall -Wextra -Werror -g3 -Iincludes/ -lm -I$(MLX_DIR)
+CFLAGS	= -g3 -Iincludes/ -lm -I$(MLX_DIR)
 
 MLX_LIB = $(MLX_DIR)/libmlx.a
 
