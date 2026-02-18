@@ -13,6 +13,7 @@
 #include "../includes/minirt.h"
 #include "../includes/macros.h"
 
+// Checks if a line is empty or a comment.
 int	is_empty_or_comment(char *line)
 {
 	int	i;
@@ -25,6 +26,7 @@ int	is_empty_or_comment(char *line)
 	return (0);
 }
 
+// strlen, but for an array of pointers.
 int	array_len(char **arr)
 {
 	int	i;

@@ -12,8 +12,9 @@
 
 #include "../includes/minirt.h"
 #include "../includes/macros.h"
-#include "../includes/testing.h"
+#include "../includes/testing.h" // be sure to remove
 
+// Entry point: parses arguments, initializes canvas, and runs the main loop.
 static void	test_operations(void)
 {
 	t_canvas	*canvas;
@@ -40,6 +41,7 @@ static void	test_operations(void)
 	mlx_loop(canvas->mlx);
 }
 
+// le rt'ing Magie 𝓬𝓸𝓶𝓶𝓮𝓷𝓬𝓮
 int	main(int ac, char **av)
 {
 	t_data	data;

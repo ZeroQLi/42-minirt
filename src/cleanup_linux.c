@@ -13,6 +13,7 @@
 #include "../includes/minirt.h"
 #include "../includes/macros.h"
 
+// Frees and null-terminates array, including the reference pointer.
 char	*free_arr(char ***arr)
 {
 	int	i;
@@ -30,6 +31,7 @@ char	*free_arr(char ***arr)
 	return (NULL);
 }
 
+// Frees the canvas and all its components including the mlx and window ptr.
 void	free_canvas(t_canvas *canvas)
 {
 	if (!canvas)
@@ -47,6 +49,7 @@ void	free_canvas(t_canvas *canvas)
 	free(canvas);
 }
 
+// Frees all shapes in the elements struct, then frees the struct itself.
 int	brain_washer(t_data	*data)
 {
 

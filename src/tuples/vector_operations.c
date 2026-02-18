@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_operations.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 21:38:20 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/01/26 21:42:44 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/18 04:27:59 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

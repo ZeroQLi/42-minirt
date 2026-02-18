@@ -6,22 +6,26 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 15:09:32 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/03 23:27:52 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/02/18 04:26:00 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
+// Checks if two floats are equal within a small epsilon range.
 int	is_equal(float a, float b)
 {
 	return (fabsf(a - b) < EPSILON);
 }
 
+// Checks if a tuple is a point (w = 1.0) or a vector (w = 0.0).
 int	is_point(t_tuple tuple)
 {
 	return (is_equal(tuple.w, 1.0f));
 }
 
+// Adding two tuples is not defined if both are points (w = 1), 
+// but it is defined if one or both are vectors (w = 0).
 t_tuple	add_tuples(t_tuple a, t_tuple b)
 {
 	t_tuple	result;
@@ -38,6 +42,10 @@ t_tuple	add_tuples(t_tuple a, t_tuple b)
 	return (result);
 }
 
+// Subtracting two points gives a vector, (point - point = vector)
+// subtracting a vector from a point gives a point, (point - vector = point)
+// and subtracting two vectors gives a vector. (vector - vector = vector)
+// Subtracting a point from a vector is not defined. (vector - point = ?)
 t_tuple	sub_tuples(t_tuple a, t_tuple b)
 {
 	t_tuple	result;
@@ -54,6 +62,7 @@ t_tuple	sub_tuples(t_tuple a, t_tuple b)
 	return (result);
 }
 
+// Negating a tuple negates its x, y, and z components but leaves w unchanged.
 t_tuple	negate_tuple(t_tuple a)
 {
 	t_tuple	result;

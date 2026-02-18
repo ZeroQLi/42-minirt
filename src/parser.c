@@ -13,6 +13,7 @@
 #include "../includes/minirt.h"
 #include "../includes/macros.h"
 
+// Checks if the file has a .rt extension.
 int	check_ext(char *file)
 {
 	int	len;
@@ -23,6 +24,7 @@ int	check_ext(char *file)
 	return (1);
 }
 
+// Checks first element of the line to determine which parsing function to call.
 int	check_element(char *line, t_data *data)
 {
 	data->values = ft_split(line, ' ');
@@ -46,6 +48,7 @@ int	check_element(char *line, t_data *data)
 	return (error_msg(YES, "Unknown identifier", 0));
 }
 
+// Frees buffered line from gnl until EoF, then closes its file descriptor.
 void	free_next_line(char *line, int fd)
 {
 	if (line)
@@ -59,6 +62,7 @@ void	free_next_line(char *line, int fd)
 	close(fd);
 }
 
+// Checks every line's elements and parses it if valid, otherwise, program ends.
 static int	parse_line(t_data *d, int fd)
 {
 	char	*line;
@@ -82,7 +86,7 @@ static int	parse_line(t_data *d, int fd)
 	return (1);
 }
 
-// checks if the file is legit and runs parsing operation code 67
+// Checks if the file is legit and runs parsing operation code 67.
 int	parse_file(t_data *data, char *file)
 {
 	int	fd;
