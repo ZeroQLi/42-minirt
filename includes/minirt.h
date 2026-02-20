@@ -30,6 +30,39 @@
 # include "tuples.h"
 # include "matrices.h"
 
+// Keybinds Definers //
+# ifdef __APPLE__
+#  define ESC			53
+#  define UP			126
+#  define DOWN			125
+#  define RIGHT			124
+#  define LEFT			123
+#  define W				13
+#  define A				0
+#  define S				1
+#  define D				2
+#  define ON_MOUSE_DW	4
+#  define SPACE			49
+#  define ON_LINUX		0
+
+# else
+#  define ESC			65307
+#  define MOUSE_UP		4
+#  define MOUSE_DOWN	5
+#  define UP			65362
+#  define DOWN			65364
+#  define RIGHT			65363
+#  define LEFT			65361
+#  define W				119
+#  define A				97
+#  define S				115
+#  define D				100
+#  define ON_MOUSE_DW	4
+#  define SPACE			65
+#  define ON_LINUX		1
+
+# endif
+
 /* Colors ✨ */
 /* Pls use appropriately */
 # define RED   "\033[0;31m"

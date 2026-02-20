@@ -14,8 +14,15 @@
 #include "../includes/macros.h"
 #include "../includes/testing.h" // be sure to remove
 
+static int	key_press(int key, t_data *data)
+{
+	if (key == ESC)
+		brain_washer(data);
+	return (0);
+}
+
 // Entry point: parses arguments, initializes canvas, and runs the main loop.
-static void	test_operations(void)
+static void	test_operations(t_data *data)
 {
 	t_canvas		*canvas;
 	t_tuple			origin;
@@ -24,6 +31,7 @@ static void	test_operations(void)
 	t_tuple			point;
 
 	canvas = create_canvas();
+	data->canvas = canvas;
 	mlx_put_image_to_window(canvas->mlx, canvas->mlx_win, canvas->img, 0, 0);
 	origin = create_point(WIN_WIDTH / 2, WIN_HEIGHT / 2, 3);
 	twelve = create_point(0, WIN_HEIGHT / 3, 1);
@@ -37,7 +45,8 @@ static void	test_operations(void)
 		write_pixel(canvas, point.x, point.y, create_color(0, 255, 255));
 	}
 	// write_pixel(canvas, origin.x, origin.y, create_color(255, 0, 0));
-	// mlx_hook(canvas->mlx_win, 17, 0, brain_washer, canvas);
+	mlx_hook(canvas->mlx_win, 17, 0, brain_washer, canvas);
+	mlx_hook(canvas->mlx_win, 2, 1L << 0, key_press, data);
 	mlx_loop(canvas->mlx);
 }
 
@@ -59,9 +68,8 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	// print_elements(data.elements);
-	test_operations();
+	test_operations(&data);
 	// test_matrix4_system();
 	brain_washer(&data);
-	ft_printf(GREEN "SUCCCESS 👍\n" RESET);
 	return (0);
 }
