@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 22:25:31 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/05 17:15:33 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/20 14:04:16 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ int	fill_matrix2(t_matrix4 *matrix, t_tuple data[2])
 	return (1);
 }
 
-int matrix4_equal(t_matrix4 a, t_matrix4 b)
+int	matrix4_equal(t_matrix4 a, t_matrix4 b)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < 4)
@@ -83,10 +83,10 @@ int matrix4_equal(t_matrix4 a, t_matrix4 b)
 	return (1);
 }
 
-int matrix3_equal(t_matrix3 a, t_matrix3 b)
+int	matrix3_equal(t_matrix3 a, t_matrix3 b)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < 3)

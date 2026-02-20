@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   matrix_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 12:17:38 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/05 14:53:26 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/20 00:05:01 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
 
+// Initializes a 4x4 matrix with all elements set to zero.
 t_matrix4	create_matrix4(void)
 {
 	t_matrix4	matrix;
@@ -20,6 +21,7 @@ t_matrix4	create_matrix4(void)
 	return (matrix);
 }
 
+// Initializes a 3x3 matrix with all elements set to zero.
 t_matrix3	create_matrix3(void)
 {
 	t_matrix3	matrix;
@@ -28,6 +30,8 @@ t_matrix3	create_matrix3(void)
 	return (matrix);
 }
 
+// Creates a 3x3 submatrix by removing the specified row and column 
+// from a 4x4 matrix.
 t_matrix3	create_submatrix3(t_matrix4 m, int row, int col)
 {
 	t_matrix3	sub;
@@ -56,6 +60,8 @@ t_matrix3	create_submatrix3(t_matrix4 m, int row, int col)
 	return (sub);
 }
 
+// Creates a 4x4 submatrix by removing the specified row and column 
+// from a 3x3 matrix.
 t_matrix4	create_submatrix2(t_matrix3 m, int row, int col)
 {
 	t_matrix4	sub;
@@ -84,6 +90,8 @@ t_matrix4	create_submatrix2(t_matrix3 m, int row, int col)
 	return (sub);
 }
 
+// Creates a 4x4 identity matrix.
+// An identity matrix has 1s on the diagonal and 0s elsewhere.
 t_matrix4	create_identity(void)
 {
 	t_matrix4	identity;

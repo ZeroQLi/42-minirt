@@ -6,12 +6,13 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 13:14:16 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/03 22:51:27 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/02/18 21:53:45 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
+// Adds two colors together, component-wise, and returns the resulting color.
 t_color	add_colors(t_color a, t_color b)
 {
 	t_color	result;
@@ -22,6 +23,8 @@ t_color	add_colors(t_color a, t_color b)
 	return (result);
 }
 
+// Subtracts the second color from the first, component-wise,
+// and returns the resulting color.
 t_color	sub_colors(t_color a, t_color b)
 {
 	t_color	result;
@@ -32,6 +35,8 @@ t_color	sub_colors(t_color a, t_color b)
 	return (result);
 }
 
+// Multiplies each component of the color by a scalar value,
+// effectively scaling the brightness of the color.
 t_color	multiply_colors(t_color a, float num)
 {
 	t_color	result;
@@ -42,6 +47,7 @@ t_color	multiply_colors(t_color a, float num)
 	return (result);
 }
 
+// Performs a component-wise multiplication of two colors.
 t_color	hadamard_product(t_color a, t_color b)
 {
 	t_color	result;

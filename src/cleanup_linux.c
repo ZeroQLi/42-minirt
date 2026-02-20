@@ -52,7 +52,6 @@ void	free_canvas(t_canvas *canvas)
 // Frees all shapes in the elements struct, then frees the struct itself.
 int	brain_washer(t_data	*data)
 {
-
 	if (data->canvas)
 		free_canvas(data->canvas);
 	if (data->values)

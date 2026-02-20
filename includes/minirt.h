@@ -13,9 +13,9 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
-#ifndef _DEFAULT_SOURCE
-# define _DEFAULT_SOURCE // for now since M_PI gives an error in vscode
-#endif
+# ifndef _DEFAULT_SOURCE
+#  define _DEFAULT_SOURCE // for now since M_PI gives an error in vscode
+# endif
 
 # include "../libft/libft.h"
 

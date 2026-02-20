@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   matrix_operations.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 19:22:51 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/05 17:36:35 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/19 23:33:44 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
 
+// Multiplies two 4x4 matrices and returns the resulting matrix.
 t_matrix4	matrix_multiply(t_matrix4 a, t_matrix4 b)
 {
 	t_matrix4	result;
@@ -36,6 +37,7 @@ t_matrix4	matrix_multiply(t_matrix4 a, t_matrix4 b)
 	return (result);
 }
 
+// Multiplies a 4x4 matrix by a tuple and returns the resulting tuple.
 t_tuple	matrix4_tuple_multiply(t_matrix4 m, t_tuple t)
 {
 	t_tuple	result;
@@ -52,6 +54,8 @@ t_tuple	matrix4_tuple_multiply(t_matrix4 m, t_tuple t)
 	return (result);
 }
 
+// Transposes a 4x4 matrix and returns the resulting matrix.
+// Transposing a matrix involves swapping its rows with its columns.
 t_matrix4	transpose_matrix4(t_matrix4 m)
 {
 	t_matrix4	result;

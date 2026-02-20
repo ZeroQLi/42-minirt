@@ -17,8 +17,8 @@
 // Entry point: parses arguments, initializes canvas, and runs the main loop.
 static void	test_operations(void)
 {
-	t_canvas	*canvas;
-	t_tuple		origin;
+	t_canvas		*canvas;
+	t_tuple			origin;
 	t_matrix4		hour;
 	t_tuple			twelve;
 	t_tuple			point;
@@ -59,8 +59,8 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	// print_elements(data.elements);
-	// test_operations();
-	test_matrix4_system();
+	test_operations();
+	// test_matrix4_system();
 	brain_washer(&data);
 	ft_printf(GREEN "SUCCCESS 👍\n" RESET);
 	return (0);

@@ -6,12 +6,13 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 17:18:40 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/03 22:52:37 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/02/19 23:55:47 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
 
+// Calculates the determinant of a 2x2 matrix.
 float	determinant_2x2(t_matrix4 m)
 {
 	return ((m.data[0][0] * m.data[1][1]) - (m.data[0][1] * m.data[1][0]));
