@@ -17,28 +17,10 @@
 // Entry point: parses arguments, initializes canvas, and runs the main loop.
 static void	test_operations(void)
 {
-	t_canvas		*canvas;
-	t_tuple			origin;
-	t_matrix4		hour;
-	t_tuple			twelve;
-	t_tuple			point;
+	t_ray test;
 
-	canvas = create_canvas();
-	mlx_put_image_to_window(canvas->mlx, canvas->mlx_win, canvas->img, 0, 0);
-	origin = create_point(WIN_WIDTH / 2, WIN_HEIGHT / 2, 3);
-	twelve = create_point(0, WIN_HEIGHT / 3, 1);
-	for (int i = 0; i < 64; i++)
-	{
-		point = origin;
-		hour = rotation_z(i * (M_PI / 32));
-		point = matrix4_tuple_multiply(hour, twelve);
-		point.x += origin.x;
-		point.y += origin.y;
-		write_pixel(canvas, point.x, point.y, create_color(0, 255, 255));
-	}
-	// write_pixel(canvas, origin.x, origin.y, create_color(255, 0, 0));
-	// mlx_hook(canvas->mlx_win, 17, 0, brain_washer, canvas);
-	mlx_loop(canvas->mlx);
+	test = create_ray(create_point(2, 3, 4), create_vector(1, 0, 0));
+	print_tuple(position(test, 2.5));
 }
 
 // le rt'ing Magie 𝓬𝓸𝓶𝓶𝓮𝓷𝓬𝓮

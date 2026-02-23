@@ -29,6 +29,7 @@
 # include "shapes.h"
 # include "tuples.h"
 # include "matrices.h"
+# include "canvas.h"
 
 /* Colors ✨ */
 /* Pls use appropriately */
