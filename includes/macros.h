@@ -36,4 +36,5 @@ enough to catch you aura farming off-screen. There must only be 1 instance of a\
 # define NO_LIGHTS "who took the light out of you? boi \033[1;37mTURN EM BACK \
 ON\033[0m"
 
+# define EPSILON 0.00001
 #endif

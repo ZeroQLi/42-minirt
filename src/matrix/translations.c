@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   translations.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 14:55:18 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/05 17:12:49 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/23 23:56:33 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
-
+// Creates a translation matrix that moves points by (x, y, z).
 t_matrix4	translation(float x, float y, float z)
 {
 	t_matrix4	res;
@@ -23,6 +23,7 @@ t_matrix4	translation(float x, float y, float z)
 	return (res);
 }
 
+// Creates a scaling matrix that scales points by (x, y, z).
 t_matrix4	scaling(float x, float y, float z)
 {
 	t_matrix4	res;
@@ -34,6 +35,8 @@ t_matrix4	scaling(float x, float y, float z)
 	return (res);
 }
 
+// Creates a rotation matrix that rotates points around the X-axis
+// by the given angle in radians.
 t_matrix4	rotation_x(float rad)
 {
 	t_matrix4	res;
@@ -46,6 +49,8 @@ t_matrix4	rotation_x(float rad)
 	return (res);
 }
 
+// Creates a rotation matrix that rotates points around the Y-axis
+// by the given angle in radians.
 t_matrix4	rotation_y(float rad)
 {
 	t_matrix4	res;
@@ -58,6 +63,8 @@ t_matrix4	rotation_y(float rad)
 	return (res);
 }
 
+// Creates a rotation matrix that rotates points around the Z-axis
+// by the given angle in radians.
 t_matrix4	rotation_z(float rad)
 {
 	t_matrix4	res;

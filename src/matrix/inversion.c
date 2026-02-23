@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   inversion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 12:28:17 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/05 13:19:27 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/23 22:27:27 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
 
+// Checks if a 4x4 matrix is invertible by calculating its determinant and
+// verifying that it is not zero.
 int	is_invertible(t_matrix4 m)
 {
 	float	det;
@@ -22,6 +24,9 @@ int	is_invertible(t_matrix4 m)
 	return (1);
 }
 
+// Inverts a 4x4 matrix by calculating its determinant and cofactor matrix,
+// and then dividing the cofactor matrix by the determinant to obtain
+// the inverse.
 t_matrix4	invert_4x4(t_matrix4 m)
 {
 	int			i;

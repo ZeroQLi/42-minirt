@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cofactors.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 13:18:51 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/05 12:28:27 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/23 04:10:16 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
 
+// Calculates the minor of a 3x3 matrix by creating a 2x2 submatrix
+// and finding its determinant.
 float	minor_3x3(t_matrix3 m, int row, int col)
 {
 	t_matrix4	sub;
@@ -22,6 +24,8 @@ float	minor_3x3(t_matrix3 m, int row, int col)
 	return (det);
 }
 
+// Calculates the cofactor of a 3x3 matrix by creating a 2x2 submatrix
+// and finding its determinant.
 float	cofactor_3x3(t_matrix3 m, int row, int col)
 {
 	float	minor;
@@ -35,6 +39,8 @@ float	cofactor_3x3(t_matrix3 m, int row, int col)
 	return (cofactor);
 }
 
+// Calculates the cofactor of a 4x4 matrix by creating a 3x3 submatrix
+// and finding its determinant.
 float	cofactor_4x4(t_matrix4 m, int row, int col)
 {
 	float	minor;

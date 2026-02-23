@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 15:24:09 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/16 01:46:56 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/02/23 23:10:18 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ void	print_matrix3(t_matrix3 matrix)
 
 static void	test_matrix_creation(void)
 {
-	t_matrix4	m;
+	// t_matrix4	m;
 	t_matrix4	identity;
 
 	printf("\n[TEST] Matrix Creation\n");
-	m = create_matrix4();
+	// m = create_matrix4();
 	printf("  ✓ Created empty matrix4\n");
 	
 	identity = create_identity();

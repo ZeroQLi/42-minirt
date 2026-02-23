@@ -6,12 +6,14 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 22:25:31 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/20 14:04:16 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/02/23 23:30:38 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
 
+// Fills a 4x4 matrix with the provided tuple data, where each tuple
+// represents a row.
 int	fill_matrix4(t_matrix4 *matrix, t_tuple data[4])
 {
 	int	i;
@@ -30,6 +32,8 @@ int	fill_matrix4(t_matrix4 *matrix, t_tuple data[4])
 	return (1);
 }
 
+// Fills a 3x3 matrix with the provided tuple data, where each tuple
+// represents a row.
 int	fill_matrix3(t_matrix3 *matrix, t_tuple data[3])
 {
 	int	i;
@@ -47,6 +51,8 @@ int	fill_matrix3(t_matrix3 *matrix, t_tuple data[3])
 	return (1);
 }
 
+// Fills a 4x4 matrix with the provided tuple data, where each tuple
+// represents a row.
 int	fill_matrix2(t_matrix4 *matrix, t_tuple data[2])
 {
 	int	i;
@@ -63,6 +69,7 @@ int	fill_matrix2(t_matrix4 *matrix, t_tuple data[2])
 	return (1);
 }
 
+// Checks if two 4x4 matrices are equal by comparing each corresponding element.
 int	matrix4_equal(t_matrix4 a, t_matrix4 b)
 {
 	int	i;
@@ -83,6 +90,7 @@ int	matrix4_equal(t_matrix4 a, t_matrix4 b)
 	return (1);
 }
 
+// Checks if two 3x3 matrices are equal by comparing each corresponding element.
 int	matrix3_equal(t_matrix3 a, t_matrix3 b)
 {
 	int	i;
