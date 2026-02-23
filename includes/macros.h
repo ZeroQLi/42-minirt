@@ -33,5 +33,7 @@ enough to catch you aura farming off-screen. There must only be 1 instance of a\
  camera.\033[0m"
 # define MULTIPLE_LIGHT_ERR "\033[0;31mSowwy, no GPU drivers = fried air fryer.\
  There must only be 1 instance of light.\033[0m"
+# define NO_LIGHTS "who took the light out of you? boi \033[1;37mTURN EM BACK \
+ON\033[0m"
 
 #endif

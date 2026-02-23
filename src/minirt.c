@@ -14,8 +14,15 @@
 #include "../includes/macros.h"
 #include "../includes/testing.h" // be sure to remove
 
+static int	key_press(int key, t_data *data)
+{
+	if (key == ESC)
+		brain_washer(data);
+	return (0);
+}
+
 // Entry point: parses arguments, initializes canvas, and runs the main loop.
-static void	test_operations(void)
+static void	test_operations(t_data *data)
 {
 	t_ray test;
 
@@ -41,9 +48,8 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	// print_elements(data.elements);
-	test_operations();
+	test_operations(&data);
 	// test_matrix4_system();
 	brain_washer(&data);
-	ft_printf(GREEN "SUCCCESS 👍\n" RESET);
 	return (0);
 }

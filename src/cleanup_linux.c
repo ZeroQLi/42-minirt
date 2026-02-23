@@ -36,16 +36,17 @@ void	free_canvas(t_canvas *canvas)
 {
 	if (!canvas)
 		return ;
+	if (canvas->mlx_win && canvas->mlx)
+		mlx_clear_window(canvas->mlx, canvas->mlx_win);
 	if (canvas->img)
 		mlx_destroy_image(canvas->mlx, canvas->img);
-	if (canvas->mlx_win)
-	{
-		mlx_clear_window(canvas->mlx, canvas->mlx_win);
+	if (canvas->mlx_win && canvas->mlx)
 		mlx_destroy_window(canvas->mlx, canvas->mlx_win);
-	}
 	if (canvas->mlx)
+	{
 		mlx_destroy_display(canvas->mlx);
-	free(canvas->mlx);
+		free(canvas->mlx);
+	}
 	free(canvas);
 }
 
@@ -66,5 +67,7 @@ int	brain_washer(t_data	*data)
 		free(data->elements->l);
 	if (data->elements)
 		free(data->elements);
+	ft_printf(GREEN "SUCCCESS 👍\n" RESET);
+	exit(0);
 	return (0);
 }
