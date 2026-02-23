@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   canvas.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 15:31:44 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/23 16:30:14 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/24 01:47:50 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CANVAS_H
 # define CANVAS_H
+
+# include "tuples.h" 
 
 typedef struct s_ray {
 	t_tuple	origin;

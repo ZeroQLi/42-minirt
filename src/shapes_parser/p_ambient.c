@@ -12,6 +12,7 @@
 
 #include "../../includes/minirt.h"
 #include "../../includes/macros.h"
+#include "../../includes/shapes.h"
 
 int	parse_ambient(char **t, t_data *d)
 {

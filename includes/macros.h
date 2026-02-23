@@ -37,4 +37,5 @@ enough to catch you aura farming off-screen. There must only be 1 instance of a\
 ON\033[0m"
 
 # define EPSILON 0.00001
+
 #endif

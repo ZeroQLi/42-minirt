@@ -6,11 +6,14 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 21:51:58 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/03 22:57:35 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/02/24 01:52:47 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#ifndef TUPLES_H
+# define TUPLES_H
+
+# include "minirt.h"
 
 typedef union u_tuple
 {
@@ -49,3 +52,5 @@ t_color	hadamard_product(t_color a, t_color b);
 t_tuple	add_tuples(t_tuple a, t_tuple b);
 t_tuple	sub_tuples(t_tuple a, t_tuple b);
 t_tuple	negate_tuple(t_tuple a);
+
+#endif

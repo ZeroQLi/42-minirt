@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 15:30:49 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/23 16:34:01 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/24 01:41:44 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
