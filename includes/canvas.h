@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 15:31:44 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/24 01:47:50 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/02/25 20:59:16 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # include "tuples.h" 
 
-typedef struct s_ray {
+typedef struct s_ray
+{
 	t_tuple	origin;
 	t_tuple	dir;
 }	t_ray;

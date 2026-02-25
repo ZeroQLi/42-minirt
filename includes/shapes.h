@@ -3,92 +3,109 @@
 /*                                                        :::      ::::::::   */
 /*   shapes.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:22:17 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/01/25 21:20:20 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/25 22:27:44 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHAPES_H
 # define SHAPES_H
 
+# include "tuples.h"
+
 typedef struct s_cylinder
 {
+	struct t_tuple		t_pos;
+	struct t_tuple		t_rot; // range [-1, 1]
+	struct s_color		t_rgb; // RGB range [0-255]
 	float				px;
 	float				py;
 	float				pz;
-	float				rx; // range [-1, 1]
+	float				rx;
 	float				ry;
 	float				rz;
 	float				diameter;
 	float				height;
-	int					cr; // RGB range [0-255]
-	int					cg;
-	int					cb;
+	float				cr;
+	float				cg;
+	float				cb;
 	struct s_cylinder	*next;
 }	t_cylinder;
 
 typedef struct s_plane
 {
+	struct t_tuple	t_pos;
+	struct t_tuple	t_rot; // range [-1, 1]
+	struct s_color	t_rgb; // RGB range [0-255]
 	float			px;
 	float			py;
 	float			pz;
-	float			rx; // range [-1, 1]
+	float			rx;
 	float			ry;
 	float			rz;
 	float			size;
-	int				cr; // RGB range [0-255]
-	int				cg;
-	int				cb;
+	float			cr;
+	float			cg;
+	float			cb;
 	struct s_plane	*next;
 }	t_plane;
 
 typedef struct s_sphere
 {
+	struct t_tuple	t_pos;
+	struct t_tuple	t_rot; // range [-1, 1]
+	struct s_color	t_rgb; // RGB range [0-255]
 	float			px;
 	float			py;
 	float			pz;
-	float			rx; // range [-1, 1]
+	float			rx;
 	float			ry;
 	float			rz;
 	float			diameter;
-	int				cr; // RGB range [0-255]
-	int				cg;
-	int				cb;
+	float			cr;
+	float			cg;
+	float			cb;
 	struct s_sphere	*next;
 }	t_sphere;
 
 typedef struct s_light
 {
+	struct t_tuple	t_pos;
+	struct t_tuple	t_rot; // range [-1, 1]
+	struct s_color	t_rgb; // RGB range [0-255]
 	float			px;
 	float			py;
 	float			pz;
 	float			emission; // range [0.0, 1.0]
-	int				cr; // RGB range [0-255]
-	int				cg;
-	int				cb;
-	float			fade_size; // will try to utilize?
-	struct s_light	*next;
+	float			cr; // RGB range [0-255]
+	float			cg;
+	float			cb;
+	// float			fade_size; // will try to utilize?
+	// struct s_light	*next; // if we're doing the bonus
 }	t_light;
 
 typedef struct s_camera
 {
-	float	px;
-	float	py;
-	float	pz;
-	float	rx; // range [-1, 1]
-	float	ry;
-	float	rz;
-	float	fov; // range 0-180
+	struct t_tuple	t_pos;
+	struct t_tuple	t_rot; // range [-1, 1]
+	float			px;
+	float			py;
+	float			pz;
+	float			rx;
+	float			ry;
+	float			rz;
+	float			fov; // range 0-180
 }	t_camera;
 
 typedef struct s_ambient
 {
-	float	al_ratio; // range [0.0, 1.0]
-	int		cr; // RGB range [0-255]
-	int		cg;
-	int		cb;
+	struct s_color	t_rgb; // RGB range [0-255]
+	float			al_ratio; // range [0.0, 1.0]
+	float			cr; // RGB range [0-255]
+	float			cg;
+	float			cb;
 }	t_ambient;
 
 #endif

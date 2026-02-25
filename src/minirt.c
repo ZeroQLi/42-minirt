@@ -23,7 +23,7 @@
 // Entry point: parses arguments, initializes canvas, and runs the main loop.
 static void	test_operations(t_data *data)
 {
-	t_ray test;
+	t_ray	test;
 
 	(void)data;
 	test = create_ray(create_point(2, 3, 4), create_vector(1, 0, 0));
@@ -37,10 +37,10 @@ static void	test_operations(t_data *data)
 int	main(int ac, char **av)
 {
 	t_data	data;
+	t_tuple	point;
+	t_tuple	vector;
 
 	data = (t_data){0};
-	t_tuple point;
-	t_tuple vector;
 	point = create_point(3, -2, 5);
 	vector = create_vector(2, 3, 4);
 	(void)point;

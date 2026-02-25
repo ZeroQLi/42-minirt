@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 21:51:58 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/24 01:52:47 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/02/25 21:43:16 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ typedef union u_tuple
 
 typedef struct s_color
 {
-	float	r;
-	float	g;
-	float	b;
+	int	r;
+	int	g;
+	int	b;
 }	t_color;
 
 // tuple utils
