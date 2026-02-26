@@ -47,6 +47,7 @@ $(SRC_DIR4)translations.c \
 
 SRC5 = $(SRC_DIR5)canvas_operations.c \
 $(SRC_DIR5)rays.c \
+$(SRC_DIR5)spheres.c \
 
 # Object files
 OBJ = $(SRC:src/%.c=$(OBJ_PATH)%.o) $(SRC2:src/%.c=$(OBJ_PATH)%.o) $(SRC3:src/%.c=$(OBJ_PATH)%.o) $(SRC4:src/%.c=$(OBJ_PATH)%.o) $(SRC5:src/%.c=$(OBJ_PATH)%.o)

@@ -1,36 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   canvas.h                                           :+:      :+:    :+:   */
+/*   spheres.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/23 15:31:44 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/26 18:09:07 by mtangalv         ###   ########.fr       */
+/*   Created: 2026/02/25 15:49:27 by mtangalv          #+#    #+#             */
+/*   Updated: 2026/02/25 16:40:46 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CANVAS_H
-# define CANVAS_H
+#include "../../includes/minirt.h"
 
-# include "tuples.h" 
-
-typedef struct s_ray {
-	t_tuple	origin;
-	t_tuple	dir;
-}	t_ray;
-
-typedef struct s_intersection
+t_sphere	*create_sphere(void)
 {
-	float	t;
-	void	*object;
-}	t_intersection;
+	t_sphere	*sphere;
 
-t_ray		create_ray(t_tuple origin, t_tuple direction);
-t_tuple		position(t_ray ray, float t);
-float		*intersect_sphere(t_ray ray, t_sphere *sphere);
-
-t_sphere	*create_sphere(void);
-
-
-#endif
+	sphere = ft_calloc(1, sizeof(t_sphere));
+	return (sphere);
+}

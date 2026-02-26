@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shapes.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:22:17 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/01/25 21:20:20 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/26 18:15:28 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
