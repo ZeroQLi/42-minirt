@@ -28,7 +28,7 @@ static void	test_operations(t_data *data)
 	float *xs;
 
 	// Test: A ray intersects a sphere at a tangent
-	r = create_ray(create_point(0, 1, -5), create_vector(0, 1, 0));
+	r = create_ray(create_point(0, 0, 5), create_vector(0, 0, 1));
 	if (!r.dir.w && !r.dir.x && !r.dir.y && !r.dir.z)
 		brain_washer(data);
 	s = create_sphere();
