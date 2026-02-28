@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shapes.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:22:17 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/26 18:15:28 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/28 21:57:39 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct s_light
 	int				cr; // RGB range [0-255]
 	int				cg;
 	int				cb;
-	float			fade_size; // will try to utilize?
+	// float			fade_size; // will try to utilize?
 	struct s_light	*next;
 }	t_light;
 

@@ -133,7 +133,7 @@ void		free_all_shapes(t_elements *e);
 //--------------------------//
 //		Error & Cleanup		//
 //--------------------------//
-int			error_msg(bool err, char *str, int ret);
+int			error_msg(bool err, char *str, int fd);
 char		*free_arr(char ***arr);
 int			brain_washer(t_data	*data);
 

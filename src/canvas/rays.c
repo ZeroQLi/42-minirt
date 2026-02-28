@@ -3,21 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 15:30:49 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/26 17:47:02 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/02/28 23:24:16 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
 
+// Creates a ray with the given origin and direction,
+// while normalizing the direction vector.
 t_ray	create_ray(t_tuple origin, t_tuple direction)
 {
 	t_ray	ray;
 
 	ray.origin = origin;
-	ray.dir = direction;
+	ray.dir = scalar_normalize(direction);
 	return (ray);
 }
 
@@ -29,6 +31,7 @@ t_tuple	position(t_ray ray, float t)
 	return (add_tuples(ray.origin, scaled_dir));
 }
 
+// Intersects a ray with a sphere, returns the intersection points (t values).
 float	*intersect_sphere(t_ray ray, t_sphere *sphere)
 {
 	t_tuple	sphere_to_ray;
@@ -37,7 +40,7 @@ float	*intersect_sphere(t_ray ray, t_sphere *sphere)
 	float	disc;
 	float	*intersections;
 
-	(void) sphere;
+	(void)sphere;
 	intersections = ft_calloc(3, sizeof(float));
 	if (!intersections)
 		return (NULL);

@@ -23,7 +23,7 @@ int	parse_sphere(char **t, t_data *d)
 	sp = ft_calloc(1, sizeof(t_sphere));
 	if (!sp)
 		return (error_msg(YES, "malloc failure bruh", 0));
-	sp->diameter = ft_atof(t[2]);
+	sp->diameter = ft_atof(t[2]) / 2;
 	if (!parse_vec3(t[1], &sp->px, &sp->py, &sp->pz)
 		|| sp->diameter <= 0 || !parse_rgb(t[3], &sp->cr, &sp->cg, &sp->cb))
 	{

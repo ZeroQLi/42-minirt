@@ -27,14 +27,17 @@ static void	test_operations(t_data *data)
 	t_sphere *s;
 	float *xs;
 
-	(void)data;
 	// Test: A ray intersects a sphere at a tangent
-	r = create_ray(create_point(0, 0, 5), create_vector(0, 0, 1));
+	r = create_ray(create_point(0, 1, -5), create_vector(0, 1, 0));
+	if (!r.dir.w && !r.dir.x && !r.dir.y && !r.dir.z)
+		brain_washer(data);
 	s = create_sphere();
 	xs = intersect_sphere(r, s);
 
 	printf("Test: Ray intersects sphere at tangent\n");
 	printf("%f\n%f\n%f\n", xs[0], xs[1], xs[2]);
+	free(s);
+	free(xs);
 
 	// mlx_hook(canvas->mlx_win, 17, 0, brain_washer, data);
 	// mlx_hook(canvas->mlx_win, 2, 1L << 0, key_press, data);

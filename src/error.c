@@ -14,10 +14,10 @@
 #include "../includes/macros.h"
 
 // prints the passed error msg and returns the passed int value (ret)
-int	error_msg(bool err, char *str, int ret)
+int	error_msg(bool err, char *str, int fd)
 {
 	if (err)
-		ft_putendl_fd(BRED "Error" RESET, 2);
-	ft_putendl_fd(str, 2);
-	return (ret);
+		ft_putendl_fd(BRED "Error" RESET, fd);
+	ft_putendl_fd(str, fd);
+	return (fd);
 }

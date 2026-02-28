@@ -23,7 +23,7 @@ int	parse_cylinder(char **t, t_data *d)
 	cy = ft_calloc(1, sizeof(t_cylinder));
 	if (!cy)
 		return (error_msg(YES, "malloc fail *sigh* yes i sighed in text", 0));
-	cy->diameter = ft_atof(t[3]);
+	cy->diameter = ft_atof(t[3]) / 2;
 	cy->height = ft_atof(t[4]);
 	if (!parse_vec3(t[1], &cy->px, &cy->py, &cy->pz) || !parse_normal(t[2],
 			&cy->rx, &cy->ry, &cy->rz) || cy->diameter <= 0 || cy->height <= 0

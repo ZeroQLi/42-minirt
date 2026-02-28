@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 15:09:32 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/24 01:50:02 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/02/28 23:26:37 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ t_tuple	add_tuples(t_tuple a, t_tuple b)
 	return (result);
 }
 
+// Subtracts one tuple from another.
 // Subtracting two points gives a vector, (point - point = vector)
 // subtracting a vector from a point gives a point, (point - vector = point)
 // and subtracting two vectors gives a vector. (vector - vector = vector)

@@ -46,7 +46,7 @@ static void	print_lights(t_light *light)
 		printf("    Position: (%.2f, %.2f, %.2f)\n", light->px, light->py, light->pz);
 		printf("    Emission: %.2f\n", light->emission);
 		printf("    Color: RGB(%d, %d, %d)\n", light->cr, light->cg, light->cb);
-		printf("    Fade Size: %.2f\n", light->fade_size);
+		// printf("    Fade Size: %.2f\n", light->fade_size);
 		light = light->next;
 		i++;
 	}

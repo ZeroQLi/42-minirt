@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 19:36:02 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/24 01:50:00 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/02/28 23:24:57 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_tuple	scalar_divide(t_tuple a, float num)
 	if (fabsf(num) < EPSILON)
 	{
 		ft_dprintf(2, "Error: Division by zero\n");
-		exit(1);
+		exit(1); // REMOVE/CHANGE LATER
 	}
 	result.x = a.x / num;
 	result.y = a.y / num;
@@ -56,8 +56,8 @@ t_tuple	scalar_normalize(t_tuple a)
 	mag = scalar_magnitude(a);
 	if (fabsf(mag) < EPSILON)
 	{
-		ft_dprintf(2, "Error: Cannot normalize zero vector\n");
-		exit(1); // REMOVE/CHANGE LATER
+		error_msg(YES, "Cannot normalize zero vector", 2);
+		return (create_vector(0, 0, 0));
 	}
 	result.x = a.x / mag;
 	result.y = a.y / mag;
