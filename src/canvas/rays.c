@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 15:30:49 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/28 23:24:16 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/02/28 23:54:51 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ float	*intersect_sphere(t_ray ray, t_sphere *sphere)
 	float	disc;
 	float	*intersections;
 
-	(void)sphere;
+	(void)sphere; // placeholder
 	intersections = ft_calloc(3, sizeof(float));
 	if (!intersections)
 		return (NULL);
@@ -58,3 +58,4 @@ float	*intersect_sphere(t_ray ray, t_sphere *sphere)
 	}
 	return (intersections);
 }
+

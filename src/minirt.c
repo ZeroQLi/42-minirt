@@ -35,7 +35,7 @@ static void	test_operations(t_data *data)
 	xs = intersect_sphere(r, s);
 
 	printf("Test: Ray intersects sphere at tangent\n");
-	printf("%f\n%f\n%f\n", xs[0], xs[1], xs[2]);
+	printf("%f Intersections Count\n%f First Point\n%f Second Point\n", xs[0], xs[1], xs[2]);
 	free(s);
 	free(xs);
 
