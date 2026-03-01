@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 15:30:49 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/28 23:54:51 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/01 06:30:00 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,3 +59,24 @@ float	*intersect_sphere(t_ray ray, t_sphere *sphere)
 	return (intersections);
 }
 
+t_intersection	intersect(float t, t_sphere *sphere)
+{
+	t_intersection	i;
+
+	i.t = t;
+	i.object = sphere;
+	return (i);
+}
+
+t_intersection	*intersection_list(t_intersection i1, t_intersection i2)
+{
+	t_intersection	*xs;
+
+	xs = ft_calloc(2, sizeof(t_intersection));
+	if (!xs)
+		return (NULL);
+	xs->t = 2;
+	xs[0] = i1;
+	xs[1] = i2;
+	return (xs);
+}
