@@ -23,21 +23,20 @@
 // Entry point: parses arguments, initializes canvas, and runs the main loop.
 static void	test_operations(t_data *data)
 {
-	t_ray			r;
-	t_sphere		*s;
-	t_intersection	i1;
-	t_intersection	i2;
-	t_intersection	*xs;
+	t_ray				r;
+	t_sphere			*s;
+	t_intersection_list	*xs;
 
 	// Test: A ray intersects a sphere at a tangent
-	r = create_ray(create_point(0, 0, 5), create_vector(0, 0, 1));
+	r = create_ray(create_point(0, 5, 0), create_vector(0, 0, 1));
 	if (!r.dir.w && !r.dir.x && !r.dir.y && !r.dir.z)
 		brain_washer(data);
 	s = create_sphere();
-	i1 = intersect(1, s);
-	i2 = intersect(2, s);
-	xs = intersection_list(i1, i2);
-	printf("Number of intersections: %f\n%f\n%f\n", xs->t, xs[0].t, xs[1].t);
+	xs = intersect_sphere(r, s);
+	printf("Number of intersections: %d\n%p\n%p\n", xs->count, xs->items[0].object, xs->items[1].object);
+	free(xs->items);
+	free(xs);
+	free(s);
 	// mlx_hook(canvas->mlx_win, 17, 0, brain_washer, data);
 	// mlx_hook(canvas->mlx_win, 2, 1L << 0, key_press, data);
 	// mlx_loop(canvas->mlx);

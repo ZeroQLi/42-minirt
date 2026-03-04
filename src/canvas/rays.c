@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 15:30:49 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/01 06:30:00 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/04 06:24:13 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_ray	create_ray(t_tuple origin, t_tuple direction)
 	return (ray);
 }
 
+// Calculates the position along a ray at a given distance t.
 t_tuple	position(t_ray ray, float t)
 {
 	t_tuple	scaled_dir;
@@ -32,33 +33,31 @@ t_tuple	position(t_ray ray, float t)
 }
 
 // Intersects a ray with a sphere, returns the intersection points (t values).
-float	*intersect_sphere(t_ray ray, t_sphere *sphere)
+t_intersection_list	*intersect_sphere(t_ray ray, t_sphere *sphere)
 {
-	t_tuple	sphere_to_ray;
-	float	a;
-	float	b;
-	float	disc;
-	float	*intersections;
+	t_tuple				sphere_to_ray; // REMOVE/CHANGE LATER
+	float				a;
+	float				b;
+	float				disc;
+	float				intersections[3];
 
-	(void)sphere; // placeholder
-	intersections = ft_calloc(3, sizeof(float));
-	if (!intersections)
-		return (NULL);
 	sphere_to_ray = sub_tuples(ray.origin, create_point(0, 0, 0));
 	a = dot_product(ray.dir, ray.dir);
 	b = 2 * dot_product(ray.dir, sphere_to_ray);
 	disc = (b * b) - (4 * a * (dot_product(sphere_to_ray, sphere_to_ray) - 1));
 	if (disc < 0)
-		intersections[0] = 0;
+		return (intersection_list(intersect(0, NULL), intersect(0, NULL)));
 	else
 	{
 		intersections[0] = 2;
 		intersections[1] = (-b - sqrtf(disc)) / (2 * a);
 		intersections[2] = (-b + sqrtf(disc)) / (2 * a);
 	}
-	return (intersections);
+	return (intersection_list(intersect(intersections[1], sphere),
+			intersect(intersections[2], sphere)));
 }
 
+// Creates an intersection object with the given t value and sphere reference.
 t_intersection	intersect(float t, t_sphere *sphere)
 {
 	t_intersection	i;
@@ -68,15 +67,25 @@ t_intersection	intersect(float t, t_sphere *sphere)
 	return (i);
 }
 
-t_intersection	*intersection_list(t_intersection i1, t_intersection i2)
+// Creates an intersection list containing two intersections.
+t_intersection_list	*intersection_list(t_intersection i1, t_intersection i2)
 {
-	t_intersection	*xs;
+	t_intersection_list	*xs;
 
-	xs = ft_calloc(2, sizeof(t_intersection));
+	xs = ft_calloc(1, sizeof(t_intersection_list));
 	if (!xs)
 		return (NULL);
-	xs->t = 2;
-	xs[0] = i1;
-	xs[1] = i2;
+	xs->items = ft_calloc(2, sizeof(t_intersection));
+	if (!xs->items)
+	{
+		free(xs);
+		return (NULL);
+	}
+	if (i1.t == 0 && i2.t == 0)
+		xs->count = 0;
+	else
+		xs->count = 2;
+	xs->items[0] = i1;
+	xs->items[1] = i2;
 	return (xs);
 }
