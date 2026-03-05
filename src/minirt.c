@@ -20,20 +20,56 @@
 // 	return (0);
 // }
 
+// Joins two intersection lists into one, combining their counts and items.
+// had to copy ur strjoin eshan, thanks 😋
+t_intersection_list	*intersections_joined(t_intersection_list *s1, t_intersection_list *s2)
+{
+	t_intersection_list	*final;
+	int					i;
+	int					j;
+
+	i = -1;
+	j = -1;
+	final = ft_calloc(1, sizeof(t_intersection_list));
+	if (!final)
+		return (NULL);
+	final->count = s1->count + s2->count;
+	final->items = ft_calloc(final->count, sizeof(t_intersection));
+	if (!final->items)
+		return (NULL);
+	while (++i < s1->count)
+	{
+		final->items[i] = s1->items[i];
+	}
+	while (++j < s2->count)
+	{
+		final->items[i] = s2->items[j];
+		i++;
+	}
+	free(s1->items);
+	free(s1);
+	free(s2->items);
+	free(s2);
+	return (final);
+}
+
 // Entry point: parses arguments, initializes canvas, and runs the main loop.
 static void	test_operations(t_data *data)
 {
-	t_ray				r;
+	// t_ray				r;
 	t_sphere			*s;
 	t_intersection_list	*xs;
+	t_intersection		i;
 
+	(void)data;
 	// Test: A ray intersects a sphere at a tangent
-	r = create_ray(create_point(0, 5, 0), create_vector(0, 0, 1));
-	if (!r.dir.w && !r.dir.x && !r.dir.y && !r.dir.z)
-		brain_washer(data);
+	// r = create_ray(create_point(0, 5, 0), create_vector(0, 0, 1));
+	// if (!r.dir.w && !r.dir.x && !r.dir.y && !r.dir.z)
+	// 	brain_washer(data);
 	s = create_sphere();
-	xs = intersect_sphere(r, s);
-	printf("Number of intersections: %d\n%p\n%p\n", xs->count, xs->items[0].object, xs->items[1].object);
+	xs = intersections_joined(intersection_list(intersect(0, s), intersect(0, s)), intersection_list(intersect(0, s), intersect(0, s)));
+	i = hit(xs);
+	printf("The Hitler (it may have a certain Nazi's name but it actually likes intersecting objects instead of jews, trust): %f\n", i.t);
 	free(xs->items);
 	free(xs);
 	free(s);

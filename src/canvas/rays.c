@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 15:30:49 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/04 06:24:13 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/05 05:21:02 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,24 @@ t_intersection	intersect(float t, t_sphere *sphere)
 	return (i);
 }
 
+t_intersection	hit(t_intersection_list *xs)
+{
+	int	i;
+	int	hit_index;
+
+	hit_index = -1;
+	i = 0;
+	while (i < xs->count)
+	{
+		if (xs->items[i].t >= 0 && (hit_index == -1 || xs->items[i].t < xs->items[hit_index].t))
+			hit_index = i;
+		i++;
+	}
+	if (hit_index == -1)
+		return (intersect(0, NULL));
+	return (xs->items[hit_index]);
+}
+
 // Creates an intersection list containing two intersections.
 t_intersection_list	*intersection_list(t_intersection i1, t_intersection i2)
 {
@@ -75,7 +93,7 @@ t_intersection_list	*intersection_list(t_intersection i1, t_intersection i2)
 	xs = ft_calloc(1, sizeof(t_intersection_list));
 	if (!xs)
 		return (NULL);
-	xs->items = ft_calloc(2, sizeof(t_intersection));
+	xs->items = ft_calloc(3, sizeof(t_intersection));
 	if (!xs->items)
 	{
 		free(xs);
