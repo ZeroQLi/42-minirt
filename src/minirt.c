@@ -38,14 +38,9 @@ t_intersection_list	*intersections_joined(t_intersection_list *s1, t_intersectio
 	if (!final->items)
 		return (NULL);
 	while (++i < s1->count)
-	{
 		final->items[i] = s1->items[i];
-	}
 	while (++j < s2->count)
-	{
-		final->items[i] = s2->items[j];
-		i++;
-	}
+		final->items[i++] = s2->items[j];
 	free(s1->items);
 	free(s1);
 	free(s2->items);
@@ -54,31 +49,79 @@ t_intersection_list	*intersections_joined(t_intersection_list *s1, t_intersectio
 }
 
 // Entry point: parses arguments, initializes canvas, and runs the main loop.
-static void	test_operations(t_data *data)
+static void render_sphere_projection(t_canvas *canvas)
 {
-	// t_ray				r;
-	t_sphere			*s;
-	t_intersection_list	*xs;
-	t_intersection		i;
+	t_tuple ray_origin;
+	float wall_z;
+	float wall_width;
+	float wall_height;
+	float pixel_size_x;
+	float pixel_size_y;
+	float half_width;
+	float half_height;
+	t_color red;
+	t_sphere *sphere;
+	t_intersection_list *xs;
+	t_intersection h;
+	t_tuple position;
+	t_ray ray;
+	float world_x;
+	float world_y;
+	int x;
+	int y;
 
-	(void)data;
-	// Test: A ray intersects a sphere at a tangent
-	// r = create_ray(create_point(0, 5, 0), create_vector(0, 0, 1));
-	// if (!r.dir.w && !r.dir.x && !r.dir.y && !r.dir.z)
-	// 	brain_washer(data);
-	s = create_sphere();
-	xs = intersections_joined(intersection_list(intersect(0, s), intersect(0, s)), intersection_list(intersect(0, s), intersect(0, s)));
-	i = hit(xs);
-	printf("The Hitler (it may have a certain Nazi's name but it actually likes intersecting objects instead of jews, trust): %f\n", i.t);
-	free(xs->items);
-	free(xs);
-	free(s);
-	// mlx_hook(canvas->mlx_win, 17, 0, brain_washer, data);
-	// mlx_hook(canvas->mlx_win, 2, 1L << 0, key_press, data);
-	// mlx_loop(canvas->mlx);
+	ray_origin = create_point(0, 0, -5);
+	wall_z = 10.0f;
+	wall_height = 7.0f;
+	wall_width = wall_height * ((float)WIN_WIDTH / (float)WIN_HEIGHT);
+	pixel_size_x = wall_width / WIN_WIDTH;
+	pixel_size_y = wall_height / WIN_HEIGHT;
+	half_width = wall_width / 2.0f;
+	half_height = wall_height / 2.0f;
+	red = create_color(1, 0, 0);
+	sphere = create_sphere();
+	if (!sphere)
+		return;
+	y = 0;
+	while (y < WIN_HEIGHT)
+	{
+		world_y = half_height - pixel_size_y * (y + 0.5f);
+		x = 0;
+		while (x < WIN_WIDTH)
+		{
+			world_x = -half_width + pixel_size_x * (x + 0.5f);
+			position = create_point(world_x, world_y, wall_z);
+			ray = create_ray(ray_origin, sub_tuples(position, ray_origin));
+			xs = intersect_sphere(ray, sphere);
+			if (xs)
+			{
+				h = hit(xs);
+				if (h.object)
+					write_pixel(canvas, x, y, red);
+				free(xs->items);
+				free(xs);
+			}
+			x++;
+		}
+		y++;
+	}
+	free(sphere);
 }
 
-// le rt'ing Magie 𝓬𝓸𝓶𝓶𝓮𝓷𝓬𝓮
+static void	test_operations(t_data *data)
+{
+	t_canvas	*canvas;
+
+	(void)data;
+	canvas = create_canvas();
+	if (!canvas)
+		return ;
+	render_sphere_projection(canvas);
+	mlx_put_image_to_window(canvas->mlx, canvas->mlx_win, canvas->img, 0, 0);
+	mlx_loop(canvas->mlx);
+}
+
+// le rt'ing Magie commence
 int	main(int ac, char **av)
 {
 	t_data	data;

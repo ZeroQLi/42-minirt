@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spheres.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 15:49:27 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/28 21:54:42 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/11 15:21:49 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,13 @@ t_sphere	*create_sphere(void)
 	t_sphere	*sphere;
 
 	sphere = ft_calloc(1, sizeof(t_sphere));
+	if (!sphere)
+		return (NULL);
+	sphere->transform = create_identity();
 	return (sphere);
+}
+
+void	set_transform(t_sphere *sphere, t_matrix4 transform)
+{
+	sphere->transform = transform;
 }

@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   shapes.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:22:17 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/01 05:52:05 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/11 15:22:30 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHAPES_H
 # define SHAPES_H
+
+# include "matrices.h"
 
 typedef struct s_cylinder
 {
@@ -56,6 +58,7 @@ typedef struct s_sphere
 	int				cr; // RGB range [0-255]
 	int				cg;
 	int				cb;
+	t_matrix4		transform; //store the transformation matrix for the sphere
 	struct s_sphere	*next;
 }	t_sphere;
 
@@ -91,4 +94,6 @@ typedef struct s_ambient
 	int		cb;
 }	t_ambient;
 
+t_sphere			*create_sphere(void);
+void				set_transform(t_sphere *sphere, t_matrix4 transform);
 #endif

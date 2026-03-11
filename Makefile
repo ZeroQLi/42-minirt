@@ -46,6 +46,7 @@ $(SRC_DIR4)inversion.c \
 $(SRC_DIR4)translations.c \
 
 SRC5 = $(SRC_DIR5)canvas_operations.c \
+$(SRC_DIR5)intersections.c \
 $(SRC_DIR5)rays.c \
 $(SRC_DIR5)spheres.c \
 
