@@ -330,11 +330,10 @@ void render_sphere_projection(t_canvas *canvas)
 	float pixel_size_y;
 	float half_width;
 	float half_height;
-	t_color red;
 	t_sphere *sphere;
 	t_intersection_list *xs;
 	t_intersection h;
-	t_tuple position;
+	t_tuple wall_point;
 	t_ray ray;
 	float world_x;
 	float world_y;
@@ -349,10 +348,18 @@ void render_sphere_projection(t_canvas *canvas)
 	pixel_size_y = wall_height / WIN_HEIGHT;
 	half_width = wall_width / 2.0f;
 	half_height = wall_height / 2.0f;
-	red = create_color(1, 0, 0);
+	
+	// create a sphere and light in the world
 	sphere = create_sphere();
 	if (!sphere)
 		return;
+	sphere->material = create_material();
+	sphere->material.color = create_color(0.961f, 0.286f, 0.153f);
+
+	t_tuple light_pos = create_point(-10, 10, -10);
+	t_color light_col = color_from_rgb(255, 255, 255);
+	t_point_light light = point_light(light_pos, light_col);
+
 	y = 0;
 	while (y < WIN_HEIGHT)
 	{
@@ -361,14 +368,30 @@ void render_sphere_projection(t_canvas *canvas)
 		while (x < WIN_WIDTH)
 		{
 			world_x = -half_width + pixel_size_x * (x + 0.5f);
-			position = create_point(world_x, world_y, wall_z);
-			ray = create_ray(ray_origin, sub_tuples(position, ray_origin));
+			wall_point = create_point(world_x, world_y, wall_z);
+			ray = create_ray(ray_origin, sub_tuples(wall_point, ray_origin));
 			xs = intersect_sphere(ray, sphere);
 			if (xs)
 			{
 				h = hit(xs);
 				if (h.object)
-					write_pixel(canvas, x, y, red);
+				{
+					// 1. find the hit point in world space
+					t_tuple hit_point = position(ray, h.t);
+					// 2. find the normal at the hit
+					t_tuple normalv = normal_at(h.object, hit_point);
+					// 3. eye vector is the negated ray direction
+					t_tuple eyev = negate_tuple(ray.dir);
+					// 4. build lighting context and shade
+					t_lighting l;
+					l.material = sphere->material;
+					l.position = hit_point;
+					l.normalv = normalv;
+					l.eyev = eyev;
+					l.light = light;
+					t_color color = lighting(&l);
+					write_pixel(canvas, x, y, color);
+				}
 				free(xs->items);
 				free(xs);
 			}
@@ -377,4 +400,9 @@ void render_sphere_projection(t_canvas *canvas)
 		y++;
 	}
 	free(sphere);
+}
+
+t_color	color_from_rgb(int r, int g, int b)
+{
+	return (create_color(r / 255.0f, g / 255.0f, b / 255.0f));
 }

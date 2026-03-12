@@ -6,7 +6,7 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:25:26 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/12 19:44:46 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/03/12 21:50:59 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 static void	compute_diffuse(t_lighting *lighting, t_color color)
 {
 	float	factor;
+	t_tuple	halfv;
 
 	lighting->diffuse = multiply_colors(color, lighting->material.diffuse
 			* lighting->l_dot_n);
-	lighting->reflectv = reflect(negate_tuple(lighting->lightv),
-			lighting->normalv);
-	lighting->r_dot_e = dot_product(lighting->reflectv, lighting->eyev);
+	// lighting->reflectv = reflect(negate_tuple(lighting->lightv),
+	// 		lighting->normalv);
+	halfv = scalar_normalize(add_tuples(lighting->lightv, lighting->eyev));
+	lighting->r_dot_e = dot_product(lighting->normalv, halfv);
 	if (lighting->r_dot_e <= 0)
 		lighting->specular = create_color(0, 0, 0);
 	else

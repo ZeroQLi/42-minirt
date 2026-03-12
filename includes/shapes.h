@@ -6,7 +6,7 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:22:17 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/12 19:45:00 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/03/12 21:49:59 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ typedef struct t_lighting
 	float			r_dot_e; // reflect dot eye
 	t_color			diffuse;
 	t_color			specular;
-	t_tuple			reflectv;
 	t_color			result;
 }	t_lighting;
 

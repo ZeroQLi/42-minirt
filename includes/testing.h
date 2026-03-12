@@ -6,7 +6,7 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 11:38:21 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/11 19:34:34 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/03/12 21:54:57 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ void			print_matrix4(t_matrix4 matrix);
 void			print_matrix3(t_matrix3 matrix);
 void			test_matrix4_system(void);
 void			render_sphere_projection(t_canvas *canvas);
+t_color			color_from_rgb(int r, int g, int b);
 
 #endif

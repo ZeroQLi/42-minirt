@@ -23,42 +23,11 @@
 static void	test_operations(t_data *data)
 {
 	(void)data;
-	t_color		final;
-	t_lighting	sceneLighting;
+	t_canvas *canvas = create_canvas();
 
-	sceneLighting = (t_lighting){0};
-	sceneLighting.material = create_material();
-	sceneLighting.position = create_point(0, 0, 0);
-
-	sceneLighting.eyev = create_vector(0, 0, -1);
-	sceneLighting.normalv = create_vector(0, 0, -1);
-	sceneLighting.light = point_light(create_point(0, 0, -10), create_color(1, 1, 1));
-	final = lighting(&sceneLighting);
-	printf("final color: r: %f, g: %f, b: %f\n", final.r, final.g, final.b);
-
-	sceneLighting.eyev = create_vector(0, sqrt(2) / 2, -sqrt(2) / 2);
-	sceneLighting.normalv = create_vector(0, 0, -1);
-	sceneLighting.light = point_light(create_point(0, 0, -10), create_color(1, 1, 1));
-	final = lighting(&sceneLighting);
-	printf("final color: r: %f, g: %f, b: %f\n", final.r, final.g, final.b);
-
-	sceneLighting.eyev = create_vector(0, 0, -1);
-	sceneLighting.normalv = create_vector(0, 0, -1);
-	sceneLighting.light = point_light(create_point(0, 10, -10), create_color(1, 1, 1));
-	final = lighting(&sceneLighting);
-	printf("final color: r: %f, g: %f, b: %f\n", final.r, final.g, final.b);
-
-	sceneLighting.eyev = create_vector(0, -sqrt(2) / 2, -sqrt(2) / 2);
-	sceneLighting.normalv = create_vector(0, 0, -1);
-	sceneLighting.light = point_light(create_point(0, 10, -10), create_color(1, 1, 1));
-	final = lighting(&sceneLighting);
-	printf("final color: r: %f, g: %f, b: %f\n", final.r, final.g, final.b);
-
-	sceneLighting.eyev = create_vector(0, 0, -1);
-	sceneLighting.normalv = create_vector(0, 0, -1);
-	sceneLighting.light = point_light(create_point(0, 0, 10), create_color(1, 1, 1));
-	final = lighting(&sceneLighting);
-	printf("final color: r: %f, g: %f, b: %f\n", final.r, final.g, final.b);
+	render_sphere_projection(canvas);
+	mlx_put_image_to_window(canvas->mlx, canvas->mlx_win, canvas->img, 0, 0);
+	mlx_loop(canvas->mlx);
 }
 
 // le rt'ing Magie commence
