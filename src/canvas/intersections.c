@@ -6,7 +6,7 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 14:03:05 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/11 18:01:25 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/03/11 19:33:09 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,32 @@ t_intersection	hit(t_intersection_list *xs)
 	if (hit_index == -1)
 		return (intersect(0, NULL, 0));
 	return (xs->items[hit_index]);
+}
+
+// Joins two intersection lists into one, combining their counts and items.
+// had to copy ur strjoin eshan, thanks 😋
+t_intersection_list	*intersections_joined(t_intersection_list *s1, t_intersection_list *s2)
+{
+	t_intersection_list	*final;
+	int					i;
+	int					j;
+
+	i = -1;
+	j = -1;
+	final = ft_calloc(1, sizeof(t_intersection_list));
+	if (!final)
+		return (NULL);
+	final->count = s1->count + s2->count;
+	final->items = ft_calloc(final->count, sizeof(t_intersection));
+	if (!final->items)
+		return (NULL);
+	while (++i < s1->count)
+		final->items[i] = s1->items[i];
+	while (++j < s2->count)
+		final->items[i++] = s2->items[j];
+	free(s1->items);
+	free(s1);
+	free(s2->items);
+	free(s2);
+	return (final);
 }

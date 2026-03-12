@@ -20,105 +20,22 @@
 // 	return (0);
 // }
 
-// Joins two intersection lists into one, combining their counts and items.
-// had to copy ur strjoin eshan, thanks 😋
-t_intersection_list	*intersections_joined(t_intersection_list *s1, t_intersection_list *s2)
-{
-	t_intersection_list	*final;
-	int					i;
-	int					j;
-
-	i = -1;
-	j = -1;
-	final = ft_calloc(1, sizeof(t_intersection_list));
-	if (!final)
-		return (NULL);
-	final->count = s1->count + s2->count;
-	final->items = ft_calloc(final->count, sizeof(t_intersection));
-	if (!final->items)
-		return (NULL);
-	while (++i < s1->count)
-		final->items[i] = s1->items[i];
-	while (++j < s2->count)
-		final->items[i++] = s2->items[j];
-	free(s1->items);
-	free(s1);
-	free(s2->items);
-	free(s2);
-	return (final);
-}
-
-// Entry point: parses arguments, initializes canvas, and runs the main loop.
-static void render_sphere_projection(t_canvas *canvas)
-{
-	t_tuple ray_origin;
-	float wall_z;
-	float wall_width;
-	float wall_height;
-	float pixel_size_x;
-	float pixel_size_y;
-	float half_width;
-	float half_height;
-	t_color red;
-	t_sphere *sphere;
-	t_intersection_list *xs;
-	t_intersection h;
-	t_tuple position;
-	t_ray ray;
-	float world_x;
-	float world_y;
-	int x;
-	int y;
-
-	ray_origin = create_point(0, 0, -5);
-	wall_z = 10.0f;
-	wall_height = 7.0f;
-	wall_width = wall_height * ((float)WIN_WIDTH / (float)WIN_HEIGHT);
-	pixel_size_x = wall_width / WIN_WIDTH;
-	pixel_size_y = wall_height / WIN_HEIGHT;
-	half_width = wall_width / 2.0f;
-	half_height = wall_height / 2.0f;
-	red = create_color(1, 0, 0);
-	sphere = create_sphere();
-	if (!sphere)
-		return;
-	y = 0;
-	while (y < WIN_HEIGHT)
-	{
-		world_y = half_height - pixel_size_y * (y + 0.5f);
-		x = 0;
-		while (x < WIN_WIDTH)
-		{
-			world_x = -half_width + pixel_size_x * (x + 0.5f);
-			position = create_point(world_x, world_y, wall_z);
-			ray = create_ray(ray_origin, sub_tuples(position, ray_origin));
-			xs = intersect_sphere(ray, sphere);
-			if (xs)
-			{
-				h = hit(xs);
-				if (h.object)
-					write_pixel(canvas, x, y, red);
-				free(xs->items);
-				free(xs);
-			}
-			x++;
-		}
-		y++;
-	}
-	free(sphere);
-}
-
 static void	test_operations(t_data *data)
 {
-	t_canvas	*canvas;
+	t_tuple	v;
+	t_tuple n;
+	t_tuple	r;
 
-	(void)data;
-	canvas = create_canvas();
-	if (!canvas)
-		return ;
-	render_sphere_projection(canvas);
-	mlx_put_image_to_window(canvas->mlx, canvas->mlx_win, canvas->img, 0, 0);
-	mlx_loop(canvas->mlx);
+	(void) data;
+	v = create_vector(1, -1, 0);
+	n = create_vector(0, -1, 0);
+	r = reflect(v, n);
+	print_tuple(r);
+
+	v = create_vector(0, -1, 0);
+	n = create_vector((sqrtf(2) / 2), (sqrtf(2) / 2), 0);
+	r = reflect(v, n);
+	print_tuple(r);
 }
 
 // le rt'ing Magie commence

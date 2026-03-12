@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   testing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 11:38:21 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/24 01:52:58 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/11 19:34:34 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ void			print_tuple(t_tuple t);
 void			print_matrix4(t_matrix4 matrix);
 void			print_matrix3(t_matrix3 matrix);
 void			test_matrix4_system(void);
+void			render_sphere_projection(t_canvas *canvas);
 
 #endif

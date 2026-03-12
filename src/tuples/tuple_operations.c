@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tuple_operations.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 15:09:32 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/28 23:26:37 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/12 15:09:34 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,6 @@ t_tuple	add_tuples(t_tuple a, t_tuple b)
 }
 
 // Subtracts one tuple from another.
-// Subtracting two points gives a vector, (point - point = vector)
-// subtracting a vector from a point gives a point, (point - vector = point)
-// and subtracting two vectors gives a vector. (vector - vector = vector)
-// Subtracting a point from a vector is not defined. (vector - point = ?)
 t_tuple	sub_tuples(t_tuple a, t_tuple b)
 {
 	t_tuple	result;

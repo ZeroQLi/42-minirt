@@ -319,3 +319,62 @@ void	test_matrix4_system(void)
 	printf("╚════════════════════════════════════════════════════════╝\n");
 	printf("\n");
 }
+
+void render_sphere_projection(t_canvas *canvas)
+{
+	t_tuple ray_origin;
+	float wall_z;
+	float wall_width;
+	float wall_height;
+	float pixel_size_x;
+	float pixel_size_y;
+	float half_width;
+	float half_height;
+	t_color red;
+	t_sphere *sphere;
+	t_intersection_list *xs;
+	t_intersection h;
+	t_tuple position;
+	t_ray ray;
+	float world_x;
+	float world_y;
+	int x;
+	int y;
+
+	ray_origin = create_point(0, 0, -5);
+	wall_z = 10.0f;
+	wall_height = 7.0f;
+	wall_width = wall_height * ((float)WIN_WIDTH / (float)WIN_HEIGHT);
+	pixel_size_x = wall_width / WIN_WIDTH;
+	pixel_size_y = wall_height / WIN_HEIGHT;
+	half_width = wall_width / 2.0f;
+	half_height = wall_height / 2.0f;
+	red = create_color(1, 0, 0);
+	sphere = create_sphere();
+	if (!sphere)
+		return;
+	y = 0;
+	while (y < WIN_HEIGHT)
+	{
+		world_y = half_height - pixel_size_y * (y + 0.5f);
+		x = 0;
+		while (x < WIN_WIDTH)
+		{
+			world_x = -half_width + pixel_size_x * (x + 0.5f);
+			position = create_point(world_x, world_y, wall_z);
+			ray = create_ray(ray_origin, sub_tuples(position, ray_origin));
+			xs = intersect_sphere(ray, sphere);
+			if (xs)
+			{
+				h = hit(xs);
+				if (h.object)
+					write_pixel(canvas, x, y, red);
+				free(xs->items);
+				free(xs);
+			}
+			x++;
+		}
+		y++;
+	}
+	free(sphere);
+}

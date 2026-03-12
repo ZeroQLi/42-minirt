@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
-#include "../includes/macros.h"
 
 // Checks if a line is empty or a comment.
 int	is_empty_or_comment(char *line)

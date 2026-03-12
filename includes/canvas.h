@@ -6,7 +6,7 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 15:31:44 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/11 14:34:41 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/03/12 14:59:54 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,6 @@ t_intersection		intersect(float t, void *object, t_type type);
 t_intersection_list	*intersect_list(t_intersection i1, t_intersection i2);
 t_intersection		hit(t_intersection_list *xs);
 
+t_tuple				normal_at(t_sphere *sphere, t_tuple world_point);
+t_tuple				reflect(t_tuple vector, t_tuple normal);
 #endif
