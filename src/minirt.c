@@ -23,24 +23,42 @@
 static void	test_operations(t_data *data)
 {
 	(void)data;
-	t_color	intensity;
-	t_tuple	position;
-	t_point_light	light;
+	t_color		final;
+	t_lighting	sceneLighting;
 
-	intensity = create_color(1, 1, 1);
-	position = create_point(0, 0, 0);
-	light = point_light(position, intensity);
-	print_tuple(light.position);
-	printf("Light intensity: %f, %f, %f\n", light.intensity.r, light.intensity.g, light.intensity.b);
+	sceneLighting = (t_lighting){0};
+	sceneLighting.material = create_material();
+	sceneLighting.position = create_point(0, 0, 0);
 
-	t_material	m;
-	
-	m = create_material();
-	m.color = create_color(3, 24, 244);
+	sceneLighting.eyev = create_vector(0, 0, -1);
+	sceneLighting.normalv = create_vector(0, 0, -1);
+	sceneLighting.light = point_light(create_point(0, 0, -10), create_color(1, 1, 1));
+	final = lighting(&sceneLighting);
+	printf("final color: r: %f, g: %f, b: %f\n", final.r, final.g, final.b);
 
-	t_sphere *s = create_sphere();
-	s->material = m;
-	printf("Sphere material color: %f, %f, %f\n", s->material.color.r, s->material.color.g, s->material.color.b);
+	sceneLighting.eyev = create_vector(0, sqrt(2) / 2, -sqrt(2) / 2);
+	sceneLighting.normalv = create_vector(0, 0, -1);
+	sceneLighting.light = point_light(create_point(0, 0, -10), create_color(1, 1, 1));
+	final = lighting(&sceneLighting);
+	printf("final color: r: %f, g: %f, b: %f\n", final.r, final.g, final.b);
+
+	sceneLighting.eyev = create_vector(0, 0, -1);
+	sceneLighting.normalv = create_vector(0, 0, -1);
+	sceneLighting.light = point_light(create_point(0, 10, -10), create_color(1, 1, 1));
+	final = lighting(&sceneLighting);
+	printf("final color: r: %f, g: %f, b: %f\n", final.r, final.g, final.b);
+
+	sceneLighting.eyev = create_vector(0, -sqrt(2) / 2, -sqrt(2) / 2);
+	sceneLighting.normalv = create_vector(0, 0, -1);
+	sceneLighting.light = point_light(create_point(0, 10, -10), create_color(1, 1, 1));
+	final = lighting(&sceneLighting);
+	printf("final color: r: %f, g: %f, b: %f\n", final.r, final.g, final.b);
+
+	sceneLighting.eyev = create_vector(0, 0, -1);
+	sceneLighting.normalv = create_vector(0, 0, -1);
+	sceneLighting.light = point_light(create_point(0, 0, 10), create_color(1, 1, 1));
+	final = lighting(&sceneLighting);
+	printf("final color: r: %f, g: %f, b: %f\n", final.r, final.g, final.b);
 }
 
 // le rt'ing Magie commence

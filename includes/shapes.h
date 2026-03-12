@@ -6,7 +6,7 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:22:17 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/12 17:00:52 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/03/12 19:45:00 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,19 @@ typedef struct s_material
 typedef struct t_lighting
 {
 	t_material		material;
-	t_tuple			point;
+	t_tuple			position;
 	t_point_light	light;
 	t_tuple			normalv;
 	t_tuple			eyev;
+	// values for lighting calculations. kept here to avoid norminette issues in the lighting function
+	t_color			ambient;
+	t_tuple			lightv;
+	float			l_dot_n; // light dot normal
+	float			r_dot_e; // reflect dot eye
+	t_color			diffuse;
+	t_color			specular;
+	t_tuple			reflectv;
+	t_color			result;
 }	t_lighting;
 
 typedef struct s_cylinder
@@ -126,4 +135,5 @@ void			set_transform(t_sphere *sphere, t_matrix4 transform);
 // lighting operations
 t_material		create_material(void);
 t_point_light	point_light(t_tuple position, t_color intensity);
+t_color			lighting(t_lighting *lighting);
 #endif
