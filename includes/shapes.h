@@ -6,7 +6,7 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:22:17 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/12 21:49:59 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/03/12 22:26:27 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ typedef struct s_sphere
 	int				cb;
 	t_matrix4		transform; //store the transformation matrix for the sphere
 	t_material		material; // store the material properties for the sphere
+	t_matrix4		inv_transform; // store the inverse of the transformation matrix for ray-sphere intersection
 	struct s_sphere	*next;
 }	t_sphere;
 

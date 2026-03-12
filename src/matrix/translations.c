@@ -42,10 +42,10 @@ t_matrix4	rotation_x(float rad)
 	t_matrix4	res;
 
 	res = create_identity();
-	res.data[1][1] = cos(rad);
-	res.data[1][2] = -sin(rad);
-	res.data[2][1] = sin(rad);
-	res.data[2][2] = cos(rad);
+	res.data[1][1] = cosf(rad);
+	res.data[1][2] = -sinf(rad);
+	res.data[2][1] = sinf(rad);
+	res.data[2][2] = cosf(rad);
 	return (res);
 }
 
@@ -56,10 +56,10 @@ t_matrix4	rotation_y(float rad)
 	t_matrix4	res;
 
 	res = create_identity();
-	res.data[0][0] = cos(rad);
-	res.data[0][2] = sin(rad);
-	res.data[2][0] = -sin(rad);
-	res.data[2][2] = cos(rad);
+	res.data[0][0] = cosf(rad);
+	res.data[0][2] = sinf(rad);
+	res.data[2][0] = -sinf(rad);
+	res.data[2][2] = cosf(rad);
 	return (res);
 }
 
@@ -70,9 +70,9 @@ t_matrix4	rotation_z(float rad)
 	t_matrix4	res;
 
 	res = create_identity();
-	res.data[0][0] = cos(rad);
-	res.data[0][1] = -sin(rad);
-	res.data[1][0] = sin(rad);
-	res.data[1][1] = cos(rad);
+	res.data[0][0] = cosf(rad);
+	res.data[0][1] = -sinf(rad);
+	res.data[1][0] = sinf(rad);
+	res.data[1][1] = cosf(rad);
 	return (res);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   canvas_operations.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:53:39 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/20 17:00:31 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/03/12 22:23:46 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ static unsigned int	color_to_int(t_color color)
 		g = 255;
 	if (b > 255)
 		b = 255;
+	if (r < 0)
+		r = 0;
+	if (g < 0)
+		g = 0;
+	if (b < 0)
+		b = 0;
 	return ((r << 16) | (g << 8) | b);
 }
 

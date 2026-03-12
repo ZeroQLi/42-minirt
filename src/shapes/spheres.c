@@ -6,7 +6,7 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 15:49:27 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/12 15:46:20 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/03/12 22:37:39 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_sphere	*create_sphere(void)
 	if (!sphere)
 		return (NULL);
 	sphere->transform = create_identity();
+	sphere->inv_transform = create_identity();
 	sphere->material = create_material();
 	return (sphere);
 }
@@ -27,4 +28,5 @@ t_sphere	*create_sphere(void)
 void	set_transform(t_sphere *sphere, t_matrix4 transform)
 {
 	sphere->transform = transform;
+	sphere->inv_transform = invert_4x4(transform);
 }

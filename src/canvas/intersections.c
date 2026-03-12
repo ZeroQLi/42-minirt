@@ -6,7 +6,7 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 14:03:05 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/11 19:33:09 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/03/12 22:26:46 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_intersection_list	*intersect_sphere(t_ray ray, t_sphere *sphere)
 	float				disc;
 	float				intersections[3];
 
-	ray = transform_ray(ray, invert_4x4(sphere->transform));
+	ray = transform_ray(ray, sphere->inv_transform);
 	sphere_to_ray = sub_tuples(ray.origin, create_point(0, 0, 0));
 	a = dot_product(ray.dir, ray.dir);
 	b = 2 * dot_product(ray.dir, sphere_to_ray);
@@ -63,7 +63,7 @@ t_intersection_list	*intersect_list(t_intersection i1, t_intersection i2)
 		free(xs);
 		return (NULL);
 	}
-	if (i1.t == 0 && i2.t == 0)
+	if (!i1.object && !i2.object)
 		xs->count = 0;
 	else
 		xs->count = 2;
