@@ -13,20 +13,21 @@
 #include "../includes/minirt.h"
 #include "../includes/testing.h" // be sure to remove
 
-// static int	key_press(int key, t_data *data)
-// {
-// 	if (key == ESC)
-// 		brain_washer(data);
-// 	return (0);
-// }
+static int	key_press(int key, t_data *data)
+{
+	if (key == ESC)
+		brain_washer(data);
+	return (0);
+}
 
 static void	test_operations(t_data *data)
 {
-	(void)data;
 	t_canvas *canvas = create_canvas();
 
 	render_sphere_projection(canvas);
 	mlx_put_image_to_window(canvas->mlx, canvas->mlx_win, canvas->img, 0, 0);
+	mlx_hook(canvas->mlx_win, 17, 0, brain_washer, data); // PLS DO NOT DELETE THESE ESHAN I AINT REWRITING THEM AGAIN
+	mlx_hook(canvas->mlx_win, 2, 1L << 0, key_press, data);
 	mlx_loop(canvas->mlx);
 }
 

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
+
 // Creates a translation matrix that moves points by (x, y, z).
 t_matrix4	translation(float x, float y, float z)
 {

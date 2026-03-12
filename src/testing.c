@@ -340,7 +340,7 @@ void render_sphere_projection(t_canvas *canvas)
 	int x;
 	int y;
 
-	ray_origin = create_point(0, 0, -5);
+	ray_origin = create_point(-3, 0, -5);
 	wall_z = 10.0f;
 	wall_height = 7.0f;
 	wall_width = wall_height * ((float)WIN_WIDTH / (float)WIN_HEIGHT);
