@@ -6,7 +6,7 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:22:17 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/11 15:22:30 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/03/12 17:00:52 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,30 @@
 # define SHAPES_H
 
 # include "matrices.h"
+
+typedef struct point_light
+{
+	t_tuple	position;
+	t_color	intensity;
+}	t_point_light;
+
+typedef struct s_material
+{
+    t_color	color;
+    float	ambient;
+    float	diffuse;
+    float	specular;
+    float	shininess;
+}	t_material;
+
+typedef struct t_lighting
+{
+	t_material		material;
+	t_tuple			point;
+	t_point_light	light;
+	t_tuple			normalv;
+	t_tuple			eyev;
+}	t_lighting;
 
 typedef struct s_cylinder
 {
@@ -59,6 +83,7 @@ typedef struct s_sphere
 	int				cg;
 	int				cb;
 	t_matrix4		transform; //store the transformation matrix for the sphere
+	t_material		material; // store the material properties for the sphere
 	struct s_sphere	*next;
 }	t_sphere;
 
@@ -94,6 +119,11 @@ typedef struct s_ambient
 	int		cb;
 }	t_ambient;
 
-t_sphere			*create_sphere(void);
-void				set_transform(t_sphere *sphere, t_matrix4 transform);
+// sphere operations
+t_sphere		*create_sphere(void);
+void			set_transform(t_sphere *sphere, t_matrix4 transform);
+
+// lighting operations
+t_material		create_material(void);
+t_point_light	point_light(t_tuple position, t_color intensity);
 #endif

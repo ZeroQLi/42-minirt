@@ -6,7 +6,7 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 15:31:44 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/12 14:59:54 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/03/12 15:28:33 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,19 @@ typedef struct s_ray
 	t_tuple	dir;
 }	t_ray;
 
+// ray operations
 t_ray				create_ray(t_tuple origin, t_tuple direction);
 t_tuple				position(t_ray ray, float t);
 t_ray				transform_ray(t_ray ray, t_matrix4 matrix);
 
+// intersection operations
 t_intersection_list	*intersect_sphere(t_ray ray, t_sphere *sphere);
 t_intersection		intersect(float t, void *object, t_type type);
 t_intersection_list	*intersect_list(t_intersection i1, t_intersection i2);
 t_intersection		hit(t_intersection_list *xs);
 
+// reflection operations
 t_tuple				normal_at(t_sphere *sphere, t_tuple world_point);
 t_tuple				reflect(t_tuple vector, t_tuple normal);
+
 #endif

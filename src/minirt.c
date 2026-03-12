@@ -22,20 +22,25 @@
 
 static void	test_operations(t_data *data)
 {
-	t_tuple	v;
-	t_tuple n;
-	t_tuple	r;
+	(void)data;
+	t_color	intensity;
+	t_tuple	position;
+	t_point_light	light;
 
-	(void) data;
-	v = create_vector(1, -1, 0);
-	n = create_vector(0, -1, 0);
-	r = reflect(v, n);
-	print_tuple(r);
+	intensity = create_color(1, 1, 1);
+	position = create_point(0, 0, 0);
+	light = point_light(position, intensity);
+	print_tuple(light.position);
+	printf("Light intensity: %f, %f, %f\n", light.intensity.r, light.intensity.g, light.intensity.b);
 
-	v = create_vector(0, -1, 0);
-	n = create_vector((sqrtf(2) / 2), (sqrtf(2) / 2), 0);
-	r = reflect(v, n);
-	print_tuple(r);
+	t_material	m;
+	
+	m = create_material();
+	m.color = create_color(3, 24, 244);
+
+	t_sphere *s = create_sphere();
+	s->material = m;
+	printf("Sphere material color: %f, %f, %f\n", s->material.color.r, s->material.color.g, s->material.color.b);
 }
 
 // le rt'ing Magie commence
