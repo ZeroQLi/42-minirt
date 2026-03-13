@@ -91,8 +91,8 @@ int	parse_file(t_data *data, char *file)
 {
 	int	fd;
 
-	data->elements = ft_calloc(1, sizeof(t_elements));
-	if (!data->elements)
+	data->world = ft_calloc(1, sizeof(t_world));
+	if (!data->world)
 		return (error_msg(YES, "MALLOC_ERROR idk how", 0));
 	fd = open(file, O_RDONLY);
 	if (fd < 0 || !check_ext(file))
@@ -104,14 +104,14 @@ int	parse_file(t_data *data, char *file)
 	if (!parse_line(data, fd))
 		return (error_msg(NO, "parsing FAILED!", 0));
 	close(fd);
-	if (!data->elements->cam && !data->elements->amb && !data->elements->sp
-		&& !data->elements->cy && !data->elements->pl)
+	if (!data->world->cam && !data->world->amb && !data->world->sp
+		&& !data->world->cy && !data->world->pl)
 		return (error_msg(YES, "aint nothin in here boi", 0));
-	if (!data->elements->cam || !data->elements->amb)
+	if (!data->world->cam || !data->world->amb)
 		return (error_msg(YES, "bro? where da cam/ambient at?? add both", 0));
-	if (!data->elements->l)
+	if (!data->world->l)
 		return (error_msg(YES, NO_LIGHTS, 0));
-	if (!data->elements->sp && !data->elements->cy && !data->elements->pl)
+	if (!data->world->sp && !data->world->cy && !data->world->pl)
 		return (error_msg(YES, "where da shapes at??? add one shape pls", 0));
 	return (1);
 }

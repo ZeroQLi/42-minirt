@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
-#include "../../includes/macros.h"
-#include "../../includes/shapes.h"
 
 int	parse_light(char **t, t_data *d)
 {
@@ -33,6 +31,6 @@ int	parse_light(char **t, t_data *d)
 		free(l);
 		return (error_msg(YES, "Invalid light format", 0));
 	}
-	d->elements->l = l;
+	d->world->l = l;
 	return (1);
 }

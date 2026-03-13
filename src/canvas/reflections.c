@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   reflections.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 14:17:13 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/12 22:26:52 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/03/13 08:57:47 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
 
-t_tuple normal_at(t_sphere *sphere, t_tuple world_point)
+t_tuple	normal_at(t_sphere *sphere, t_tuple world_point)
 {
-	t_tuple object_point;
-	t_tuple object_normal;
-	t_tuple w_normal;
-	t_matrix4 inv_transform;
-	t_matrix4 transposed_inv;
+	t_tuple		object_point;
+	t_tuple		object_normal;
+	t_tuple		w_normal;
+	t_matrix4	inv_transform;
+	t_matrix4	transposed_inv;
 
 	inv_transform = sphere->inv_transform;
 	object_point = matrix4_tuple_multiply(inv_transform, world_point);

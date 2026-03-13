@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   canvas_operations.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:53:39 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/12 22:23:46 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/03/13 08:40:29 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	setup_mlx(t_canvas *canvas)
 	if (!canvas->mlx)
 		return (0);
 	canvas->mlx_win = mlx_new_window(canvas->mlx, canvas->width,
-			canvas->height, "hello world");
+			canvas->height, "Sample text");
 	if (!canvas->mlx_win)
 		return (0);
 	canvas->img = mlx_new_image(canvas->mlx, canvas->width, canvas->height);

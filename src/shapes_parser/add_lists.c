@@ -11,66 +11,70 @@
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
-#include "../../includes/macros.h"
-#include "../../includes/shapes.h"
 
 // FOR BONUS //
-// void	add_light(t_elements *e, t_light *new)
+// void	add_light(t_world *w, t_light *new)
 // {
 // 	t_light	*tmp;
 
-// 	if (!e->l)
+// 	if (!w->l)
 // 	{
-// 		e->l = new;
+// 		w->l = new;
 // 		return ;
 // 	}
-// 	tmp = e->l;
+// 	tmp = w->l;
 // 	while (tmp->next)
 // 		tmp = tmp->next;
 // 	tmp->next = new;
 // }
 
-void	add_plane(t_elements *e, t_plane *new)
+void	add_plane(t_world *w, t_plane *new)
 {
 	t_plane	*tmp;
 
-	if (!e->pl)
+	if (!w->pl)
 	{
-		e->pl = new;
+		w->pl = new;
 		return ;
 	}
-	tmp = e->pl;
+	tmp = w->pl;
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;
 }
 
-void	add_cylinder(t_elements *e, t_cylinder *new)
+void	add_cylinder(t_world *w, t_cylinder *new)
 {
 	t_cylinder	*tmp;
 
-	if (!e->cy)
+	if (!w->cy)
 	{
-		e->cy = new;
+		w->cy = new;
 		return ;
 	}
-	tmp = e->cy;
+	tmp = w->cy;
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;
 }
 
-void	add_sphere(t_elements *e, t_sphere *new)
+void	add_sphere(t_world *w, t_sphere *new)
 {
 	t_sphere	*tmp;
 
-	if (!e->sp)
+	if (!w->sp)
 	{
-		e->sp = new;
+		w->sp = new;
+		w->sp->transform = create_identity();
+		w->sp->inv_transform = create_identity();
+		w->sp->material = create_material(w->sp);
 		return ;
 	}
-	tmp = e->sp;
+	tmp = w->sp;
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;
+	new->transform = create_identity();
+	new->inv_transform = create_identity();
+	new->material = create_material(new);
 }

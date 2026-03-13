@@ -20,15 +20,45 @@ static int	key_press(int key, t_data *data)
 	return (0);
 }
 
+// Initializes the world space used to create a scene
+// Moving all the values that were parsed into the actual objects
+// (i aint reworking the parser again 😒)
+void	new_world(t_world *w)
+{
+	if (w->l)
+	{
+		w->l->position = create_point(w->l->px, w->l->py, w->l->pz);
+		w->l->intensity = color_from_rgb(w->l->cr, w->l->cg, w->l->cb);
+	}
+	if (w->sp)
+	{
+		// while (w->sp->next != NULL)
+		// {
+			w->sp->position = create_point(w->sp->px, w->sp->py, w->sp->pz);
+			w->sp->material = create_material(w->sp);
+		// }
+		// w->sp = w->sp->next;
+	}
+	if (w->sp->next)
+	{
+		w->sp = w->sp->next;
+		w->sp->position = create_point(w->sp->px, w->sp->py, w->sp->pz);
+		w->sp->material = create_material(w->sp);
+		set_transform(w->sp, scaling(0.5, 0.5, 0.5));
+	}
+}
+
 static void	test_operations(t_data *data)
 {
-	t_canvas *canvas = create_canvas();
-
-	render_sphere_projection(canvas);
-	mlx_put_image_to_window(canvas->mlx, canvas->mlx_win, canvas->img, 0, 0);
-	mlx_hook(canvas->mlx_win, 17, 0, brain_washer, data); // PLS DO NOT DELETE THESE ESHAN I AINT REWRITING THEM AGAIN
-	mlx_hook(canvas->mlx_win, 2, 1L << 0, key_press, data);
-	mlx_loop(canvas->mlx);
+	data->canvas = create_canvas();
+	render_sphere_projection(data->canvas, data->world);
+	mlx_put_image_to_window(data->canvas->mlx, data->canvas->mlx_win,
+			data->canvas->img, 0, 0);
+	sleep(2);
+	mlx_string_put(data->canvas->mlx, data->canvas->mlx_win, 25, 25, 255, "yes, I changed the sphere color. Mathew is still mathing.");
+	mlx_hook(data->canvas->mlx_win, 17, 0, brain_washer, data); // PLS DO NOT DELETE THESE ESHAN I AINT REWRITING THEM AGAIN
+	mlx_hook(data->canvas->mlx_win, 2, 1L << 0, key_press, data);
+	mlx_loop(data->canvas->mlx);
 }
 
 // le rt'ing Magie commence
@@ -37,12 +67,6 @@ int	main(int ac, char **av)
 	t_data	data;
 
 	data = (t_data){0};
-	t_tuple point;
-	t_tuple vector;
-	point = create_point(3, -2, 5);
-	vector = create_vector(2, 3, 4);
-	(void)point;
-	(void)vector;
 	if (ac != 2)
 	{
 		ft_putendl_fd(ARG_ERROR, 2);

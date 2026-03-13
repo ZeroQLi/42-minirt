@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
-#include "../../includes/macros.h"
-#include "../../includes/shapes.h"
 
 int	parse_cylinder(char **t, t_data *d)
 {
@@ -32,6 +30,6 @@ int	parse_cylinder(char **t, t_data *d)
 		free(cy);
 		return (error_msg(YES, "Invalid cylinder format", 0));
 	}
-	add_cylinder(d->elements, cy);
+	add_cylinder(d->world, cy);
 	return (1);
 }

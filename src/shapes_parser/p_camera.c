@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
-#include "../../includes/macros.h"
-#include "../../includes/shapes.h"
 
 int	parse_camera(char **t, t_data *d)
 {
@@ -33,6 +31,6 @@ int	parse_camera(char **t, t_data *d)
 		free(cam);
 		return (error_msg(YES, "Invalid camera format", 0));
 	}
-	d->elements->cam = cam;
+	d->world->cam = cam;
 	return (1);
 }

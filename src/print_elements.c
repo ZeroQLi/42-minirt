@@ -47,7 +47,7 @@ static void	print_lights(t_light *light)
 		printf("    Emission: %.2f\n", light->emission);
 		printf("    Color: RGB(%d, %d, %d)\n", light->cr, light->cg, light->cb);
 		// printf("    Fade Size: %.2f\n", light->fade_size);
-		light = light->next;
+		// light = light->next;
 		i++;
 	}
 	printf("\n");
@@ -117,7 +117,7 @@ static void	print_cylinders(t_cylinder *cylinder)
 	printf("\n");
 }
 
-void	print_elements(t_elements *elements)
+void	print_elements(t_world *elements)
 {
 	if (!elements)
 	{

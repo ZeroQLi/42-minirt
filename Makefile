@@ -28,7 +28,7 @@ $(SRC_DIR2)p_cylinder.c \
 $(SRC_DIR2)p_light.c \
 $(SRC_DIR2)p_plane.c \
 $(SRC_DIR2)p_sphere.c \
-$(SRC_DIR2)parse_functions.c \
+$(SRC_DIR2)parse_utils.c \
 $(SRC_DIR2)add_lists.c \
 $(SRC_DIR2)free_lists.c \
 

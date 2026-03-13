@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
-#include "../../includes/macros.h"
-#include "../../includes/shapes.h"
 
 // FOR BONUS //
 // void	free_lights(t_plane *sp)
@@ -66,9 +64,9 @@ void	free_spheres(t_sphere *sp)
 	sp = NULL;
 }
 
-void	free_all_shapes(t_elements *e)
+void	free_all_shapes(t_world *w)
 {
-	free_spheres(e->sp);
-	free_cylinders(e->cy);
-	free_planes(e->pl);
+	free_spheres(w->sp);
+	free_cylinders(w->cy);
+	free_planes(w->pl);
 }

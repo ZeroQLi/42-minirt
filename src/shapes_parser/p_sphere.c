@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
-#include "../../includes/macros.h"
-#include "../../includes/shapes.h"
 
 int	parse_sphere(char **t, t_data *d)
 {
@@ -30,6 +28,6 @@ int	parse_sphere(char **t, t_data *d)
 		free(sp);
 		return (error_msg(YES, "Invalid sphere format", 0));
 	}
-	add_sphere(d->elements, sp);
+	add_sphere(d->world, sp);
 	return (1);
 }

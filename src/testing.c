@@ -320,7 +320,7 @@ void	test_matrix4_system(void)
 	printf("\n");
 }
 
-void render_sphere_projection(t_canvas *canvas)
+void render_sphere_projection(t_canvas *canvas, t_world *world)
 {
 	t_tuple ray_origin;
 	float wall_z;
@@ -330,7 +330,6 @@ void render_sphere_projection(t_canvas *canvas)
 	float pixel_size_y;
 	float half_width;
 	float half_height;
-	t_sphere *sphere;
 	t_intersection_list *xs;
 	t_intersection h;
 	t_tuple wall_point;
@@ -340,7 +339,8 @@ void render_sphere_projection(t_canvas *canvas)
 	int x;
 	int y;
 
-	ray_origin = create_point(-3, 0, -5);
+	new_world(world);
+	ray_origin = world->sp->position;
 	wall_z = 10.0f;
 	wall_height = 7.0f;
 	wall_width = wall_height * ((float)WIN_WIDTH / (float)WIN_HEIGHT);
@@ -349,16 +349,6 @@ void render_sphere_projection(t_canvas *canvas)
 	half_width = wall_width / 2.0f;
 	half_height = wall_height / 2.0f;
 	
-	// create a sphere and light in the world
-	sphere = create_sphere();
-	if (!sphere)
-		return;
-	sphere->material = create_material();
-	sphere->material.color = create_color(0.961f, 0.286f, 0.153f);
-
-	t_tuple light_pos = create_point(-10, 10, -10);
-	t_color light_col = color_from_rgb(255, 255, 255);
-	t_point_light light = point_light(light_pos, light_col);
 
 	y = 0;
 	while (y < WIN_HEIGHT)
@@ -370,7 +360,7 @@ void render_sphere_projection(t_canvas *canvas)
 			world_x = -half_width + pixel_size_x * (x + 0.5f);
 			wall_point = create_point(world_x, world_y, wall_z);
 			ray = create_ray(ray_origin, sub_tuples(wall_point, ray_origin));
-			xs = intersect_sphere(ray, sphere);
+			xs = intersect_sphere(ray, world->sp);
 			if (xs)
 			{
 				h = hit(xs);
@@ -383,13 +373,11 @@ void render_sphere_projection(t_canvas *canvas)
 					// 3. eye vector is the negated ray direction
 					t_tuple eyev = negate_tuple(ray.dir);
 					// 4. build lighting context and shade
-					t_lighting l;
-					l.material = sphere->material;
-					l.position = hit_point;
-					l.normalv = normalv;
-					l.eyev = eyev;
-					l.light = light;
-					t_color color = lighting(&l);
+					world->l->material = world->sp->material;
+					world->l->h_position = hit_point;
+					world->l->normalv = normalv;
+					world->l->eyev = eyev;
+					t_color color = lighting(world->l);
 					write_pixel(canvas, x, y, color);
 				}
 				free(xs->items);
@@ -399,7 +387,6 @@ void render_sphere_projection(t_canvas *canvas)
 		}
 		y++;
 	}
-	free(sphere);
 }
 
 t_color	color_from_rgb(int r, int g, int b)

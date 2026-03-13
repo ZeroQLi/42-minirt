@@ -84,7 +84,7 @@
 # include <math.h>
 # include "macros.h"
 
-typedef struct s_elements
+typedef struct s_world
 {
 	t_ambient	*amb;
 	t_camera	*cam;
@@ -92,7 +92,7 @@ typedef struct s_elements
 	t_sphere	*sp;
 	t_plane		*pl;
 	t_cylinder	*cy;
-}	t_elements;
+}	t_world;
 
 typedef struct s_canvas
 {
@@ -109,7 +109,7 @@ typedef struct s_canvas
 
 typedef struct s_data
 {
-	t_elements	*elements;
+	t_world		*world;
 	bool		amb_exists;
 	bool		cam_exists;
 	bool		light_exists;
@@ -122,13 +122,13 @@ int			array_len(char **arr);
 //--------------------------//
 //		Shapes linklist		//
 //--------------------------//
-void		add_sphere(t_elements *e, t_sphere *new);
-void		add_cylinder(t_elements *e, t_cylinder *new);
-void		add_plane(t_elements *e, t_plane *new);
+void		add_sphere(t_world *w, t_sphere *new);
+void		add_cylinder(t_world *w, t_cylinder *new);
+void		add_plane(t_world *w, t_plane *new);
 void		free_spheres(t_sphere *sp);
 void		free_cylinders(t_cylinder *sp);
 void		free_planes(t_plane *sp);
-void		free_all_shapes(t_elements *e);
+void		free_all_shapes(t_world *w);
 
 //--------------------------//
 //		Error & Cleanup		//
@@ -173,6 +173,9 @@ t_color		pixel_at(t_canvas *canvas, int x, int y);
 void		free_canvas(t_canvas *canvas);
 
 // value table print tester
-void		print_elements(t_elements *elements);
+void		print_elements(t_world *elements);
+
+t_color		color_from_rgb(int r, int g, int b);
+void		new_world(t_world *w);
 
 #endif

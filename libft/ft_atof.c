@@ -22,9 +22,12 @@ float	ft_atof(const char *str)
 
 	c = (char *) str;
 	neg = 1;
-	num = (float)ft_atoi(c);
-	if (*c++ == '-')
+	if (*c == '-')
+	{
 		neg = -1;
+		c++;
+	}
+	num = (float)ft_atoi(c);
 	while (*c && *c != '.')
 		c++;
 	if (*c == '.')

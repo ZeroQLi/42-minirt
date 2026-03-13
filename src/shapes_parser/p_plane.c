@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
-#include "../../includes/macros.h"
-#include "../../includes/shapes.h"
 
 int	parse_plane(char **t, t_data *d)
 {
@@ -30,6 +28,6 @@ int	parse_plane(char **t, t_data *d)
 		free(pl);
 		return (error_msg(YES, "Invalid plane format", 0));
 	}
-	add_plane(d->elements, pl);
+	add_plane(d->world, pl);
 	return (1);
 }

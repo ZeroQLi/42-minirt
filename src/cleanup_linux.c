@@ -57,16 +57,16 @@ int	brain_washer(t_data	*data)
 		free_canvas(data->canvas);
 	if (data->values)
 		free_arr(&data->values);
-	if (data->elements)
-		free_all_shapes(data->elements);
-	if (data->elements->amb)
-		free(data->elements->amb);
-	if (data->elements->cam)
-		free(data->elements->cam);
-	if (data->elements->l)
-		free(data->elements->l);
-	if (data->elements)
-		free(data->elements);
+	if (data->world)
+		free_all_shapes(data->world);
+	if (data->world->amb)
+		free(data->world->amb);
+	if (data->world->cam)
+		free(data->world->cam);
+	if (data->world->l)
+		free(data->world->l);
+	if (data->world)
+		free(data->world);
 	ft_printf(GREEN "SUCCCESS 👍\n" RESET);
 	exit(0);
 	return (0);

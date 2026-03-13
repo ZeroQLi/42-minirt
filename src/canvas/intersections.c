@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersections.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 14:03:05 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/12 22:26:46 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/03/13 08:58:56 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ t_intersection	hit(t_intersection_list *xs)
 
 // Joins two intersection lists into one, combining their counts and items.
 // had to copy ur strjoin eshan, thanks 😋
-t_intersection_list	*intersections_joined(t_intersection_list *s1, t_intersection_list *s2)
+t_intersection_list	*intersections_joined(t_intersection_list *s1,
+				t_intersection_list *s2)
 {
 	t_intersection_list	*final;
 	int					i;
