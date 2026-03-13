@@ -373,11 +373,11 @@ void render_sphere_projection(t_canvas *canvas, t_world *world)
 					// 3. eye vector is the negated ray direction
 					t_tuple eyev = negate_tuple(ray.dir);
 					// 4. build lighting context and shade
-					world->l->material = world->sp->material;
-					world->l->h_position = hit_point;
-					world->l->normalv = normalv;
-					world->l->eyev = eyev;
-					t_color color = lighting(world->l);
+					world->l->light.material = world->sp->material;
+					world->l->light.h_position = hit_point;
+					world->l->light.normalv = normalv;
+					world->l->light.eyev = eyev;
+					t_color color = lighting(&world->l->light);
 					write_pixel(canvas, x, y, color);
 				}
 				free(xs->items);

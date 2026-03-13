@@ -20,12 +20,14 @@
 // 	if (!w->l)
 // 	{
 // 		w->l = new;
+//		new->next = NULL;
 // 		return ;
 // 	}
 // 	tmp = w->l;
 // 	while (tmp->next)
 // 		tmp = tmp->next;
 // 	tmp->next = new;
+//	new->next = NULL;
 // }
 
 void	add_plane(t_world *w, t_plane *new)
@@ -35,12 +37,14 @@ void	add_plane(t_world *w, t_plane *new)
 	if (!w->pl)
 	{
 		w->pl = new;
+		new->next = NULL;
 		return ;
 	}
 	tmp = w->pl;
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;
+	new->next = NULL;
 }
 
 void	add_cylinder(t_world *w, t_cylinder *new)
@@ -50,12 +54,14 @@ void	add_cylinder(t_world *w, t_cylinder *new)
 	if (!w->cy)
 	{
 		w->cy = new;
+		new->next = NULL;
 		return ;
 	}
 	tmp = w->cy;
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;
+	new->next = NULL;
 }
 
 void	add_sphere(t_world *w, t_sphere *new)
@@ -65,9 +71,10 @@ void	add_sphere(t_world *w, t_sphere *new)
 	if (!w->sp)
 	{
 		w->sp = new;
-		w->sp->transform = create_identity();
-		w->sp->inv_transform = create_identity();
-		w->sp->material = create_material(w->sp);
+		new->transform = create_identity();
+		new->inv_transform = create_identity();
+		new->material = create_material(new);
+		new->next = NULL;
 		return ;
 	}
 	tmp = w->sp;
@@ -77,4 +84,5 @@ void	add_sphere(t_world *w, t_sphere *new)
 	new->transform = create_identity();
 	new->inv_transform = create_identity();
 	new->material = create_material(new);
+	new->next = NULL;
 }

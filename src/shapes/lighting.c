@@ -6,13 +6,13 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:25:26 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/13 09:03:44 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/13 19:59:31 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
 
-static void	compute_diffuse(t_light *lighting, t_color color)
+static void	compute_diffuse(t_lighting *lighting, t_color color)
 {
 	float	factor;
 	t_tuple	halfv;
@@ -28,7 +28,7 @@ static void	compute_diffuse(t_light *lighting, t_color color)
 	else
 	{
 		factor = powf(lighting->r_dot_e, lighting->material.shininess);
-		lighting->specular = multiply_colors(lighting->intensity,
+		lighting->specular = multiply_colors(lighting->p_light.intensity,
 				lighting->material.specular * factor);
 	}
 }
@@ -54,14 +54,14 @@ t_material	create_material(t_sphere *sp)
 	return (material);
 }
 
-t_color	lighting(t_light *lighting)
+t_color	lighting(t_lighting *lighting)
 {
 	t_color	color; // effective_color
 	float	l_dot_n; // light dot normal
 
-	color = hadamard_product(lighting->material.color, lighting->intensity);
-	lighting->lightv = scalar_normalize(sub_tuples(lighting->position,
-				lighting->h_position));
+	color = hadamard_product(lighting->material.color, lighting->p_light.intensity);
+	lighting->lightv = scalar_normalize(sub_tuples(lighting->p_light.position,
+			lighting->h_position));
 	lighting->ambient = multiply_colors(color, lighting->material.ambient);
 	l_dot_n = dot_product(lighting->lightv, lighting->normalv);
 	lighting->l_dot_n = l_dot_n;

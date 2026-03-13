@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   canvas.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 15:31:44 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/12 15:28:33 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/03/13 22:46:48 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ t_intersection_list	*intersect_sphere(t_ray ray, t_sphere *sphere);
 t_intersection		intersect(float t, void *object, t_type type);
 t_intersection_list	*intersect_list(t_intersection i1, t_intersection i2);
 t_intersection		hit(t_intersection_list *xs);
+t_intersection_list	*intersections_joined(t_intersection_list *s1,
+				t_intersection_list *s2);
+void	sort_intersections(t_intersection_list *xs);
 
 // reflection operations
 t_tuple				normal_at(t_sphere *sphere, t_tuple world_point);

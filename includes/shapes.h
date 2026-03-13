@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:22:17 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/13 08:56:27 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/13 19:52:59 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 # include "matrices.h"
 
-// typedef struct s_point_light
-// {
-// 	t_tuple	position;
-// 	t_color	intensity;
-// }	t_point_light;
+typedef struct s_point_light
+{
+	t_tuple	position;
+	t_color	intensity;
+}	t_point_light;
 
 typedef struct s_material
 {
@@ -29,6 +29,23 @@ typedef struct s_material
 	float	specular;
 	float	shininess;
 }	t_material;
+
+typedef struct t_lighting
+{
+	t_material		material;
+	t_tuple			h_position;
+	t_point_light	p_light;
+	t_tuple			normalv;
+	t_tuple			eyev;
+	// values for lighting calculations. kept here to avoid norminette issues in the lighting function
+	t_color			ambient;
+	t_tuple			lightv;
+	float			l_dot_n; // light dot normal
+	float			r_dot_e; // reflect dot eye
+	t_color			diffuse;
+	t_color			specular;
+	t_color			result;
+}	t_lighting;
 
 typedef struct s_cylinder
 {
@@ -89,21 +106,8 @@ typedef struct s_light
 	int				cr; // RGB range [0-255]
 	int				cg;
 	int				cb;
+	t_lighting		light;
 	// float			fade_size; // will try to utilize?
-	t_material		material;
-	t_tuple			position; // normal position
-	t_tuple			h_position; // hit position
-	t_color			intensity;
-	t_tuple			normalv;
-	t_tuple			eyev;
-	// values for lighting calculations. kept here to avoid norminette issues in the lighting function
-	t_color			ambient;
-	t_tuple			lightv;
-	float			l_dot_n; // light dot normal
-	float			r_dot_e; // reflect dot eye
-	t_color			diffuse;
-	t_color			specular;
-	t_color			result;
 	// struct s_light	*next;
 }	t_light;
 
@@ -132,5 +136,5 @@ void			set_transform(t_sphere *sphere, t_matrix4 transform);
 // lighting operations
 t_material		create_material(t_sphere *sp);
 // t_point_light	point_light(t_tuple position, t_color intensity);
-t_color			lighting(t_light *lighting);
+t_color			lighting(t_lighting *lighting);
 #endif

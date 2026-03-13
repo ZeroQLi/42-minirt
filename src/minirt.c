@@ -13,52 +13,55 @@
 #include "../includes/minirt.h"
 #include "../includes/testing.h" // be sure to remove
 
-static int	key_press(int key, t_data *data)
-{
-	if (key == ESC)
-		brain_washer(data);
-	return (0);
-}
+// static int	key_press(int key, t_data *data)
+// {
+// 	if (key == ESC)
+// 		brain_washer(data);
+// 	return (0);
+// }
 
-// Initializes the world space used to create a scene
-// Moving all the values that were parsed into the actual objects
-// (i aint reworking the parser again 😒)
-void	new_world(t_world *w)
+t_intersection_list	*intersect_world(t_world *w, t_ray r)
 {
-	if (w->l)
+	t_intersection_list	*acc;
+	t_intersection_list	*curr;
+	t_sphere			*tmp;
+
+	acc = intersect_list(intersect(0, NULL, 0), intersect(0, NULL, 0));
+	if (!acc)
+		return (NULL);
+	tmp = w->sp;
+	while (tmp)
 	{
-		w->l->position = create_point(w->l->px, w->l->py, w->l->pz);
-		w->l->intensity = color_from_rgb(w->l->cr, w->l->cg, w->l->cb);
+		curr = intersect_sphere(r, tmp);
+		if (curr)
+		{
+			acc = intersections_joined(acc, curr);
+			if (!acc)
+				return (NULL);
+		}
+		tmp = tmp->next;
 	}
-	if (w->sp)
-	{
-		// while (w->sp->next != NULL)
-		// {
-			w->sp->position = create_point(w->sp->px, w->sp->py, w->sp->pz);
-			w->sp->material = create_material(w->sp);
-		// }
-		// w->sp = w->sp->next;
-	}
-	if (w->sp->next)
-	{
-		w->sp = w->sp->next;
-		w->sp->position = create_point(w->sp->px, w->sp->py, w->sp->pz);
-		w->sp->material = create_material(w->sp);
-		set_transform(w->sp, scaling(0.5, 0.5, 0.5));
-	}
+	return (acc);
 }
 
 static void	test_operations(t_data *data)
 {
-	data->canvas = create_canvas();
-	render_sphere_projection(data->canvas, data->world);
-	mlx_put_image_to_window(data->canvas->mlx, data->canvas->mlx_win,
-			data->canvas->img, 0, 0);
-	sleep(2);
-	mlx_string_put(data->canvas->mlx, data->canvas->mlx_win, 25, 25, 255, "yes, I changed the sphere color. Mathew is still mathing.");
-	mlx_hook(data->canvas->mlx_win, 17, 0, brain_washer, data); // PLS DO NOT DELETE THESE ESHAN I AINT REWRITING THEM AGAIN
-	mlx_hook(data->canvas->mlx_win, 2, 1L << 0, key_press, data);
-	mlx_loop(data->canvas->mlx);
+	// data->canvas = create_canvas();
+
+	new_world(data->world);
+	t_ray	ray = create_ray(create_point(0, 0, -5), create_vector(0, 0, 1));
+	t_intersection_list	*xs = intersect_world(data->world, ray);
+	printf("Number of intersections: %d\n", xs->count);
+	for (int i = 0; i < xs->count; i++)
+		printf("Intersection %d: t = %f\n", i + 1, xs->items[i].t);
+	free(xs->items);
+	free(xs);
+	// render_sphere_projection(data->canvas, data->world);
+	// mlx_put_image_to_window(data->canvas->mlx, data->canvas->mlx_win,
+	// 		data->canvas->img, 0, 0);
+	// mlx_hook(data->canvas->mlx_win, 17, 0, brain_washer, data); // PLS DO NOT DELETE THESE ESHAN I AINT REWRITING THEM AGAIN
+	// mlx_hook(data->canvas->mlx_win, 2, 1L << 0, key_press, data);
+	// mlx_loop(data->canvas->mlx);
 }
 
 // le rt'ing Magie commence
@@ -78,7 +81,7 @@ int	main(int ac, char **av)
 		brain_washer(&data);
 		return (1);
 	}
-	// print_elements(data.elements);
+	// print_elements(data.world);
 	test_operations(&data);
 	// test_matrix4_system();
 	brain_washer(&data);

@@ -50,6 +50,8 @@ SRC5 = $(SRC_DIR5)canvas_operations.c \
 $(SRC_DIR5)intersections.c \
 $(SRC_DIR5)rays.c \
 $(SRC_DIR5)reflections.c \
+$(SRC_DIR5)new_world.c \
+$(SRC_DIR5)sort_intersections.c
 
 SRC6 = $(SRC_DIR6)spheres.c \
 $(SRC_DIR6)lighting.c \

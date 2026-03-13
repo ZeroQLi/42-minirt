@@ -40,7 +40,7 @@ static void	print_lights(t_light *light)
 		return ;
 	i = 1;
 	printf(BYELLOW "=== LIGHTS ===" RESET "\n");
-	while (light)
+	if (light)
 	{
 		printf("  Light %d:\n", i);
 		printf("    Position: (%.2f, %.2f, %.2f)\n", light->px, light->py, light->pz);
