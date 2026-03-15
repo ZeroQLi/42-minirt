@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:25:26 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/13 19:59:31 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/15 06:18:33 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,25 @@ static void	compute_diffuse(t_lighting *lighting, t_color color)
 	}
 }
 
-// t_point_light	point_light(t_tuple position, t_color intensity)
-// {
-// 	t_point_light	light;
+t_point_light	point_light(t_tuple position, t_color intensity)
+{
+	t_point_light	light;
 
-// 	light.position = position;
-// 	light.intensity = intensity;
-// 	return (light);
-// }
+	light.position = position;
+	light.intensity = intensity;
+	return (light);
+}
 
 t_material	create_material(t_sphere *sp)
 {
 	t_material	material;
 
-	material.color = color_from_rgb(sp->cr, sp->cg, sp->cb);
+	(void)sp;
+	material.color = create_color(0.8, 1.0, 0.6);
+	// material.color = color_from_rgb(sp->cr, sp->cg, sp->cb);
 	material.ambient = 0.1f;
-	material.diffuse = 0.9f;
-	material.specular = 0.9f;
+	material.diffuse = 0.7f;
+	material.specular = 0.2f;
 	material.shininess = 200.0f;
 	return (material);
 }

@@ -6,14 +6,15 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 15:31:44 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/13 22:46:48 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/14 01:24:02 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CANVAS_H
 # define CANVAS_H
 
-# include "tuples.h" 
+# include "minirt.h"
+# include "tuples.h"
 
 typedef enum e_type
 {
@@ -41,6 +42,18 @@ typedef struct s_ray
 	t_tuple	dir;
 }	t_ray;
 
+typedef struct s_precomp
+{
+	float	t;
+	void	*object;
+	t_type	type;
+	t_tuple	point;
+	t_tuple	eyev;
+	t_tuple	normalv;
+	bool	inside;
+}	t_precomp;
+
+
 // ray operations
 t_ray				create_ray(t_tuple origin, t_tuple direction);
 t_tuple				position(t_ray ray, float t);
@@ -53,7 +66,7 @@ t_intersection_list	*intersect_list(t_intersection i1, t_intersection i2);
 t_intersection		hit(t_intersection_list *xs);
 t_intersection_list	*intersections_joined(t_intersection_list *s1,
 				t_intersection_list *s2);
-void	sort_intersections(t_intersection_list *xs);
+void				sort_intersections(t_intersection_list *xs);
 
 // reflection operations
 t_tuple				normal_at(t_sphere *sphere, t_tuple world_point);

@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:22:17 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/13 19:52:59 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/15 05:54:10 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,6 @@ void			set_transform(t_sphere *sphere, t_matrix4 transform);
 
 // lighting operations
 t_material		create_material(t_sphere *sp);
-// t_point_light	point_light(t_tuple position, t_color intensity);
+t_point_light	point_light(t_tuple position, t_color intensity);
 t_color			lighting(t_lighting *lighting);
 #endif

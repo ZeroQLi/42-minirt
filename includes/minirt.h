@@ -81,8 +81,6 @@
 # define WHITE   "\033[0;37m"
 # define BWHITE  "\033[1;37m"
 # define RESET "\033[0m"
-# include <math.h>
-# include "macros.h"
 
 typedef struct s_world
 {
@@ -117,65 +115,66 @@ typedef struct s_data
 	t_canvas	*canvas;
 }	t_data;
 
-int			array_len(char **arr);
+int					array_len(char **arr);
 
 //--------------------------//
 //		Shapes linklist		//
 //--------------------------//
-void		add_sphere(t_world *w, t_sphere *new);
-void		add_cylinder(t_world *w, t_cylinder *new);
-void		add_plane(t_world *w, t_plane *new);
-void		free_spheres(t_sphere *sp);
-void		free_cylinders(t_cylinder *sp);
-void		free_planes(t_plane *sp);
-void		free_all_shapes(t_world *w);
+void				add_sphere(t_world *w, t_sphere *new);
+void				add_cylinder(t_world *w, t_cylinder *new);
+void				add_plane(t_world *w, t_plane *new);
+void				free_spheres(t_sphere *sp);
+void				free_cylinders(t_cylinder *sp);
+void				free_planes(t_plane *sp);
+void				free_all_shapes(t_world *w);
 
 //--------------------------//
 //		Error & Cleanup		//
 //--------------------------//
-int			error_msg(bool err, char *str, int fd);
-char		*free_arr(char ***arr);
-int			brain_washer(t_data	*data);
+int					error_msg(bool err, char *str, int fd);
+char				*free_arr(char ***arr);
+int					brain_washer(t_data	*data);
 
 //--------------------------//
 //		Parsing stuff		//
 //--------------------------//
-int			parse_file(t_data *data, char *file);
-int			is_empty_or_comment(char *line);
+int					parse_file(t_data *data, char *file);
+int					is_empty_or_comment(char *line);
 
 // Shapes Parsing
-int			parse_ambient(char **t, t_data *d);
-int			parse_camera(char **t, t_data *d);
-int			parse_light(char **t, t_data *d);
-int			parse_sphere(char **t, t_data *d);
-int			parse_plane(char **t, t_data *d);
-int			parse_cylinder(char **t, t_data *d);
+int					parse_ambient(char **t, t_data *d);
+int					parse_camera(char **t, t_data *d);
+int					parse_light(char **t, t_data *d);
+int					parse_sphere(char **t, t_data *d);
+int					parse_plane(char **t, t_data *d);
+int					parse_cylinder(char **t, t_data *d);
 
 // Info Parsing
-int			parse_vec3(char *s, float *x, float *y, float *z);
-int			parse_normal(char *s, float *x, float *y, float *z); //checks [-1,1]
-int			parse_rgb(char *s, int *r, int *g, int *b);
+int					parse_vec3(char *s, float *x, float *y, float *z);
+int					parse_normal(char *s, float *x, float *y, float *z); //checks [-1,1]
+int					parse_rgb(char *s, int *r, int *g, int *b);
 
 // scalar operations
-t_tuple		scalar_multiply(t_tuple a, float num);
-t_tuple		scalar_divide(t_tuple a, float num);
-float		scalar_magnitude(t_tuple a);
-t_tuple		scalar_normalize(t_tuple a);
+t_tuple				scalar_multiply(t_tuple a, float num);
+t_tuple				scalar_divide(t_tuple a, float num);
+float				scalar_magnitude(t_tuple a);
+t_tuple				scalar_normalize(t_tuple a);
 
 //vector operations
-float		dot_product(t_tuple a, t_tuple b);
-t_tuple		cross_product(t_tuple a, t_tuple b);
+float				dot_product(t_tuple a, t_tuple b);
+t_tuple				cross_product(t_tuple a, t_tuple b);
 
 // canvas operations
-t_canvas	*create_canvas(void);
-void		write_pixel(t_canvas *canvas, int x, int y, t_color color);
-t_color		pixel_at(t_canvas *canvas, int x, int y);
-void		free_canvas(t_canvas *canvas);
+t_canvas			*create_canvas(void);
+void				write_pixel(t_canvas *canvas, int x, int y, t_color color);
+t_color				pixel_at(t_canvas *canvas, int x, int y);
+void				free_canvas(t_canvas *canvas);
 
 // value table print tester
-void		print_elements(t_world *elements);
+void				print_elements(t_world *elements);
 
-t_color		color_from_rgb(int r, int g, int b);
-void		new_world(t_world *w);
+t_color				color_from_rgb(int r, int g, int b);
+void				new_world(t_world *w);
+t_intersection_list	*intersect_world(t_world *w, t_ray r);
 
 #endif

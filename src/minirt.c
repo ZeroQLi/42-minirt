@@ -20,42 +20,55 @@
 // 	return (0);
 // }
 
-t_intersection_list	*intersect_world(t_world *w, t_ray r)
+t_precomp	prepare_even_more_math(t_intersection i, t_ray ray) // definitely change the name to prepare_computation REMOVE/CHANGE LATER
 {
-	t_intersection_list	*acc;
-	t_intersection_list	*curr;
-	t_sphere			*tmp;
+	t_precomp	comps;
 
-	acc = intersect_list(intersect(0, NULL, 0), intersect(0, NULL, 0));
-	if (!acc)
-		return (NULL);
-	tmp = w->sp;
-	while (tmp)
+	comps.t = i.t;
+	comps.object = i.object;
+	comps.type = i.type;
+	comps.point = position(ray, comps.t);
+	comps.eyev = negate_tuple(ray.dir);
+	comps.normalv = normal_at(comps.object, comps.point);
+	comps.inside = false;
+	if (dot_product(comps.normalv, comps.eyev) < 0)
 	{
-		curr = intersect_sphere(r, tmp);
-		if (curr)
-		{
-			acc = intersections_joined(acc, curr);
-			if (!acc)
-				return (NULL);
-		}
-		tmp = tmp->next;
+		comps.inside = true;
+		comps.normalv = negate_tuple(comps.normalv);
 	}
-	return (acc);
+	return (comps);
+}
+
+t_color	shade_hit(t_world *w, t_precomp comp)
+{
+	t_lighting	ctx;
+	t_sphere		*sphere;
+
+	if (!w || !w->l || !comp.object)
+		return (create_color(0, 0, 0));
+	sphere = (t_sphere *)comp.object;
+	ctx.material = sphere->material;
+	ctx.p_light = w->l->light.p_light;
+	ctx.h_position = comp.point;
+	ctx.eyev = comp.eyev;
+	ctx.normalv = comp.normalv;
+	return (lighting(&ctx));
 }
 
 static void	test_operations(t_data *data)
 {
 	// data->canvas = create_canvas();
+	t_precomp	precomp;
 
 	new_world(data->world);
-	t_ray	ray = create_ray(create_point(0, 0, -5), create_vector(0, 0, 1));
-	t_intersection_list	*xs = intersect_world(data->world, ray);
-	printf("Number of intersections: %d\n", xs->count);
-	for (int i = 0; i < xs->count; i++)
-		printf("Intersection %d: t = %f\n", i + 1, xs->items[i].t);
-	free(xs->items);
-	free(xs);
+	t_ray	ray = create_ray(create_point(0, 0, 0), create_vector(0, 0, 1));
+	t_intersection	i = intersect(0.5, data->world->sp->next, SPHERE);
+	precomp = prepare_even_more_math(i, ray);
+	t_color		c = shade_hit(data->world, precomp);
+	printf("Shading at hit: R=%.2f, G=%.2f, B=%.2f\n", c.r, c.g, c.b);
+	// (void)precomp;
+	// free(xs->items);
+	// free(xs);
 	// render_sphere_projection(data->canvas, data->world);
 	// mlx_put_image_to_window(data->canvas->mlx, data->canvas->mlx_win,
 	// 		data->canvas->img, 0, 0);

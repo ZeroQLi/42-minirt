@@ -1,5 +1,5 @@
 # Object and source path directories
-SRC_DIR = ./src/
+SRC_DIR = src/
 SRC_DIR2 = $(SRC_DIR)shapes_parser/
 SRC_DIR3 = $(SRC_DIR)tuples/
 SRC_DIR4 = $(SRC_DIR)matrix/
@@ -96,8 +96,7 @@ $(OBJ_PATH)%.o : src/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_PATH):
-	@mkdir -p $(OBJ_PATH)
-	@mkdir -p $(OBJ_PATH)$(SRC_DIR2)
+	@mkdir -p $(OBJ_PATH) $(OBJ_PATH)shapes_parser/ $(OBJ_PATH)tuples/ $(OBJ_PATH)matrix/ $(OBJ_PATH)canvas/ $(OBJ_PATH)shapes/
 
 $(MLX_LIB):
 	@echo "$(WHITE)Compiling $(BWHITE)MinilibX$(WHITE)...$(RESET)"
@@ -113,7 +112,7 @@ fclean: clean
 	@rm -f $(NAME)
 	@rm -f $(LIBFT)
 
-re: fclean $(NAME)
+re: fclean all
 
 # Only recompiles the src files and the program, ignoring libft as its always the same.
 remake:
