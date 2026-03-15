@@ -55,17 +55,26 @@ t_color	shade_hit(t_world *w, t_precomp comp)
 	return (lighting(&ctx));
 }
 
+t_color	color_at(t_world *w, t_ray ray)
+{
+	t_intersection_list	*i;
+	t_precomp			comp;
+
+	i = intersect_world(w, ray);
+	if (i->count == 0)
+		return (create_color(0, 0, 0));
+	comp = prepare_even_more_math(i->items[0], ray);
+	return (shade_hit(w, comp));
+}
+
 static void	test_operations(t_data *data)
 {
 	// data->canvas = create_canvas();
-	t_precomp	precomp;
 
 	new_world(data->world);
-	t_ray	ray = create_ray(create_point(0, 0, 0), create_vector(0, 0, 1));
-	t_intersection	i = intersect(0.5, data->world->sp->next, SPHERE);
-	precomp = prepare_even_more_math(i, ray);
-	t_color		c = shade_hit(data->world, precomp);
-	printf("Shading at hit: R=%.2f, G=%.2f, B=%.2f\n", c.r, c.g, c.b);
+	t_ray	ray = create_ray(create_point(0, 0, -5), create_vector(0, 0, 1));
+	t_color		c = color_at(data->world, ray);
+	printf("Shading at hit: R=%.5f, G=%.5f, B=%.5f\n", c.r, c.g, c.b);
 	// (void)precomp;
 	// free(xs->items);
 	// free(xs);
