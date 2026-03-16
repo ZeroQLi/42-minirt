@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:25:26 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/15 06:47:52 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/16 06:54:07 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_color	lighting(t_lighting *lighting)
 
 	color = hadamard_product(lighting->material.color, lighting->p_light.intensity);
 	lighting->lightv = scalar_normalize(sub_tuples(lighting->p_light.position,
-			lighting->h_position));
+				lighting->h_position));
 	lighting->ambient = multiply_colors(color, lighting->material.ambient);
 	l_dot_n = dot_product(lighting->lightv, lighting->normalv);
 	lighting->l_dot_n = l_dot_n;

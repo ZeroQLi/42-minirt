@@ -13,77 +13,48 @@
 #include "../includes/minirt.h"
 #include "../includes/testing.h" // be sure to remove
 
-// static int	key_press(int key, t_data *data)
-// {
-// 	if (key == ESC)
-// 		brain_washer(data);
-// 	return (0);
-// }
-
-t_precomp	prepare_even_more_math(t_intersection i, t_ray ray) // definitely change the name to prepare_computation REMOVE/CHANGE LATER
+static int	key_press(int key, t_data *data)
 {
-	t_precomp	comps;
-
-	comps.t = i.t;
-	comps.object = i.object;
-	comps.type = i.type;
-	comps.point = position(ray, comps.t);
-	comps.eyev = negate_tuple(ray.dir);
-	comps.normalv = normal_at(comps.object, comps.point);
-	comps.inside = false;
-	if (dot_product(comps.normalv, comps.eyev) < 0)
-	{
-		comps.inside = true;
-		comps.normalv = negate_tuple(comps.normalv);
-	}
-	return (comps);
+	if (key == ESC)
+		brain_washer(data);
+	return (0);
 }
 
-t_color	shade_hit(t_world *w, t_precomp comp)
+t_matrix4	view_transform(t_tuple from, t_tuple to, t_tuple up)
 {
-	t_lighting	ctx;
-	t_sphere		*sphere;
+	t_tuple		forward;
+	t_tuple		left;
+	t_tuple		true_up;
+	t_matrix4	orientation;
 
-	if (!w || !w->l || !comp.object)
-		return (create_color(0, 0, 0));
-	sphere = (t_sphere *)comp.object;
-	ctx.material = sphere->material;
-	ctx.p_light = w->l->light.p_light;
-	ctx.h_position = comp.point;
-	ctx.eyev = comp.eyev;
-	ctx.normalv = comp.normalv;
-	return (lighting(&ctx));
-}
-
-t_color	color_at(t_world *w, t_ray ray)
-{
-	t_intersection_list	*i;
-	t_precomp			comp;
-
-	i = intersect_world(w, ray);
-	if (i->count == 0)
-		return (create_color(0, 0, 0));
-	comp = prepare_even_more_math(i->items[0], ray);
-	return (shade_hit(w, comp));
+	forward = scalar_normalize(sub_tuples(to, from));
+	left = cross_product(forward, scalar_normalize(up));
+	true_up = cross_product(left, forward);
+	orientation = (t_matrix4){.data = {
+	{left.x, left.y, left.z, 0},
+	{true_up.x, true_up.y, true_up.z, 0},
+	{-forward.x, -forward.y, -forward.z, 0},
+	{0, 0, 0, 1}
+	}};
+	return (matrix_multiply(orientation,
+				translation(-from.x, -from.y, -from.z)));
 }
 
 static void	test_operations(t_data *data)
 {
-	// data->canvas = create_canvas();
+	data->canvas = create_canvas();
 
 	new_world(data->world);
-	t_ray	ray = create_ray(create_point(0, 0, -5), create_vector(0, 0, 1));
-	t_color		c = color_at(data->world, ray);
-	printf("Shading at hit: R=%.5f, G=%.5f, B=%.5f\n", c.r, c.g, c.b);
-	// (void)precomp;
-	// free(xs->items);
-	// free(xs);
+	data->world->cam->transform = view_transform(create_point(0, 1.5f, -5),
+			create_point(0, 1, 0), create_point(0, 1, 0));
+	render(data->world->cam, data->world, data->canvas);
+	printf(BGREEN "rendered\n" RESET);
 	// render_sphere_projection(data->canvas, data->world);
-	// mlx_put_image_to_window(data->canvas->mlx, data->canvas->mlx_win,
-	// 		data->canvas->img, 0, 0);
-	// mlx_hook(data->canvas->mlx_win, 17, 0, brain_washer, data); // PLS DO NOT DELETE THESE ESHAN I AINT REWRITING THEM AGAIN
-	// mlx_hook(data->canvas->mlx_win, 2, 1L << 0, key_press, data);
-	// mlx_loop(data->canvas->mlx);
+	mlx_put_image_to_window(data->canvas->mlx, data->canvas->mlx_win,
+		data->canvas->img, 0, 0);
+	mlx_hook(data->canvas->mlx_win, 17, 0, brain_washer, data); // PLS DO NOT DELETE THESE ESHAN I AINT REWRITING THEM AGAIN
+	mlx_hook(data->canvas->mlx_win, 2, 1L << 0, key_press, data);
+	mlx_loop(data->canvas->mlx);
 }
 
 // le rt'ing Magie commence

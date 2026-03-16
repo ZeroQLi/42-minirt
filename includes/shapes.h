@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:22:17 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/15 05:54:10 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/16 07:45:30 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct t_lighting
 	t_point_light	p_light;
 	t_tuple			normalv;
 	t_tuple			eyev;
-	// values for lighting calculations. kept here to avoid norminette issues in the lighting function
+	// values for lighting calculations. kept here to avoid norminette issues
 	t_color			ambient;
 	t_tuple			lightv;
 	float			l_dot_n; // light dot normal
@@ -91,9 +91,9 @@ typedef struct s_sphere
 	int				cg;
 	int				cb;
 	t_matrix4		transform; //store the transformation matrix for the sphere
-	t_tuple			position;
+	t_tuple			position; // actual position
 	t_material		material; // store the material properties for the sphere
-	t_matrix4		inv_transform; // store the inverse of the transformation matrix for ray-sphere intersection
+	t_matrix4		inv_transform; // store the inverse of the transformation
 	struct s_sphere	*next;
 }	t_sphere;
 
@@ -113,13 +113,21 @@ typedef struct s_light
 
 typedef struct s_camera
 {
-	float	px;
-	float	py;
-	float	pz;
-	float	rx; // range [-1, 1]
-	float	ry;
-	float	rz;
-	float	fov; // range 0-180
+	float		px;
+	float		py;
+	float		pz;
+	float		rx; // range [-1, 1]
+	float		ry;
+	float		rz;
+	t_matrix4	transform;
+	t_tuple		position; // actual position
+	t_tuple		rotation; // actual rotation
+	float		fov; // range 0-180
+	int			hsize;
+	int			vsize;
+	float		pixel_size;
+	float		half_width;
+	float		half_height;
 }	t_camera;
 
 typedef struct s_ambient

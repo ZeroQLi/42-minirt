@@ -151,7 +151,7 @@ int					parse_cylinder(char **t, t_data *d);
 
 // Info Parsing
 int					parse_vec3(char *s, float *x, float *y, float *z);
-int					parse_normal(char *s, float *x, float *y, float *z); //checks [-1,1]
+int					parse_normal(char *s, float *x, float *y, float *z);
 int					parse_rgb(char *s, int *r, int *g, int *b);
 
 // scalar operations
@@ -176,5 +176,7 @@ void				print_elements(t_world *elements);
 t_color				color_from_rgb(int r, int g, int b);
 void				new_world(t_world *w);
 t_intersection_list	*intersect_world(t_world *w, t_ray r);
+t_color				color_at(t_world *w, t_ray ray);
+void				render(t_camera *c, t_world *w, t_canvas *canvas);
 
 #endif
