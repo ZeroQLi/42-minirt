@@ -19,7 +19,7 @@ int	is_invertible(t_matrix4 m)
 	float	det;
 
 	det = determinant_4x4(m);
-	if (det == 0)
+	if (is_equal(det, 0))
 		return (0);
 	return (1);
 }

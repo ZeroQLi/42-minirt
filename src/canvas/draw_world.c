@@ -18,17 +18,17 @@ static t_ray	ray_for_pixel(t_camera *c, float px, float py)
 	float		yoffset;
 	float		world_x;
 	float		world_y;
-	t_matrix4	invert;
+	//t_matrix4	invert;
 
 	xoffset = (px + 0.5) * c->pixel_size;
 	yoffset = (py + 0.5) * c->pixel_size;
 	world_x = c->half_width - xoffset;
 	world_y = c->half_height - yoffset;
-	invert = invert_4x4(c->transform);
-	return (create_ray(matrix4_tuple_multiply(invert, create_point(0, 0, 0)),
+	//invert = invert_4x4(c->transform);
+	return (create_ray(matrix4_tuple_multiply(c->inv_transform, create_point(0, 0, 0)),
 		scalar_normalize(sub_tuples(matrix4_tuple_multiply\
-			(invert, create_point(world_x, world_y, -1)),
-			matrix4_tuple_multiply(invert, create_point(0, 0, 0))))));
+			(c->inv_transform, create_point(world_x, world_y, -1)),
+			matrix4_tuple_multiply(c->inv_transform, create_point(0, 0, 0))))));
 }
 
 static t_precomp	prepare_even_more_math(t_intersection i, t_ray ray) // definitely change the name to prepare_computation REMOVE/CHANGE LATER

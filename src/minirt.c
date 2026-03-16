@@ -47,6 +47,7 @@ static void	test_operations(t_data *data)
 	new_world(data->world);
 	data->world->cam->transform = view_transform(create_point(0, 1.5f, -5),
 			create_point(0, 1, 0), create_point(0, 1, 0));
+	data->world->cam->inv_transform = invert_4x4(data->world->cam->transform);
 	render(data->world->cam, data->world, data->canvas);
 	printf(BGREEN "rendered\n" RESET);
 	// render_sphere_projection(data->canvas, data->world);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shapes.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:22:17 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/16 07:45:30 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/16 18:11:46 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ typedef struct s_camera
 	float		ry;
 	float		rz;
 	t_matrix4	transform;
+	t_matrix4	inv_transform;
 	t_tuple		position; // actual position
 	t_tuple		rotation; // actual rotation
 	float		fov; // range 0-180
