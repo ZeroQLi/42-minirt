@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shapes.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:22:17 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/16 18:11:46 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/03/16 20:57:33 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct t_lighting
 	t_tuple			lightv;
 	float			l_dot_n; // light dot normal
 	float			r_dot_e; // reflect dot eye
+	bool			in_shadow;
 	t_color			diffuse;
 	t_color			specular;
 	t_color			result;

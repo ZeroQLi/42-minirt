@@ -14,6 +14,7 @@
 # define MACROS_H
 
 # define EPSILON 0.00001
+# define SHADOW_BIAS 0.01f
 
 # define WIN_WIDTH 1366
 # define WIN_HEIGHT 768

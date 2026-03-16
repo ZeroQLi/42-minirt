@@ -18,13 +18,11 @@ static t_ray	ray_for_pixel(t_camera *c, float px, float py)
 	float		yoffset;
 	float		world_x;
 	float		world_y;
-	//t_matrix4	invert;
 
 	xoffset = (px + 0.5) * c->pixel_size;
 	yoffset = (py + 0.5) * c->pixel_size;
 	world_x = c->half_width - xoffset;
 	world_y = c->half_height - yoffset;
-	//invert = invert_4x4(c->transform);
 	return (create_ray(matrix4_tuple_multiply(c->inv_transform, create_point(0, 0, 0)),
 		scalar_normalize(sub_tuples(matrix4_tuple_multiply\
 			(c->inv_transform, create_point(world_x, world_y, -1)),
@@ -50,6 +48,27 @@ static t_precomp	prepare_even_more_math(t_intersection i, t_ray ray) // definite
 	return (comps);
 }
 
+static bool	is_shadowed(t_world *w, t_precomp comp)
+{
+	t_tuple			to_light;
+	t_ray			shadow_ray;
+	t_intersection		h;
+	t_intersection_list	*xs;
+	float			distance;
+
+	to_light = sub_tuples(w->l->light.p_light.position, comp.point);
+	comp.over_point = add_tuples(comp.point, scalar_multiply(comp.normalv, SHADOW_BIAS));
+	distance = scalar_magnitude(to_light);
+	shadow_ray = create_ray(comp.over_point, scalar_normalize(to_light));
+	xs = intersect_world(w, shadow_ray);
+	if (!xs)
+		return (false);
+	h = hit(xs);
+	free(xs->items);
+	free(xs);
+	return (h.object != NULL && h.t < distance);
+}
+
 static t_color	shade_hit(t_world *w, t_precomp comp)
 {
 	t_lighting		ctx;
@@ -63,6 +82,7 @@ static t_color	shade_hit(t_world *w, t_precomp comp)
 	ctx.h_position = comp.point;
 	ctx.eyev = comp.eyev;
 	ctx.normalv = comp.normalv;
+	ctx.in_shadow = is_shadowed(w, comp);
 	return (lighting(&ctx));
 }
 
@@ -114,5 +134,8 @@ void	render(t_camera *c, t_world *w, t_canvas *canvas)
 			x++;
 		}
 		y++;
+		mlx_clear_window(canvas->mlx, canvas->mlx_win);
+		mlx_put_image_to_window(canvas->mlx, canvas->mlx_win,
+				canvas->img, 0, 0); // so we can see the thing rendering realtime (REMOVE/CHANGE LATER???)
 	}
 }

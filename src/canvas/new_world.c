@@ -47,6 +47,7 @@ static void	camera(t_camera *cam)
 	cam->transform = create_identity();
 	cam->position = create_point(cam->px, cam->py, cam->pz);
 	cam->rotation = create_point(cam->rx, cam->ry, cam->rz);
+	// data->world->cam->inv_transform = invert_4x4(data->world->cam->transform);
 	half_view = tan(cam->fov / 2);
 	aspect = (float)cam->hsize / (float)cam->vsize;
 	if (aspect >= 1)
@@ -197,11 +198,8 @@ static void	setup_scene_light(t_world *w)
 		if (!w->l)
 			return ;
 	}
-	w->l->px = -10;
-	w->l->py = 10;
-	w->l->pz = -10;
-	w->l->light.p_light = point_light(create_point(-10, 10, -10),
-			create_color(1, 1, 1));
+	w->l->light.p_light = point_light(create_point(w->l->px, w->l->py, w->l->pz),
+			color_from_rgb(w->l->cr, w->l->cg, w->l->cb));
 }
 
 // Initializes the world space used to create a scene

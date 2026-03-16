@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 15:31:44 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/16 06:57:09 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/16 22:40:54 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_precomp
 	void	*object;
 	t_type	type;
 	t_tuple	point;
+	t_tuple	over_point;
 	t_tuple	eyev;
 	t_tuple	normalv;
 	bool	inside;

@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:25:26 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/16 06:54:07 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/16 23:47:19 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ t_material	create_material(t_sphere *sp)
 	t_material	material;
 
 	(void)sp;
-	material.color = create_color(1, 1, 1);
-	// material.color = color_from_rgb(sp->cr, sp->cg, sp->cb);
+	// material.color = create_color(1, 1, 1);
+	material.color = color_from_rgb(sp->cr, sp->cg, sp->cb);
 	material.ambient = 0.1f;
 	material.diffuse = 0.9f;
 	material.specular = 0.9f;
@@ -67,7 +67,7 @@ t_color	lighting(t_lighting *lighting)
 	lighting->ambient = multiply_colors(color, lighting->material.ambient);
 	l_dot_n = dot_product(lighting->lightv, lighting->normalv);
 	lighting->l_dot_n = l_dot_n;
-	if (l_dot_n < 0)
+	if (l_dot_n < 0 || lighting->in_shadow == YES)
 	{
 		lighting->diffuse = create_color(0, 0, 0);
 		lighting->specular = create_color(0, 0, 0);
