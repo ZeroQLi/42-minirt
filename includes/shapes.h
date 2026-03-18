@@ -30,6 +30,12 @@ typedef struct s_material
 	float	shininess;
 }	t_material;
 
+typedef struct s_shape_transform
+{
+	t_matrix4	transform;
+	t_matrix4	inv_transform;
+}	t_shape_transform;
+
 typedef struct t_lighting
 {
 	t_material		material;
@@ -61,6 +67,7 @@ typedef struct s_cylinder
 	int					cr; // RGB range [0-255]
 	int					cg;
 	int					cb;
+	t_shape_transform	tf;
 	struct s_cylinder	*next;
 }	t_cylinder;
 
@@ -76,6 +83,9 @@ typedef struct s_plane
 	int				cr; // RGB range [0-255]
 	int				cg;
 	int				cb;
+	t_shape_transform	tf;
+	t_tuple			position;
+	t_material		material;
 	struct s_plane	*next;
 }	t_plane;
 
@@ -91,10 +101,9 @@ typedef struct s_sphere
 	int				cr; // RGB range [0-255]
 	int				cg;
 	int				cb;
-	t_matrix4		transform; //store the transformation matrix for the sphere
+	t_shape_transform	tf;
 	t_tuple			position; // actual position
 	t_material		material; // store the material properties for the sphere
-	t_matrix4		inv_transform; // store the inverse of the transformation
 	struct s_sphere	*next;
 }	t_sphere;
 
@@ -141,10 +150,10 @@ typedef struct s_ambient
 }	t_ambient;
 
 // sphere operations
-void			set_transform(t_sphere *sphere, t_matrix4 transform);
+void			set_transform(t_shape_transform *tf, t_matrix4 transform);
 
 // lighting operations
-t_material		create_material(t_sphere *sp);
+t_material		create_material(int cr, int cg, int cb);
 t_point_light	point_light(t_tuple position, t_color intensity);
 t_color			lighting(t_lighting *lighting);
 #endif

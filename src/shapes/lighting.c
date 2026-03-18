@@ -42,13 +42,12 @@ t_point_light	point_light(t_tuple position, t_color intensity)
 	return (light);
 }
 
-t_material	create_material(t_sphere *sp)
+t_material	create_material(int cr, int cg, int cb)
 {
 	t_material	material;
 
-	(void)sp;
 	// material.color = create_color(1, 1, 1);
-	material.color = color_from_rgb(sp->cr, sp->cg, sp->cb);
+	material.color = color_from_rgb(cr, cg, cb);
 	material.ambient = 0.1f;
 	material.diffuse = 0.9f;
 	material.specular = 0.9f;

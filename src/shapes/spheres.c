@@ -12,8 +12,8 @@
 
 #include "../../includes/minirt.h"
 
-void	set_transform(t_sphere *sphere, t_matrix4 transform)
+void	set_transform(t_shape_transform *tf, t_matrix4 transform)
 {
-	sphere->transform = transform;
-	sphere->inv_transform = invert_4x4(transform);
+	tf->transform = transform;
+	tf->inv_transform = invert_4x4(transform);
 }

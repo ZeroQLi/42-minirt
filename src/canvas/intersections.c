@@ -21,7 +21,7 @@ t_intersection_list	*intersect_sphere(t_ray ray, t_sphere *sphere)
 	float				disc;
 	float				intersections[3];
 
-	ray = transform_ray(ray, sphere->inv_transform);
+	ray = transform_ray(ray, sphere->tf.inv_transform);
 	sphere_to_ray = sub_tuples(ray.origin, sphere->position);
 	a = dot_product(ray.dir, ray.dir);
 	b = 2.f * dot_product(ray.dir, sphere_to_ray);

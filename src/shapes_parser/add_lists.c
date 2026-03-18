@@ -71,9 +71,6 @@ void	add_sphere(t_world *w, t_sphere *new)
 	if (!w->sp)
 	{
 		w->sp = new;
-		new->transform = create_identity();
-		new->inv_transform = create_identity();
-		new->material = create_material(new);
 		new->next = NULL;
 		return ;
 	}
@@ -81,8 +78,5 @@ void	add_sphere(t_world *w, t_sphere *new)
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;
-	new->transform = create_identity();
-	new->inv_transform = create_identity();
-	new->material = create_material(new);
 	new->next = NULL;
 }

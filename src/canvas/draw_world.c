@@ -137,5 +137,4 @@ void	render(t_camera *c, t_world *w, t_canvas *canvas)
 		mlx_clear_window(canvas->mlx, canvas->mlx_win);
 		mlx_put_image_to_window(canvas->mlx, canvas->mlx_win, canvas->img, 0, 0);
 	}
-	
 }
