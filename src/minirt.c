@@ -20,6 +20,11 @@ static int	key_press(int key, t_data *data)
 	return (0);
 }
 
+t_color	color_from_rgb(int r, int g, int b)
+{
+	return (create_color(r / 255.0f, g / 255.0f, b / 255.0f));
+}
+
 t_matrix4	view_transform(t_tuple from, t_tuple to, t_tuple up)
 {
 	t_tuple		forward;

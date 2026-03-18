@@ -388,8 +388,3 @@ void render_sphere_projection(t_canvas *canvas, t_world *world)
 		y++;
 	}
 }
-
-t_color	color_from_rgb(int r, int g, int b)
-{
-	return (create_color(r / 255.0f, g / 255.0f, b / 255.0f));
-}

@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 15:31:44 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/16 22:40:54 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/18 22:12:32 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_intersection_list	*intersections_joined(t_intersection_list *s1,
 void				sort_intersections(t_intersection_list *xs);
 
 // reflection operations
-t_tuple				normal_at(t_sphere *sphere, t_tuple world_point);
+t_tuple				normal_at(void *object, t_type type, t_tuple world_point);
 t_tuple				reflect(t_tuple vector, t_tuple normal);
 
 #endif

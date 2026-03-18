@@ -6,13 +6,13 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 14:17:13 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/14 01:22:33 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/18 22:12:30 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
 
-t_tuple	normal_at(t_sphere *sphere, t_tuple world_point)
+static t_tuple	normal_at_sphere(t_sphere *sphere, t_tuple world_point)
 {
 	t_tuple		object_point;
 	t_tuple		object_normal;
@@ -27,6 +27,15 @@ t_tuple	normal_at(t_sphere *sphere, t_tuple world_point)
 	w_normal = matrix4_tuple_multiply(transposed_inv, object_normal);
 	w_normal = create_vector(w_normal.x, w_normal.y, w_normal.z);
 	return (scalar_normalize(w_normal));
+}
+
+t_tuple	normal_at(void *object, t_type type, t_tuple world_point)
+{
+	if (!object)
+		return (create_vector(0, 0, 0));
+	if (type == SPHERE)
+		return (normal_at_sphere((t_sphere *)object, world_point));
+	return (create_vector(0, 0, 0));
 }
 
 // given a vector "in" and a vector "normal", return its reflection

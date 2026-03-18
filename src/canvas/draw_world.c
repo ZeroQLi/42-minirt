@@ -38,7 +38,7 @@ static t_precomp	prepare_even_more_math(t_intersection i, t_ray ray) // definite
 	comps.type = i.type;
 	comps.point = position(ray, comps.t);
 	comps.eyev = negate_tuple(ray.dir);
-	comps.normalv = normal_at(comps.object, comps.point);
+	comps.normalv = normal_at(comps.object, comps.type, comps.point);
 	comps.inside = false;
 	if (dot_product(comps.normalv, comps.eyev) < 0)
 	{
@@ -69,15 +69,24 @@ static bool	is_shadowed(t_world *w, t_precomp comp)
 	return (h.object != NULL && h.t < distance);
 }
 
+static t_material	material_at(void *object, t_type type)
+{
+	if (!object)
+		return (create_material(0, 0, 0));
+	if (type == SPHERE)
+		return (((t_sphere *)object)->material);
+	if (type == PLANE)
+		return (((t_plane *)object)->material);
+	return (create_material(0, 0, 0));
+}
+
 static t_color	shade_hit(t_world *w, t_precomp comp)
 {
 	t_lighting		ctx;
-	t_sphere		*sphere;
 
 	if (!w || !w->l || !comp.object)
 		return (create_color(0, 0, 0));
-	sphere = (t_sphere *)comp.object;
-	ctx.material = sphere->material;
+	ctx.material = material_at(comp.object, comp.type);
 	ctx.p_light = w->l->light.p_light;
 	ctx.h_position = comp.point;
 	ctx.eyev = comp.eyev;
@@ -134,7 +143,9 @@ void	render(t_camera *c, t_world *w, t_canvas *canvas)
 			x++;
 		}
 		y++;
-		mlx_clear_window(canvas->mlx, canvas->mlx_win);
 		mlx_put_image_to_window(canvas->mlx, canvas->mlx_win, canvas->img, 0, 0);
+		mlx_string_put(canvas->mlx, canvas->mlx_win, WIN_WIDTH / 2, WIN_HEIGHT / 2, 0xFFFFFF, "Rendering...");
 	}
+	mlx_clear_window(canvas->mlx, canvas->mlx_win);
+	mlx_put_image_to_window(canvas->mlx, canvas->mlx_win, canvas->img, 0, 0);
 }
