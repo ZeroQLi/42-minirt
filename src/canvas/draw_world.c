@@ -135,7 +135,7 @@ void	render(t_camera *c, t_world *w, t_canvas *canvas)
 		}
 		y++;
 		mlx_clear_window(canvas->mlx, canvas->mlx_win);
-		mlx_put_image_to_window(canvas->mlx, canvas->mlx_win,
-				canvas->img, 0, 0); // so we can see the thing rendering realtime (REMOVE/CHANGE LATER???)
+		mlx_put_image_to_window(canvas->mlx, canvas->mlx_win, canvas->img, 0, 0);
 	}
+	
 }

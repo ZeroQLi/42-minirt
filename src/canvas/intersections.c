@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 14:03:05 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/13 22:51:36 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/18 06:33:09 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ t_intersection_list	*intersect_sphere(t_ray ray, t_sphere *sphere)
 	ray = transform_ray(ray, sphere->inv_transform);
 	sphere_to_ray = sub_tuples(ray.origin, sphere->position);
 	a = dot_product(ray.dir, ray.dir);
-	b = 2 * dot_product(ray.dir, sphere_to_ray);
-	disc = (b * b) - (4 * a * (dot_product(sphere_to_ray, sphere_to_ray) - 1));
+	b = 2.f * dot_product(ray.dir, sphere_to_ray);
+	disc = (b * b) - (4.f * a * (dot_product(sphere_to_ray, sphere_to_ray) - 1.f));
 	if (disc < 0)
 		return (intersect_list(intersect(0, NULL, 0), intersect(0, NULL, 0)));
 	else
 	{
 		intersections[0] = 2;
-		intersections[1] = (-b - sqrtf(disc)) / (2 * a);
-		intersections[2] = (-b + sqrtf(disc)) / (2 * a);
+		intersections[1] = (-b - sqrtf(disc)) / (2.f * a);
+		intersections[2] = (-b + sqrtf(disc)) / (2.f * a);
 	}
 	return (intersect_list(intersect(intersections[1], sphere, SPHERE),
 			intersect(intersections[2], sphere, SPHERE)));
@@ -82,7 +82,7 @@ t_intersection	hit(t_intersection_list *xs)
 	i = 0;
 	while (i < xs->count)
 	{
-		if (xs->items[i].t >= 0 && (hit_index == -1
+		if (xs->items[i].t >= EPSILON && (hit_index == -1
 				|| xs->items[i].t < xs->items[hit_index].t))
 			hit_index = i;
 		i++;
