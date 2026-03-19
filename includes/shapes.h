@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:22:17 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/16 20:57:33 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/19 08:18:00 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_plane
 	int				cb;
 	t_shape_transform	tf;
 	t_tuple			position;
+	t_tuple			rotation;
 	t_material		material;
 	struct s_plane	*next;
 }	t_plane;

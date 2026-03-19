@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 14:17:13 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/18 22:12:30 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/19 08:48:13 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,34 @@ static t_tuple	normal_at_sphere(t_sphere *sphere, t_tuple world_point)
 	return (scalar_normalize(w_normal));
 }
 
+// t_tuple	normal_at_plane(t_plane *plane, t_tuple word_point)
+// {
+// 	t_tuple		object_normal;
+// 	t_tuple		w_normal;
+// 	t_matrix4	transposed_inv;
+
+// 	(void)word_point;
+// 	object_normal = create_vector(0, 1, 0);
+// 	transposed_inv = transpose_matrix4(plane->tf.inv_transform);
+// 	w_normal = matrix4_tuple_multiply(transposed_inv, object_normal);
+// 	w_normal = create_vector(w_normal.x, w_normal.y, w_normal.z);
+// 	return (scalar_normalize(w_normal));
+// }
+
+// t_tuple	normal_at_plane(t_plane *plane, t_tuple word_point)
+// {
+// 	(void)word_point;
+// 	return (plane->rotation);
+// }
+
 t_tuple	normal_at(void *object, t_type type, t_tuple world_point)
 {
 	if (!object)
 		return (create_vector(0, 0, 0));
 	if (type == SPHERE)
 		return (normal_at_sphere((t_sphere *)object, world_point));
+	else if (type == PLANE)
+		return(create_vector(0, 1, 0));
 	return (create_vector(0, 0, 0));
 }
 

@@ -6,11 +6,20 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 14:03:05 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/18 06:33:09 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/19 07:58:29 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
+
+t_intersection_list	*intersect_plane(t_ray ray, t_plane *plane)
+{
+	ray = transform_ray(ray, plane->tf.inv_transform);
+	if (fabsf(ray.dir.y) < EPSILON)
+		return (intersect_list(intersect(0, NULL, 0), intersect(0, NULL, 0)));
+	return (intersect_list(intersect(-ray.origin.y / ray.dir.y, plane, PLANE),
+			intersect(0, NULL, 0)));
+}
 
 // Intersects a ray with a sphere, returns the intersection points (t values).
 t_intersection_list	*intersect_sphere(t_ray ray, t_sphere *sphere)

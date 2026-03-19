@@ -21,6 +21,33 @@ static t_intersection_list	*intersect_shape(t_ray r, void *object, t_type type)
 	return (intersect_list(intersect(0, NULL, 0), intersect(0, NULL, 0)));
 }
 
+static t_matrix4	build_plane_transform(t_tuple pos, t_tuple normal)
+{
+	t_tuple		ref_axis;
+	t_tuple		x_axis;
+	t_tuple		z_axis;
+	t_matrix4	rot;
+
+	normal = scalar_normalize(normal);
+	if (fabsf(normal.y) > 0.999f)
+		ref_axis = create_vector(1, 0, 0);
+	else
+		ref_axis = create_vector(0, 1, 0);
+	x_axis = scalar_normalize(cross_product(ref_axis, normal));
+	z_axis = cross_product(normal, x_axis);
+	rot = create_identity();
+	rot.data[0][0] = x_axis.x;
+	rot.data[0][1] = normal.x;
+	rot.data[0][2] = z_axis.x;
+	rot.data[1][0] = x_axis.y;
+	rot.data[1][1] = normal.y;
+	rot.data[1][2] = z_axis.y;
+	rot.data[2][0] = x_axis.z;
+	rot.data[2][1] = normal.z;
+	rot.data[2][2] = z_axis.z;
+	return (matrix_multiply(translation(pos.x, pos.y, pos.z), rot));
+}
+
 static t_intersection_list	*intersect_sphere_list(t_sphere *head, t_ray r,
 	t_intersection_list *acc)
 {
@@ -156,24 +183,16 @@ void	new_world(t_world *w)
 	}
 	if (w->pl)
 	{
-		t_matrix4	transform;
-
 		tmp_pl = w->pl;
 		while (tmp_pl)
 		{
 			tmp_pl->position = create_point(tmp_pl->px, tmp_pl->py, tmp_pl->pz);
-			tmp_pl->rotation = create_vector(tmp_pl->rx, tmp_pl->ry, tmp_pl->rz);
+			tmp_pl->rotation = scalar_normalize(create_vector(tmp_pl->rx,
+						tmp_pl->ry, tmp_pl->rz));
 			tmp_pl->material = create_material(tmp_pl->cr, tmp_pl->cg,
 					tmp_pl->cb);
-			transform = translation(tmp_pl->position.x, tmp_pl->position.y,
-					tmp_pl->position.z);
-			transform = matrix_multiply(transform, rotation_x((M_PI / 2)
-					* tmp_pl->rotation.x));
-			transform = matrix_multiply(transform, rotation_y((M_PI / 2)
-					* tmp_pl->rotation.y));
-			transform = matrix_multiply(transform, rotation_z((M_PI / 2)
-					* tmp_pl->rotation.z));
-			set_transform(&tmp_pl->tf, transform);
+			set_transform(&tmp_pl->tf, build_plane_transform(tmp_pl->position,
+					tmp_pl->rotation));
 			tmp_pl = tmp_pl->next;
 		}
 	}
