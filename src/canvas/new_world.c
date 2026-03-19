@@ -104,14 +104,19 @@ static void	camera(t_camera *cam)
 {
 	float	half_view;
 	float	aspect;
+	t_tuple	look_at;
 
 	cam->hsize = WIN_WIDTH;
 	cam->vsize = WIN_HEIGHT;
 	cam->fov *= (M_PI / 180);
 	cam->position = create_point(cam->px, cam->py, cam->pz);
-	cam->rotation = create_point(cam->rx, cam->ry, cam->rz);
+	cam->rotation = create_vector(cam->rx, cam->ry, cam->rz);
+	if (fabsf(cam->rotation.x) < EPSILON && fabsf(cam->rotation.y) < EPSILON
+		&& fabsf(cam->rotation.z) < EPSILON)
+		cam->rotation = create_vector(0, 0, 1);
+	look_at = add_tuples(cam->position, cam->rotation);
 	cam->transform = view_transform(cam->position,
-		cam->rotation, create_point(0, 1, 0));
+		look_at, create_vector(0, 1, 0));
 	cam->inv_transform = invert_4x4(cam->transform);
 	half_view = tan(cam->fov / 2);
 	aspect = (float)cam->hsize / (float)cam->vsize;
