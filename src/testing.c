@@ -377,7 +377,7 @@ void render_sphere_projection(t_canvas *canvas, t_world *world)
 					world->l->light.h_position = hit_point;
 					world->l->light.normalv = normalv;
 					world->l->light.eyev = eyev;
-					t_color color = lighting(&world->l->light);
+					t_color color = lighting(&world->l->light, world->amb);
 					write_pixel(canvas, x, y, color);
 				}
 				free(xs->items);

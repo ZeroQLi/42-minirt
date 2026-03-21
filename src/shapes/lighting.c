@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:25:26 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/18 06:24:29 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/21 18:36:42 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,20 @@ t_point_light	point_light(t_tuple position, t_color intensity)
 	return (light);
 }
 
-t_material	create_material(int cr, int cg, int cb)
+t_material	create_material(int cr, int cg, int cb, float al_ratio)
 {
 	t_material	material;
 
 	// material.color = create_color(1, 1, 1);
 	material.color = color_from_rgb(cr, cg, cb);
-	material.ambient = 0.1f;
+	material.ambient = al_ratio;
 	material.diffuse = 0.9f;
 	material.specular = 0.9f;
 	material.shininess = 200.0f;
 	return (material);
 }
 
-t_color	lighting(t_lighting *lighting)
+t_color	lighting(t_lighting *lighting, t_ambient *amb)
 {
 	t_color	color; // effective_color
 	float	l_dot_n; // light dot normal
@@ -63,7 +63,7 @@ t_color	lighting(t_lighting *lighting)
 	color = hadamard_product(lighting->material.color, lighting->p_light.intensity);
 	lighting->lightv = scalar_normalize(sub_tuples(lighting->p_light.position,
 				lighting->h_position));
-	lighting->ambient = multiply_colors(color, lighting->material.ambient);
+	lighting->ambient = ambient_from_world(*lighting, amb);
 	l_dot_n = dot_product(lighting->lightv, lighting->normalv);
 	lighting->l_dot_n = l_dot_n;
 	if (l_dot_n < 0 || lighting->in_shadow == YES)

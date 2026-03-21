@@ -6,11 +6,28 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 14:17:13 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/19 08:48:13 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/19 09:55:36 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
+
+static t_tuple	normal_at_cylinder(t_cylinder *cylinder, t_tuple world_point)
+{
+	t_tuple		object_point;
+	t_tuple		object_normal;
+	t_tuple		w_normal;
+	t_matrix4	inv_transform;
+	t_matrix4	transposed_inv;
+
+	inv_transform = cylinder->tf.inv_transform;
+	object_point = matrix4_tuple_multiply(inv_transform, world_point);
+	object_normal = create_vector(object_point.x, 0, object_point.z);
+	transposed_inv = transpose_matrix4(inv_transform);
+	w_normal = matrix4_tuple_multiply(transposed_inv, object_normal);
+	w_normal = create_vector(w_normal.x, w_normal.y, w_normal.z);
+	return (scalar_normalize(w_normal));
+}
 
 static t_tuple	normal_at_sphere(t_sphere *sphere, t_tuple world_point)
 {
@@ -57,6 +74,8 @@ t_tuple	normal_at(void *object, t_type type, t_tuple world_point)
 		return (normal_at_sphere((t_sphere *)object, world_point));
 	else if (type == PLANE)
 		return(create_vector(0, 1, 0));
+	else if (type == CYLINDER)
+		return (normal_at_cylinder((t_cylinder *)object, world_point));
 	return (create_vector(0, 0, 0));
 }
 

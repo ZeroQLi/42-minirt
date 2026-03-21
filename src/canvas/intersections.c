@@ -6,11 +6,40 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 14:03:05 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/19 07:58:29 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/19 09:57:18 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
+
+t_intersection_list	*intersect_cylinder(t_ray ray, t_cylinder *cylinder)
+{
+	t_tuple			cylinder_to_ray;
+	float			a;
+	float			b;
+	float			disc;
+	float			intersections[3];
+
+	ray = transform_ray(ray, cylinder->tf.inv_transform);
+	cylinder_to_ray = sub_tuples(ray.origin, cylinder->position);
+	a = powf(ray.dir.x, 2) + powf(ray.dir.z, 2);
+	if (fabsf(a) < EPSILON)
+		return (intersect_list(intersect(0, NULL, 0), intersect(0, NULL, 0)));
+	b = 2.f * ((ray.dir.x * cylinder_to_ray.x) \
+			+ (ray.dir.z * cylinder_to_ray.z));
+	disc = (b * b) - (4.f * a * ((powf(cylinder_to_ray.x, 2)) \
+			+ (powf(cylinder_to_ray.z, 2)) - 1.f));
+	if (disc < 0)
+		return (intersect_list(intersect(0, NULL, 0), intersect(0, NULL, 0)));
+	else
+	{
+		intersections[0] = 2;
+		intersections[1] = (-b - sqrtf(disc)) / (2.f * a);
+		intersections[2] = (-b + sqrtf(disc)) / (2.f * a);
+	}
+	return (intersect_list(intersect(intersections[1], cylinder, CYLINDER),
+			intersect(intersections[2], cylinder, CYLINDER)));
+}
 
 t_intersection_list	*intersect_plane(t_ray ray, t_plane *plane)
 {

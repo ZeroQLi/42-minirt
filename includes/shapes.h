@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:22:17 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/19 08:18:00 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/21 18:36:42 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ typedef struct s_cylinder
 	int					cg;
 	int					cb;
 	t_shape_transform	tf;
+	t_tuple				position;
+	t_tuple				rotation;
+	t_material			material;
 	struct s_cylinder	*next;
 }	t_cylinder;
 
@@ -148,13 +151,15 @@ typedef struct s_ambient
 	int		cr; // RGB range [0-255]
 	int		cg;
 	int		cb;
+	t_color	color;
 }	t_ambient;
 
 // sphere operations
 void			set_transform(t_shape_transform *tf, t_matrix4 transform);
 
 // lighting operations
-t_material		create_material(int cr, int cg, int cb);
+t_material		create_material(int cr, int cg, int cb, float al_ratio);
 t_point_light	point_light(t_tuple position, t_color intensity);
-t_color			lighting(t_lighting *lighting);
+t_color			ambient_from_world(t_lighting lighting, t_ambient *amb);
+t_color			lighting(t_lighting *lighting, t_ambient *amb);
 #endif
