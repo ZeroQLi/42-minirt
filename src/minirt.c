@@ -25,6 +25,17 @@ t_color	color_from_rgb(int r, int g, int b)
 	return (create_color(r / 255.0f, g / 255.0f, b / 255.0f));
 }
 
+	// safe_up = scalar_normalize(up);
+	// // Avoid degenerate camera basis when forward is parallel to up.
+	// if (fabsf(dot_product(forward, safe_up)) > (1.0f - EPSILON))
+	// {
+	// 	if (fabsf(forward.z) < (1.0f - EPSILON))
+	// 		safe_up = create_vector(0, 0, 1);
+	// 	else
+	// 		safe_up = create_vector(1, 0, 0);
+	// }
+	// left = scalar_normalize(cross_product(forward, safe_up));
+
 t_matrix4	view_transform(t_tuple from, t_tuple to, t_tuple up)
 {
 	t_tuple		forward;

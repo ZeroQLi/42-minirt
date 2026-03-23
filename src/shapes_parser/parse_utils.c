@@ -17,6 +17,7 @@
 int	parse_normal(char *s, float *x, float *y, float *z)
 {
 	char	**split;
+	float	mag;
 
 	split = ft_split(s, ',');
 	if (!split || !split[0] || !split[1] || !split[2] || split[3])
@@ -32,6 +33,12 @@ int	parse_normal(char *s, float *x, float *y, float *z)
 		|| *y < -1.0f || *y > 1.0f
 		|| *z < -1.0f || *z > 1.0f)
 		return (0);
+	mag = sqrtf((*x * *x) + (*y * *y) + (*z * *z));
+	if (mag < EPSILON)
+		return (0);
+	*x /= mag;
+	*y /= mag;
+	*z /= mag;
 	return (1);
 }
 

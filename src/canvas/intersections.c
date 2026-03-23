@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 14:03:05 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/19 09:57:18 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/23 05:26:47 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_intersection_list	*intersect_cylinder(t_ray ray, t_cylinder *cylinder)
 	float			intersections[3];
 
 	ray = transform_ray(ray, cylinder->tf.inv_transform);
-	cylinder_to_ray = sub_tuples(ray.origin, cylinder->position);
+	cylinder_to_ray = sub_tuples(ray.origin, create_point(0, 0, 0));
 	a = powf(ray.dir.x, 2) + powf(ray.dir.z, 2);
 	if (fabsf(a) < EPSILON)
 		return (intersect_list(intersect(0, NULL, 0), intersect(0, NULL, 0)));
@@ -60,7 +60,7 @@ t_intersection_list	*intersect_sphere(t_ray ray, t_sphere *sphere)
 	float				intersections[3];
 
 	ray = transform_ray(ray, sphere->tf.inv_transform);
-	sphere_to_ray = sub_tuples(ray.origin, sphere->position);
+	sphere_to_ray = sub_tuples(ray.origin, create_point(0, 0, 0));
 	a = dot_product(ray.dir, ray.dir);
 	b = 2.f * dot_product(ray.dir, sphere_to_ray);
 	disc = (b * b) - (4.f * a * (dot_product(sphere_to_ray, sphere_to_ray) - 1.f));
@@ -120,7 +120,8 @@ t_intersection	hit(t_intersection_list *xs)
 	i = 0;
 	while (i < xs->count)
 	{
-		if (xs->items[i].t >= EPSILON && (hit_index == -1
+		if (xs->items[i].object != NULL && xs->items[i].t >= EPSILON
+			&& (hit_index == -1
 				|| xs->items[i].t < xs->items[hit_index].t))
 			hit_index = i;
 		i++;

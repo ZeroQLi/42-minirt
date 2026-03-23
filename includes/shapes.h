@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:22:17 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/21 18:36:42 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/23 05:29:42 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ typedef struct s_ambient
 void			set_transform(t_shape_transform *tf, t_matrix4 transform);
 
 // lighting operations
-t_material		create_material(int cr, int cg, int cb, float al_ratio);
+t_material		create_material(int cr, int cg, int cb);
 t_point_light	point_light(t_tuple position, t_color intensity);
 t_color			ambient_from_world(t_lighting lighting, t_ambient *amb);
 t_color			lighting(t_lighting *lighting, t_ambient *amb);

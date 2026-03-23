@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 15:31:44 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/18 22:12:32 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/23 03:35:27 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ t_ray				transform_ray(t_ray ray, t_matrix4 matrix);
 // intersection operations
 t_intersection_list	*intersect_sphere(t_ray ray, t_sphere *sphere);
 t_intersection_list	*intersect_plane(t_ray ray, t_plane *plane);
+t_intersection_list	*intersect_cylinder(t_ray ray, t_cylinder *cylinder);
 t_intersection		intersect(float t, void *object, t_type type);
 t_intersection_list	*intersect_list(t_intersection i1, t_intersection i2);
 t_intersection		hit(t_intersection_list *xs);

@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:25:26 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/21 18:36:42 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/23 05:29:02 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,12 @@ t_point_light	point_light(t_tuple position, t_color intensity)
 	return (light);
 }
 
-t_material	create_material(int cr, int cg, int cb, float al_ratio)
+t_material	create_material(int cr, int cg, int cb)
 {
 	t_material	material;
 
-	// material.color = create_color(1, 1, 1);
 	material.color = color_from_rgb(cr, cg, cb);
-	material.ambient = al_ratio;
+	material.ambient = 0.5f;
 	material.diffuse = 0.9f;
 	material.specular = 0.9f;
 	material.shininess = 200.0f;

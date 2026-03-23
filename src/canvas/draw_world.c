@@ -72,14 +72,14 @@ static bool	is_shadowed(t_world *w, t_precomp comp)
 static t_material	material_at(void *object, t_type type)
 {
 	if (!object)
-		return (create_material(0, 0, 0, 0.1f));
+		return (create_material(0, 0, 0));
 	if (type == SPHERE)
 		return (((t_sphere *)object)->material);
 	else if (type == PLANE)
 		return (((t_plane *)object)->material);
 	else if (type == CYLINDER)
 		return (((t_cylinder *)object)->material);
-	return (create_material(0, 0, 0, 0.1f));
+	return (create_material(0, 0, 0));
 }
 
 static t_color	shade_hit(t_world *w, t_precomp comp)

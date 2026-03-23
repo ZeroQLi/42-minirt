@@ -173,7 +173,7 @@ void	new_world(t_world *w)
 		while (tmp)
 		{
 			tmp->position = create_point(tmp->px, tmp->py, tmp->pz);
-		tmp->material = create_material(tmp->cr, tmp->cg, tmp->cb, w->amb->al_ratio);
+		tmp->material = create_material(tmp->cr, tmp->cg, tmp->cb);
 			set_transform(&tmp->tf, translation(tmp->position.x,
 					tmp->position.y, tmp->position.z));
 			tmp = tmp->next;
@@ -188,7 +188,7 @@ void	new_world(t_world *w)
 			tmp_pl->rotation = scalar_normalize(create_vector(tmp_pl->rx,
 						tmp_pl->ry, tmp_pl->rz));
 			tmp_pl->material = create_material(tmp_pl->cr, tmp_pl->cg,
-				tmp_pl->cb, w->amb->al_ratio);
+				tmp_pl->cb);
 			set_transform(&tmp_pl->tf, build_plane_transform(tmp_pl->position,
 					tmp_pl->rotation));
 			tmp_pl = tmp_pl->next;

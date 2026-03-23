@@ -12,12 +12,43 @@
 
 #include "../../includes/minirt.h"
 
+static t_matrix4	align_y_to_vector(t_tuple axis)
+{
+	t_tuple		y_axis;
+	t_tuple		x_axis;
+	t_tuple		z_axis;
+	t_tuple		ref_axis;
+	t_matrix4	rot;
+
+	// Build an orthonormal basis so local +Y aligns with parsed normal/direction.
+	y_axis = scalar_normalize(axis);
+	if (fabsf(y_axis.x) > 0.9f)
+		ref_axis = create_vector(0, 1, 0);
+	else
+		ref_axis = create_vector(1, 0, 0);
+	x_axis = scalar_normalize(cross_product(ref_axis, y_axis));
+	z_axis = cross_product(y_axis, x_axis);
+	rot = create_identity();
+	rot.data[0][0] = x_axis.x;
+	rot.data[1][0] = x_axis.y;
+	rot.data[2][0] = x_axis.z;
+	rot.data[0][1] = y_axis.x;
+	rot.data[1][1] = y_axis.y;
+	rot.data[2][1] = y_axis.z;
+	rot.data[0][2] = z_axis.x;
+	rot.data[1][2] = z_axis.y;
+	rot.data[2][2] = z_axis.z;
+	return (rot);
+}
+
 static t_intersection_list	*intersect_shape(t_ray r, void *object, t_type type)
 {
 	if (type == SPHERE)
 		return (intersect_sphere(r, (t_sphere *)object));
 	else if (type == PLANE)
 		return (intersect_plane(r, (t_plane *)object));
+	else if (type == CYLINDER)
+		return (intersect_cylinder(r, (t_cylinder *)object));
 	return (intersect_list(intersect(0, NULL, 0), intersect(0, NULL, 0)));
 }
 
@@ -112,7 +143,7 @@ static void	camera(t_camera *cam)
 	cam->vsize = WIN_HEIGHT;
 	cam->fov *= (M_PI / 180);
 	cam->position = create_point(cam->px, cam->py, cam->pz);
-	cam->rotation = create_vector(cam->rx, cam->ry, cam->rz);
+	cam->rotation = scalar_normalize(create_vector(cam->rx, cam->ry, cam->rz));
 	if (fabsf(cam->rotation.x) < EPSILON && fabsf(cam->rotation.y) < EPSILON
 		&& fabsf(cam->rotation.z) < EPSILON)
 		cam->rotation = create_vector(0, 0, 1);
@@ -155,17 +186,23 @@ void	new_world(t_world *w)
 
 	camera(w->cam);
 	w->l->light.p_light = point_light(create_point(w->l->px, w->l->py,
-				w->l->pz), color_from_rgb(w->l->cr, w->l->cg, w->l->cb));
+				w->l->pz), multiply_colors(color_from_rgb(w->l->cr,
+					w->l->cg, w->l->cb), w->l->emission));
 	if (w->sp)
 	{
 		tmp = w->sp;
 		while (tmp)
 		{
+			t_matrix4	transform;
+
 			tmp->position = create_point(tmp->px, tmp->py, tmp->pz);
 			tmp->material = create_material(tmp->cr, tmp->cg,
-					tmp->cb, w->amb->al_ratio);
-			set_transform(&tmp->tf, translation(tmp->position.x,
-					tmp->position.y, tmp->position.z));
+					tmp->cb);
+			transform = translation(tmp->position.x, tmp->position.y,
+					tmp->position.z);
+			transform = matrix_multiply(transform, scaling(tmp->diameter,
+					tmp->diameter, tmp->diameter));
+			set_transform(&tmp->tf, transform);
 			tmp = tmp->next;
 		}
 	}
@@ -177,17 +214,14 @@ void	new_world(t_world *w)
 		while (tmp_pl)
 		{
 			tmp_pl->position = create_point(tmp_pl->px, tmp_pl->py, tmp_pl->pz);
-			tmp_pl->rotation = create_vector(tmp_pl->rx, tmp_pl->ry, tmp_pl->rz);
+			tmp_pl->rotation = scalar_normalize(create_vector(tmp_pl->rx,
+						tmp_pl->ry, tmp_pl->rz));
 			tmp_pl->material = create_material(tmp_pl->cr, tmp_pl->cg,
-				tmp_pl->cb, w->amb->al_ratio);
+				tmp_pl->cb);
 			transform = translation(tmp_pl->position.x, tmp_pl->position.y,
 					tmp_pl->position.z);
-			transform = matrix_multiply(transform, rotation_x((M_PI / 2)
-					* tmp_pl->rotation.x));
-			transform = matrix_multiply(transform, rotation_y((M_PI / 2)
-					* tmp_pl->rotation.y));
-			transform = matrix_multiply(transform, rotation_z((M_PI / 2)
-					* tmp_pl->rotation.z));
+			transform = matrix_multiply(transform,
+					align_y_to_vector(tmp_pl->rotation));
 			set_transform(&tmp_pl->tf, transform);
 			tmp_pl = tmp_pl->next;
 		}
@@ -197,11 +231,20 @@ void	new_world(t_world *w)
 		tmp_cyl = w->cy;
 		while (tmp_cyl)
 		{
+			t_matrix4	transform;
+
 			tmp_cyl->position = create_point(tmp_cyl->px, tmp_cyl->py, tmp_cyl->pz);
-			tmp_cyl->rotation = create_vector(tmp_cyl->rx, tmp_cyl->ry, tmp_cyl->rz);
+			tmp_cyl->rotation = scalar_normalize(create_vector(tmp_cyl->rx,
+						tmp_cyl->ry, tmp_cyl->rz));
 			tmp_cyl->material = create_material(tmp_cyl->cr, tmp_cyl->cg,
-					tmp_cyl->cb, w->amb->al_ratio);
-			set_transform(&tmp_cyl->tf, translation(tmp_cyl->position.x, tmp_cyl->position.y, tmp_cyl->position.z));
+					tmp_cyl->cb);
+			transform = translation(tmp_cyl->position.x, tmp_cyl->position.y,
+					tmp_cyl->position.z);
+			transform = matrix_multiply(transform,
+					align_y_to_vector(tmp_cyl->rotation));
+			transform = matrix_multiply(transform, scaling(tmp_cyl->diameter,
+					tmp_cyl->height * 0.5f, tmp_cyl->diameter));
+			set_transform(&tmp_cyl->tf, transform);
 			tmp_cyl = tmp_cyl->next;
 		}
 	}
