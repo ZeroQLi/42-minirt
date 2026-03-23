@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:22:17 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/23 05:29:42 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/23 20:58:11 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ typedef struct s_cylinder
 	float				ry;
 	float				rz;
 	float				diameter;
-	float				height;
+	float				height; // the max height
+	float				min_height; // will be 0 for this subject
+	bool				closed; // flag to close top (will be true for now)
 	int					cr; // RGB range [0-255]
 	int					cg;
 	int					cb;
@@ -162,4 +164,5 @@ t_material		create_material(int cr, int cg, int cb);
 t_point_light	point_light(t_tuple position, t_color intensity);
 t_color			ambient_from_world(t_lighting lighting, t_ambient *amb);
 t_color			lighting(t_lighting *lighting, t_ambient *amb);
+
 #endif

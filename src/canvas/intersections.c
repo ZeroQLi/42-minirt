@@ -6,11 +6,65 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 14:03:05 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/23 05:26:47 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/23 21:19:09 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
+
+float	check_caps(t_ray ray, float t)
+{
+	float	x;
+	float	z;
+
+	x = ray.origin.x + t * ray.dir.x;
+	z = ray.origin.z + t * ray.dir.z;
+	return ((powf(x, 2) + powf(z, 2)) <= 1.0f);
+}
+
+t_intersection_list	*intersect_caps(t_cylinder *cyl, t_ray ray,
+			t_intersection_list *xs)
+{
+	float			t;
+	t_intersection	i1;
+	t_intersection	i2;
+
+	i1 = intersect(0, NULL, 0);
+	i2 = intersect(0, NULL, 0);
+	if (fabsf(ray.dir.y) < EPSILON)
+		return (xs);
+	t = (-cyl->height - ray.origin.y) / ray.dir.y;
+	if (check_caps(ray, t))
+		i1 = intersect(t, cyl, CYLINDER);
+	t = (cyl->height - ray.origin.y) / ray.dir.y;
+	if (check_caps(ray, t))
+		i2 = intersect(t, cyl, CYLINDER);
+	return (intersections_joined(xs, intersect_list(i1, i2)));
+}
+
+static t_intersection_list	*intersect_cylinder_height(t_ray ray,
+		float *intersections, t_cylinder *cylinder)
+{
+	float	y0;
+	float	y1;
+	void	*obj1;
+	void	*obj2;
+
+	y0 = ray.origin.y + intersections[1] * ray.dir.y;
+	y1 = ray.origin.y + intersections[2] * ray.dir.y;
+	obj1 = NULL;
+	if (y0 >= -cylinder->height && y0 <= cylinder->height)
+		obj1 = cylinder;
+	obj2 = NULL;
+	if (y1 >= -cylinder->height && y1 <= cylinder->height)
+		obj2 = cylinder;
+	if (cylinder->closed == YES)
+		return (intersect_caps(cylinder, ray,
+			intersect_list(intersect(intersections[1], obj1, CYLINDER),
+				intersect(intersections[2], obj2, CYLINDER))));
+	return (intersect_list(intersect(intersections[1], obj1, CYLINDER),
+			intersect(intersections[2], obj2, CYLINDER)));
+}
 
 t_intersection_list	*intersect_cylinder(t_ray ray, t_cylinder *cylinder)
 {
@@ -24,21 +78,27 @@ t_intersection_list	*intersect_cylinder(t_ray ray, t_cylinder *cylinder)
 	cylinder_to_ray = sub_tuples(ray.origin, create_point(0, 0, 0));
 	a = powf(ray.dir.x, 2) + powf(ray.dir.z, 2);
 	if (fabsf(a) < EPSILON)
+	{
+		if (cylinder->closed == YES)
+			return (intersect_caps(cylinder, ray,
+					intersect_list(intersect(0, NULL, 0), intersect(0, NULL, 0))));
 		return (intersect_list(intersect(0, NULL, 0), intersect(0, NULL, 0)));
+	}
 	b = 2.f * ((ray.dir.x * cylinder_to_ray.x) \
 			+ (ray.dir.z * cylinder_to_ray.z));
 	disc = (b * b) - (4.f * a * ((powf(cylinder_to_ray.x, 2)) \
 			+ (powf(cylinder_to_ray.z, 2)) - 1.f));
 	if (disc < 0)
-		return (intersect_list(intersect(0, NULL, 0), intersect(0, NULL, 0)));
-	else
 	{
-		intersections[0] = 2;
-		intersections[1] = (-b - sqrtf(disc)) / (2.f * a);
-		intersections[2] = (-b + sqrtf(disc)) / (2.f * a);
+		if (cylinder->closed == YES)
+			return (intersect_caps(cylinder, ray,
+					intersect_list(intersect(0, NULL, 0), intersect(0, NULL, 0))));
+		return (intersect_list(intersect(0, NULL, 0), intersect(0, NULL, 0)));
 	}
-	return (intersect_list(intersect(intersections[1], cylinder, CYLINDER),
-			intersect(intersections[2], cylinder, CYLINDER)));
+	intersections[0] = 2;
+	intersections[1] = (-b - sqrtf(disc)) / (2.f * a);
+	intersections[2] = (-b + sqrtf(disc)) / (2.f * a);
+	return (intersect_cylinder_height(ray, intersections, cylinder));
 }
 
 t_intersection_list	*intersect_plane(t_ray ray, t_plane *plane)
@@ -66,12 +126,9 @@ t_intersection_list	*intersect_sphere(t_ray ray, t_sphere *sphere)
 	disc = (b * b) - (4.f * a * (dot_product(sphere_to_ray, sphere_to_ray) - 1.f));
 	if (disc < 0)
 		return (intersect_list(intersect(0, NULL, 0), intersect(0, NULL, 0)));
-	else
-	{
-		intersections[0] = 2;
-		intersections[1] = (-b - sqrtf(disc)) / (2.f * a);
-		intersections[2] = (-b + sqrtf(disc)) / (2.f * a);
-	}
+	intersections[0] = 2;
+	intersections[1] = (-b - sqrtf(disc)) / (2.f * a);
+	intersections[2] = (-b + sqrtf(disc)) / (2.f * a);
 	return (intersect_list(intersect(intersections[1], sphere, SPHERE),
 			intersect(intersections[2], sphere, SPHERE)));
 }

@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 14:17:13 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/23 04:05:16 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/23 21:12:48 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,23 @@ static t_tuple	normal_at_cylinder(t_cylinder *cylinder, t_tuple world_point)
 	t_tuple		w_normal;
 	t_matrix4	inv_transform;
 	t_matrix4	transposed_inv;
+	float		dist;
 
 	inv_transform = cylinder->tf.inv_transform;
 	object_point = matrix4_tuple_multiply(inv_transform, world_point);
-	object_normal = create_vector(object_point.x, 0, object_point.z);
+	if (cylinder->closed == YES)
+	{
+		dist = (object_point.x * object_point.x)
+			+ (object_point.z * object_point.z);
+		if (dist <= 1.0f && object_point.y >= cylinder->height - EPSILON)
+			object_normal = create_vector(0, 1, 0);
+		else if (dist <= 1.0f && object_point.y <= -cylinder->height + EPSILON)
+			object_normal = create_vector(0, -1, 0);
+		else
+			object_normal = create_vector(object_point.x, 0, object_point.z);
+	}
+	else
+		object_normal = create_vector(object_point.x, 0, object_point.z);
 	transposed_inv = transpose_matrix4(inv_transform);
 	w_normal = matrix4_tuple_multiply(transposed_inv, object_normal);
 	w_normal = create_vector(w_normal.x, w_normal.y, w_normal.z);
