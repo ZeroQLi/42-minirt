@@ -243,7 +243,7 @@ void	new_world(t_world *w)
 			transform = matrix_multiply(transform,
 					align_y_to_vector(tmp_cyl->rotation));
 			transform = matrix_multiply(transform, scaling(tmp_cyl->diameter,
-					tmp_cyl->height * 0.5f, tmp_cyl->diameter));
+					1.0f, tmp_cyl->diameter));
 			set_transform(&tmp_cyl->tf, transform);
 			tmp_cyl->closed = YES;
 			tmp_cyl = tmp_cyl->next;

@@ -18,8 +18,6 @@ $(SRC_DIR)parser.c \
 $(SRC_DIR)error.c \
 $(SRC_DIR)cleanup_linux.c \
 $(SRC_DIR)utils.c \
-$(SRC_DIR)print_elements.c
-# REMOVE ABOVE 2 BEFORE SUBMITTING. ONLY TESTING
 
 SRC2 = $(SRC_DIR2)p_ambient.c \
 $(SRC_DIR2)p_camera.c \
@@ -125,6 +123,7 @@ remake:
 norm:
 	norminette includes/ src/ | grep -e Error -e Global
 
+# fires valgrind with leaks flags and parses additional input arguments (LAGGY)
 leak: all
 	@valgrind --leak-check=full --leak-resolution=high -s --track-origins=yes \
     --num-callers=500 --show-mismatched-frees=yes --show-leak-kinds=all \
