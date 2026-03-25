@@ -12,21 +12,56 @@
 
 #include "minirt.h"
 
-static t_ray	ray_for_pixel(t_camera *c, float px, float py)
+static t_ray	ray_for_pixel(t_camera *c, float world_x, float world_y,
+	t_tuple origin)
 {
-	float		xoffset;
-	float		yoffset;
-	float		world_x;
-	float		world_y;
+	t_tuple		pixel;
 
-	xoffset = (px + 0.5) * c->pixel_size;
-	yoffset = (py + 0.5) * c->pixel_size;
-	world_x = c->half_width - xoffset;
-	world_y = c->half_height - yoffset;
-	return (create_ray(matrix4_tuple_multiply(c->inv_transform, create_point(0, 0, 0)),
-		scalar_normalize(sub_tuples(matrix4_tuple_multiply\
-			(c->inv_transform, create_point(world_x, world_y, -1)),
-			matrix4_tuple_multiply(c->inv_transform, create_point(0, 0, 0))))));
+	pixel = matrix4_tuple_multiply(c->inv_transform,
+			create_point(world_x, world_y, -1));
+	return (create_ray(origin, scalar_normalize(sub_tuples(pixel, origin))));
+}
+
+static bool	shadow_hit_in_list(t_intersection_list *xs, float max_t)
+{
+	t_intersection	h;
+
+	if (!xs)
+		return (false);
+	h = hit(xs);
+	free(xs->items);
+	free(xs);
+	return (h.object != NULL && h.t < max_t);
+}
+
+static bool	shadow_hits_world(t_world *w, t_ray shadow_ray, float distance)
+{
+	t_sphere	*sp;
+	t_plane		*pl;
+	t_cylinder	*cy;
+
+	sp = w->sp;
+	while (sp)
+	{
+		if (shadow_hit_in_list(intersect_sphere(shadow_ray, sp), distance))
+			return (true);
+		sp = sp->next;
+	}
+	pl = w->pl;
+	while (pl)
+	{
+		if (shadow_hit_in_list(intersect_plane(shadow_ray, pl), distance))
+			return (true);
+		pl = pl->next;
+	}
+	cy = w->cy;
+	while (cy)
+	{
+		if (shadow_hit_in_list(intersect_cylinder(shadow_ray, cy), distance))
+			return (true);
+		cy = cy->next;
+	}
+	return (false);
 }
 
 static t_precomp	prepare_even_more_math(t_intersection i, t_ray ray) // definitely change the name to prepare_computation REMOVE/CHANGE LATER
@@ -52,21 +87,18 @@ static bool	is_shadowed(t_world *w, t_precomp comp)
 {
 	t_tuple			to_light;
 	t_ray			shadow_ray;
-	t_intersection		h;
-	t_intersection_list	*xs;
 	float			distance;
+	float			inv_distance;
 
 	to_light = sub_tuples(w->l->light.p_light.position, comp.point);
 	comp.over_point = add_tuples(comp.point, scalar_multiply(comp.normalv, SHADOW_BIAS));
 	distance = scalar_magnitude(to_light);
-	shadow_ray = create_ray(comp.over_point, scalar_normalize(to_light));
-	xs = intersect_world(w, shadow_ray);
-	if (!xs)
+	if (distance <= EPSILON)
 		return (false);
-	h = hit(xs);
-	free(xs->items);
-	free(xs);
-	return (h.object != NULL && h.t < distance);
+	inv_distance = 1.0f / distance;
+	shadow_ray = create_ray(comp.over_point,
+			scalar_multiply(to_light, inv_distance));
+	return (shadow_hits_world(w, shadow_ray, distance));
 }
 
 static t_material	material_at(void *object, t_type type)
@@ -132,22 +164,37 @@ void	render(t_camera *c, t_world *w, t_canvas *canvas)
 	int		y;
 	t_ray	ray;
 	t_color	color;
+	t_tuple	camera_origin;
+	float	world_x;
+	float	world_y;
+	float	world_x_start;
+	struct timeval	start, end;
 
 	y = 0;
+	camera_origin = matrix4_tuple_multiply(c->inv_transform, create_point(0, 0, 0));
+	world_x_start = c->half_width - (0.5f * c->pixel_size);
+	world_y = c->half_height - (0.5f * c->pixel_size);
+	
+	gettimeofday(&start, NULL);
 	while (y < c->vsize)
 	{
 		x = 0;
+		world_x = world_x_start;
 		while (x < c->hsize)
 		{
-			ray = ray_for_pixel(c, x, y);
+			ray = ray_for_pixel(c, world_x, world_y, camera_origin);
 			color = color_at(w, ray);
 			write_pixel(canvas, x, y, color);
+			world_x -= c->pixel_size;
 			x++;
 		}
+		world_y -= c->pixel_size;
 		y++;
 		mlx_put_image_to_window(canvas->mlx, canvas->mlx_win, canvas->img, 0, 0);
 		mlx_string_put(canvas->mlx, canvas->mlx_win, WIN_WIDTH / 2, WIN_HEIGHT / 2, 0xFFFFFF, "Rendering...");
 	}
+	gettimeofday(&end, NULL);
+	ft_printf("Time elapsed: %d Seconds\n", end.tv_sec - start.tv_sec);
 	mlx_clear_window(canvas->mlx, canvas->mlx_win);
 	mlx_put_image_to_window(canvas->mlx, canvas->mlx_win, canvas->img, 0, 0);
 }

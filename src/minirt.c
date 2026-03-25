@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
-#include "../includes/testing.h" // be sure to remove
 
 static int	key_press(int key, t_data *data)
 {
@@ -63,10 +62,7 @@ static void	test_operations(t_data *data)
 	new_world(data->world);
 	render(data->world->cam, data->world, data->canvas);
 	printf(BGREEN "rendered\n" RESET);
-	// render_sphere_projection(data->canvas, data->world);
-	// mlx_put_image_to_window(data->canvas->mlx, data->canvas->mlx_win,
-	// 	data->canvas->img, 0, 0);
-	mlx_hook(data->canvas->mlx_win, 17, 0, brain_washer, data); // PLS DO NOT DELETE THESE ESHAN I AINT REWRITING THEM AGAIN
+	mlx_hook(data->canvas->mlx_win, 17, 0, brain_washer, data);
 	mlx_hook(data->canvas->mlx_win, 2, 1L << 0, key_press, data);
 	mlx_loop(data->canvas->mlx);
 }

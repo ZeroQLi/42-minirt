@@ -24,6 +24,7 @@
 # include <math.h>
 # include <stdio.h>
 # include <mlx.h>
+# include <sys/time.h>
 
 # include "macros.h"
 # include "shapes.h"
