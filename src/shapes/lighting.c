@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lighting.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:25:26 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/25 04:44:00 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/25 23:02:38 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	compute_diffuse(t_lighting *lighting, t_color color)
 
 	lighting->diffuse = multiply_colors(color, lighting->material.diffuse
 			* lighting->l_dot_n);
-	normalized_eyev = scalar_normalize(lighting->eyev);
+	normalized_eyev = lighting->eyev;
 	reflectv = reflect(negate_tuple(lighting->lightv), lighting->normalv);
 	lighting->r_dot_e = dot_product(reflectv, normalized_eyev);
 	if (lighting->r_dot_e <= 0)

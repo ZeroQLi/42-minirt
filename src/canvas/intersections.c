@@ -6,7 +6,7 @@
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 14:03:05 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/25 22:42:59 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/03/25 23:08:00 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ t_intersection_list	*intersect_list(t_intersection i1, t_intersection i2)
 	xs = ft_calloc(1, sizeof(t_intersection_list));
 	if (!xs)
 		return (NULL);
-	xs->items = ft_calloc(3, sizeof(t_intersection));
+	xs->items = ft_calloc(2, sizeof(t_intersection));
 	if (!xs->items)
 	{
 		free(xs);

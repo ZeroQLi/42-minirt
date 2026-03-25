@@ -103,31 +103,19 @@ static t_intersection_list	*intersect_cylinder_list(t_cylinder *head, t_ray r,
 	return (acc);
 }
 
-static t_intersection_list	*intersect_shape_list(void *head, t_type type,
-	t_ray r, t_intersection_list *acc)
-{
-	if (type == SPHERE)
-		return (intersect_sphere_list((t_sphere *)head, r, acc));
-	else if (type == PLANE)
-		return (intersect_plane_list((t_plane *)head, r, acc));
-	else if (type == CYLINDER)
-		return (intersect_cylinder_list((t_cylinder *)head, r, acc));
-	return (acc);
-}
-
 t_intersection_list	*intersect_world(t_world *w, t_ray r)
 {
 	t_intersection_list	*acc;
 	acc = intersect_list(intersect(0, NULL, 0), intersect(0, NULL, 0));
 	if (!acc)
 		return (NULL);
-	acc = intersect_shape_list(w->sp, SPHERE, r, acc);
+	acc = intersect_sphere_list(w->sp, r, acc);
 	if (!acc)
 		return (NULL);
-	acc = intersect_shape_list(w->pl, PLANE, r, acc);
+	acc = intersect_plane_list(w->pl, r, acc);
 	if (!acc)
 		return (NULL);
-	acc = intersect_shape_list(w->cy, CYLINDER, r, acc);
+	acc = intersect_cylinder_list(w->cy, r, acc);
 	if (!acc)
 		return (NULL);
 	sort_intersections(acc);
