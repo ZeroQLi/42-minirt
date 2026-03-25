@@ -19,7 +19,7 @@ static t_ray	ray_for_pixel(t_camera *c, float world_x, float world_y,
 
 	pixel = matrix4_tuple_multiply(c->inv_transform,
 			create_point(world_x, world_y, -1));
-	return (create_ray(origin, scalar_normalize(sub_tuples(pixel, origin))));
+	return (create_ray(origin, sub_tuples(pixel, origin)));
 }
 
 static bool	shadow_hit_in_list(t_intersection_list *xs, float max_t)

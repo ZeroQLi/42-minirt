@@ -12,32 +12,25 @@
 
 #include "../../includes/minirt.h"
 
-static void	swap_intersections(t_intersection *a, t_intersection *b)
-{
-	t_intersection	tmp;
-
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
-}
-
 void	sort_intersections(t_intersection_list *xs)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
+	t_intersection key;
 
 	if (!xs || !xs->items || xs->count <= 1)
-		return ;
-	i = 0;
-	while (i < xs->count - 1)
+		return;
+	i = 1;
+	while (i < xs->count)
 	{
-		j = 0;
-		while (j < xs->count - i - 1)
+		key = xs->items[i];
+		j = i - 1;
+		while (j >= 0 && xs->items[j].t > key.t)
 		{
-			if (xs->items[j].t > xs->items[j + 1].t)
-				swap_intersections(&xs->items[j], &xs->items[j + 1]);
-			j++;
+			xs->items[j + 1] = xs->items[j];
+			j--;
 		}
+		xs->items[j + 1] = key;
 		i++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reflections.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 14:17:13 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/23 21:12:48 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/25 21:51:19 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static t_tuple	normal_at_cylinder(t_cylinder *cylinder, t_tuple world_point)
 	}
 	else
 		object_normal = create_vector(object_point.x, 0, object_point.z);
-	transposed_inv = transpose_matrix4(inv_transform);
+	transposed_inv = cylinder->tf.transposed_inv;
 	w_normal = matrix4_tuple_multiply(transposed_inv, object_normal);
 	w_normal = create_vector(w_normal.x, w_normal.y, w_normal.z);
 	return (scalar_normalize(w_normal));
@@ -53,7 +53,7 @@ static t_tuple	normal_at_sphere(t_sphere *sphere, t_tuple world_point)
 	inv_transform = sphere->tf.inv_transform;
 	object_point = matrix4_tuple_multiply(inv_transform, world_point);
 	object_normal = sub_tuples(object_point, create_point(0, 0, 0));
-	transposed_inv = transpose_matrix4(inv_transform);
+	transposed_inv = sphere->tf.transposed_inv;
 	w_normal = matrix4_tuple_multiply(transposed_inv, object_normal);
 	w_normal = create_vector(w_normal.x, w_normal.y, w_normal.z);
 	return (scalar_normalize(w_normal));
@@ -68,7 +68,7 @@ static t_tuple	normal_at_plane(t_plane *plane, t_tuple world_point)
 	(void)world_point;
 	object_normal = create_vector(0, 1, 0);
 	// Transform local plane normal into world space with inverse-transpose.
-	transposed_inv = transpose_matrix4(plane->tf.inv_transform);
+	transposed_inv = plane->tf.transposed_inv;
 	w_normal = matrix4_tuple_multiply(transposed_inv, object_normal);
 	w_normal = create_vector(w_normal.x, w_normal.y, w_normal.z);
 	return (scalar_normalize(w_normal));

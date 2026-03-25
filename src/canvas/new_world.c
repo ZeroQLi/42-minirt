@@ -130,6 +130,7 @@ t_intersection_list	*intersect_world(t_world *w, t_ray r)
 	acc = intersect_shape_list(w->cy, CYLINDER, r, acc);
 	if (!acc)
 		return (NULL);
+	sort_intersections(acc);
 	return (acc);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersections.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 14:03:05 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/23 21:19:09 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/25 22:42:59 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ float	check_caps(t_ray ray, float t)
 
 	x = ray.origin.x + t * ray.dir.x;
 	z = ray.origin.z + t * ray.dir.z;
-	return ((powf(x, 2) + powf(z, 2)) <= 1.0f);
+	return (((x * x) + (z * z)) <= 1.0f);
 }
 
 t_intersection_list	*intersect_caps(t_cylinder *cyl, t_ray ray,
@@ -76,7 +76,7 @@ t_intersection_list	*intersect_cylinder(t_ray ray, t_cylinder *cylinder)
 
 	ray = transform_ray(ray, cylinder->tf.inv_transform);
 	cylinder_to_ray = sub_tuples(ray.origin, create_point(0, 0, 0));
-	a = powf(ray.dir.x, 2) + powf(ray.dir.z, 2);
+	a = (ray.dir.x * ray.dir.x) + (ray.dir.z * ray.dir.z);
 	if (fabsf(a) < EPSILON)
 	{
 		if (cylinder->closed == YES)
@@ -86,8 +86,8 @@ t_intersection_list	*intersect_cylinder(t_ray ray, t_cylinder *cylinder)
 	}
 	b = 2.f * ((ray.dir.x * cylinder_to_ray.x) \
 			+ (ray.dir.z * cylinder_to_ray.z));
-	disc = (b * b) - (4.f * a * ((powf(cylinder_to_ray.x, 2)) \
-			+ (powf(cylinder_to_ray.z, 2)) - 1.f));
+	disc = (b * b) - (4.f * a * ((cylinder_to_ray.x * cylinder_to_ray.x) + 
+		(cylinder_to_ray.z * cylinder_to_ray.z) - 1.f));
 	if (disc < 0)
 	{
 		if (cylinder->closed == YES)
@@ -214,6 +214,5 @@ t_intersection_list	*intersections_joined(t_intersection_list *s1,
 	free(s1);
 	free(s2->items);
 	free(s2);
-	sort_intersections(final);
 	return (final);
 }
