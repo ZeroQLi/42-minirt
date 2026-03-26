@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:53:39 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/23 22:55:00 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:22:32 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,5 @@ t_color	pixel_at(t_canvas *canvas, int x, int y)
 {
 	if (x >= 0 && x < WIN_WIDTH && y >= 0 && y < WIN_HEIGHT)
 		return (canvas->pixels[y][x]);
-	return ((t_color){0, 0, 0}); // return black if out of bounds
+	return ((t_color){0, 0, 0});
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersections.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 14:03:05 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/25 23:08:00 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:27:14 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ static t_intersection_list	*intersect_cylinder_height(t_ray ray,
 		obj2 = cylinder;
 	if (cylinder->closed == YES)
 		return (intersect_caps(cylinder, ray,
-			intersect_list(intersect(intersections[1], obj1, CYLINDER),
-				intersect(intersections[2], obj2, CYLINDER))));
+				intersect_list(intersect(intersections[1], obj1, CYLINDER),
+					intersect(intersections[2], obj2, CYLINDER))));
 	return (intersect_list(intersect(intersections[1], obj1, CYLINDER),
 			intersect(intersections[2], obj2, CYLINDER)));
 }
@@ -84,10 +84,10 @@ t_intersection_list	*intersect_cylinder(t_ray ray, t_cylinder *cylinder)
 					intersect_list(intersect(0, NULL, 0), intersect(0, NULL, 0))));
 		return (intersect_list(intersect(0, NULL, 0), intersect(0, NULL, 0)));
 	}
-	b = 2.f * ((ray.dir.x * cylinder_to_ray.x) \
+	b = 2.f * ((ray.dir.x * cylinder_to_ray.x)
 			+ (ray.dir.z * cylinder_to_ray.z));
-	disc = (b * b) - (4.f * a * ((cylinder_to_ray.x * cylinder_to_ray.x) + 
-		(cylinder_to_ray.z * cylinder_to_ray.z) - 1.f));
+	disc = (b * b) - (4.f * a * ((cylinder_to_ray.x * cylinder_to_ray.x)
+				+ (cylinder_to_ray.z * cylinder_to_ray.z) - 1.f));
 	if (disc < 0)
 	{
 		if (cylinder->closed == YES)
@@ -123,7 +123,8 @@ t_intersection_list	*intersect_sphere(t_ray ray, t_sphere *sphere)
 	sphere_to_ray = sub_tuples(ray.origin, create_point(0, 0, 0));
 	a = dot_product(ray.dir, ray.dir);
 	b = 2.f * dot_product(ray.dir, sphere_to_ray);
-	disc = (b * b) - (4.f * a * (dot_product(sphere_to_ray, sphere_to_ray) - 1.f));
+	disc = (b * b) - (4.f * a
+			* (dot_product(sphere_to_ray, sphere_to_ray) - 1.f));
 	if (disc < 0)
 		return (intersect_list(intersect(0, NULL, 0), intersect(0, NULL, 0)));
 	intersections[0] = 2;

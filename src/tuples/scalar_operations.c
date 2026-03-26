@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 19:36:02 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/02/28 23:24:57 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/26 18:55:05 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_tuple	scalar_multiply(t_tuple a, float num)
 	result.x = a.x * num;
 	result.y = a.y * num;
 	result.z = a.z * num;
-	result.w = a.w * num; // apparently w is just modifiable but i digress
+	result.w = a.w * num;
 	return (result);
 }
 
@@ -37,7 +37,7 @@ t_tuple	scalar_divide(t_tuple a, float num)
 	result.x = a.x / num;
 	result.y = a.y / num;
 	result.z = a.z / num;
-	result.w = a.w / num; // apparently w is just bmodifiable but i digress
+	result.w = a.w / num;
 	return (result);
 }
 
@@ -62,6 +62,6 @@ t_tuple	scalar_normalize(t_tuple a)
 	result.x = a.x / mag;
 	result.y = a.y / mag;
 	result.z = a.z / mag;
-	result.w = a.w / mag; // apparently w is just modifiable but i digress
+	result.w = a.w / mag;
 	return (result);
 }

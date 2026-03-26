@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 15:31:44 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/23 20:58:51 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:28:57 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_intersection_list	*intersections_joined(t_intersection_list *s1,
 						t_intersection_list *s2);
 void				sort_intersections(t_intersection_list *xs);
 t_intersection_list	*intersect_caps(t_cylinder *cyl, t_ray ray,
-			t_intersection_list *xs);
+						t_intersection_list *xs);
 
 // reflection operations
 t_tuple				normal_at(void *object, t_type type, t_tuple world_point);

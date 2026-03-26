@@ -24,7 +24,7 @@ int	parse_camera(char **t, t_data *d)
 	cam = ft_calloc(1, sizeof(t_camera));
 	if (!cam)
 		return (error_msg(YES, "malloc fail, you know the routine", 0));
-	cam->fov = ft_atoi(t[3]);
+	cam->fov = ft_atoi(t[3]) * (M_PI / 180);
 	if (!parse_vec3(t[1], &cam->px, &cam->py, &cam->pz) || !parse_normal(t[2],
 			&cam->rx, &cam->ry, &cam->rz) || cam->fov < 0 || cam->fov > 180)
 	{
@@ -32,5 +32,7 @@ int	parse_camera(char **t, t_data *d)
 		return (error_msg(YES, "Invalid camera format", 0));
 	}
 	d->world->cam = cam;
+	cam->hsize = WIN_WIDTH;
+	cam->vsize = WIN_HEIGHT;
 	return (1);
 }

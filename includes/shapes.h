@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shapes.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:22:17 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/25 21:37:03 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:28:08 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,39 +79,39 @@ typedef struct s_cylinder
 
 typedef struct s_plane
 {
-	float			px;
-	float			py;
-	float			pz;
-	float			rx; // range [-1, 1]
-	float			ry;
-	float			rz;
-	float			size;
-	int				cr; // RGB range [0-255]
-	int				cg;
-	int				cb;
+	float				px;
+	float				py;
+	float				pz;
+	float				rx; // range [-1, 1]
+	float				ry;
+	float				rz;
+	float				size;
+	int					cr; // RGB range [0-255]
+	int					cg;
+	int					cb;
 	t_shape_transform	tf;
-	t_tuple			position;
-	t_tuple			rotation;
-	t_material		material;
-	struct s_plane	*next;
+	t_tuple				position;
+	t_tuple				rotation;
+	t_material			material;
+	struct s_plane		*next;
 }	t_plane;
 
 typedef struct s_sphere
 {
-	float			px;
-	float			py;
-	float			pz;
-	float			rx; // range [-1, 1]
-	float			ry;
-	float			rz;
-	float			diameter;
-	int				cr; // RGB range [0-255]
-	int				cg;
-	int				cb;
+	float				px;
+	float				py;
+	float				pz;
+	float				rx; // range [-1, 1]
+	float				ry;
+	float				rz;
+	float				diameter;
+	int					cr; // RGB range [0-255]
+	int					cg;
+	int					cb;
 	t_shape_transform	tf;
-	t_tuple			position; // actual position
-	t_material		material; // store the material properties for the sphere
-	struct s_sphere	*next;
+	t_tuple				position; // actual position
+	t_material			material; // store the material properties for the sphere
+	struct s_sphere		*next;
 }	t_sphere;
 
 typedef struct s_light

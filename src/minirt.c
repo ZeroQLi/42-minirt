@@ -24,17 +24,6 @@ t_color	color_from_rgb(int r, int g, int b)
 	return (create_color(r / 255.0f, g / 255.0f, b / 255.0f));
 }
 
-	// safe_up = scalar_normalize(up);
-	// // Avoid degenerate camera basis when forward is parallel to up.
-	// if (fabsf(dot_product(forward, safe_up)) > (1.0f - EPSILON))
-	// {
-	// 	if (fabsf(forward.z) < (1.0f - EPSILON))
-	// 		safe_up = create_vector(0, 0, 1);
-	// 	else
-	// 		safe_up = create_vector(1, 0, 0);
-	// }
-	// left = scalar_normalize(cross_product(forward, safe_up));
-
 t_matrix4	view_transform(t_tuple from, t_tuple to, t_tuple up)
 {
 	t_tuple		forward;
@@ -52,13 +41,12 @@ t_matrix4	view_transform(t_tuple from, t_tuple to, t_tuple up)
 	{0, 0, 0, 1}
 	}};
 	return (matrix_multiply(orientation,
-				translation(-from.x, -from.y, -from.z)));
+			translation(-from.x, -from.y, -from.z)));
 }
 
 static void	test_operations(t_data *data)
 {
 	data->canvas = create_canvas();
-
 	new_world(data->world);
 	render(data->world->cam, data->world, data->canvas);
 	printf(BGREEN "rendered\n" RESET);
@@ -84,9 +72,7 @@ int	main(int ac, char **av)
 		brain_washer(&data);
 		return (1);
 	}
-	// print_elements(data.world);
-	test_operations(&data);
-	// test_matrix4_system();
+	test_operations(&data); // rename this
 	brain_washer(&data);
 	return (0);
 }

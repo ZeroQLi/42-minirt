@@ -20,7 +20,6 @@ static t_matrix4	align_y_to_vector(t_tuple axis)
 	t_tuple		ref_axis;
 	t_matrix4	rot;
 
-	// Build an orthonormal basis so local +Y aligns with parsed normal/direction.
 	y_axis = scalar_normalize(axis);
 	if (fabsf(y_axis.x) > 0.9f)
 		ref_axis = create_vector(0, 1, 0);
@@ -62,7 +61,8 @@ static t_intersection_list	*intersect_sphere_list(t_sphere *head, t_ray r,
 	while (sp)
 	{
 		curr = intersect_shape(r, sp, SPHERE);
-		if (curr && (acc = intersections_joined(acc, curr)) == NULL)
+		acc = intersections_joined(acc, curr);
+		if (curr && acc == NULL)
 			return (NULL);
 		sp = sp->next;
 	}
@@ -79,7 +79,8 @@ static t_intersection_list	*intersect_plane_list(t_plane *head, t_ray r,
 	while (pl)
 	{
 		curr = intersect_shape(r, pl, PLANE);
-		if (curr && (acc = intersections_joined(acc, curr)) == NULL)
+		acc = intersections_joined(acc, curr);
+		if (curr && acc == NULL)
 			return (NULL);
 		pl = pl->next;
 	}
@@ -96,7 +97,8 @@ static t_intersection_list	*intersect_cylinder_list(t_cylinder *head, t_ray r,
 	while (cy)
 	{
 		curr = intersect_shape(r, cy, CYLINDER);
-		if (curr && (acc = intersections_joined(acc, curr)) == NULL)
+		acc = intersections_joined(acc, curr);
+		if (curr && acc == NULL)
 			return (NULL);
 		cy = cy->next;
 	}
@@ -106,6 +108,7 @@ static t_intersection_list	*intersect_cylinder_list(t_cylinder *head, t_ray r,
 t_intersection_list	*intersect_world(t_world *w, t_ray r)
 {
 	t_intersection_list	*acc;
+
 	acc = intersect_list(intersect(0, NULL, 0), intersect(0, NULL, 0));
 	if (!acc)
 		return (NULL);
@@ -126,19 +129,14 @@ static void	camera(t_camera *cam)
 {
 	float	half_view;
 	float	aspect;
-	t_tuple	look_at;
 
-	cam->hsize = WIN_WIDTH;
-	cam->vsize = WIN_HEIGHT;
-	cam->fov *= (M_PI / 180);
 	cam->position = create_point(cam->px, cam->py, cam->pz);
 	cam->rotation = scalar_normalize(create_vector(cam->rx, cam->ry, cam->rz));
 	if (fabsf(cam->rotation.x) < EPSILON && fabsf(cam->rotation.y) < EPSILON
 		&& fabsf(cam->rotation.z) < EPSILON)
 		cam->rotation = create_vector(0, 0, 1);
-	look_at = add_tuples(cam->position, cam->rotation);
 	cam->transform = view_transform(cam->position,
-		look_at, create_vector(0, 1, 0));
+			add_tuples(cam->position, cam->rotation), create_vector(0, 1, 0));
 	cam->inv_transform = invert_4x4(cam->transform);
 	half_view = tan(cam->fov / 2);
 	aspect = (float)cam->hsize / (float)cam->vsize;
@@ -190,7 +188,7 @@ void	new_world(t_world *w)
 			transform = translation(tmp->position.x, tmp->position.y,
 					tmp->position.z);
 			transform = matrix_multiply(transform, scaling(tmp->diameter,
-					tmp->diameter, tmp->diameter));
+						tmp->diameter, tmp->diameter));
 			set_transform(&tmp->tf, transform);
 			tmp = tmp->next;
 		}
@@ -206,7 +204,7 @@ void	new_world(t_world *w)
 			tmp_pl->rotation = scalar_normalize(create_vector(tmp_pl->rx,
 						tmp_pl->ry, tmp_pl->rz));
 			tmp_pl->material = create_material(tmp_pl->cr, tmp_pl->cg,
-				tmp_pl->cb);
+					tmp_pl->cb);
 			transform = translation(tmp_pl->position.x, tmp_pl->position.y,
 					tmp_pl->position.z);
 			transform = matrix_multiply(transform,
@@ -232,7 +230,7 @@ void	new_world(t_world *w)
 			transform = matrix_multiply(transform,
 					align_y_to_vector(tmp_cyl->rotation));
 			transform = matrix_multiply(transform, scaling(tmp_cyl->diameter,
-					1.0f, tmp_cyl->diameter));
+						1.0f, tmp_cyl->diameter));
 			set_transform(&tmp_cyl->tf, transform);
 			tmp_cyl->closed = YES;
 			tmp_cyl = tmp_cyl->next;

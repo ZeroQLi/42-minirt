@@ -14,12 +14,12 @@
 
 void	sort_intersections(t_intersection_list *xs)
 {
-	int i;
-	int j;
-	t_intersection key;
+	int				i;
+	int				j;
+	t_intersection	key;
 
 	if (!xs || !xs->items || xs->count <= 1)
-		return;
+		return ;
 	i = 1;
 	while (i < xs->count)
 	{
