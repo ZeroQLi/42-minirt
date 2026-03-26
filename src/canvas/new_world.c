@@ -125,7 +125,7 @@ t_intersection_list	*intersect_world(t_world *w, t_ray r)
 	return (acc);
 }
 
-static void	camera(t_camera *cam)
+void	camera(t_camera *cam)
 {
 	float	half_view;
 	float	aspect;

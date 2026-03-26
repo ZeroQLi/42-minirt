@@ -44,30 +44,40 @@ t_matrix4	view_transform(t_tuple from, t_tuple to, t_tuple up)
 			translation(-from.x, -from.y, -from.z)));
 }
 
-static int on_configure(void *param)
+static int	on_configure(void *param)
 {
-    t_data *d = (t_data *)param;
-    t_xvar *x = (t_xvar *)d->canvas->mlx;
-    t_win_list *w = (t_win_list *)d->canvas->mlx_win;
-    XWindowAttributes wa;
+	t_data				*d;
+	t_xvar				*x;
+	t_win_list			*w;
+	XWindowAttributes	wa;
+	int					endian;
 
-    if (!XGetWindowAttributes(x->display, w->window, &wa))
-        return (0);
-    if (wa.width == d->canvas->width && wa.height == d->canvas->height)
-        return (0);
-    d->canvas->width = wa.width;
-    d->canvas->height = wa.height;
-    d->world->cam->hsize = wa.width;
-    d->world->cam->vsize = wa.height;
-	mlx_clear_window(d->canvas->mlx, d->canvas->mlx_win);
-    render(d->world->cam, d->world, d->canvas);
-	mlx_clear_window(d->canvas->mlx, d->canvas->mlx_win);
+	d = (t_data *)param;
+	x = (t_xvar *)d->canvas->mlx;
+	w = (t_win_list *)d->canvas->mlx_win;
+	if (!XGetWindowAttributes(x->display, w->window, &wa))
+		return (0);
+	if (wa.width <= 0 || wa.height <= 0 || (wa.width == d->canvas->width
+				&& wa.height == d->canvas->height))
+		return (0);
+	d->canvas->width = wa.width;
+	d->canvas->height = wa.height;
+	d->world->cam->hsize = wa.width;
+	d->world->cam->vsize = wa.height;
+	if (d->canvas->img)
+		mlx_destroy_image(d->canvas->mlx, d->canvas->img);
+	d->canvas->img = mlx_new_image(d->canvas->mlx, d->canvas->width,
+			d->canvas->height);
+	d->canvas->addr = mlx_get_data_addr(d->canvas->img,
+			&d->canvas->bits_per_pixel, &d->canvas->line_length, &endian);
+	camera(d->world->cam);
+	render(d->world->cam, d->world, d->canvas);
 	mlx_put_image_to_window(d->canvas->mlx, d->canvas->mlx_win,
 			d->canvas->img, 0, 0);
-    return (0);
+	return (0);
 }
 
-static inline void	test_operations(t_data *data)
+static inline void	canvas_board(t_data *data)
 {
 	data->canvas = create_canvas();
 	if (!data->canvas)
@@ -77,7 +87,7 @@ static inline void	test_operations(t_data *data)
 	mlx_clear_window(data->canvas->mlx, data->canvas->mlx_win);
 	mlx_put_image_to_window(data->canvas->mlx, data->canvas->mlx_win,
 			data->canvas->img, 0, 0);
-	printf(BGREEN "rendered\n" RESET);
+	ft_printf(BGREEN "rendered\n" RESET);
 	mlx_hook(data->canvas->mlx_win, 22, 1L << 17, on_configure, data);
 	mlx_hook(data->canvas->mlx_win, 17, 0, brain_washer, data);
 	mlx_hook(data->canvas->mlx_win, 2, 1L << 0, key_press, data);
@@ -106,7 +116,7 @@ int	main(int ac, char **av)
 		brain_washer(&data);
 		return (1);
 	}
-	test_operations(&data); // rename this
+	canvas_board(&data); // rename this
 	brain_washer(&data);
 	return (0);
 }

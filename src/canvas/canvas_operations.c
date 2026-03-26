@@ -71,9 +71,10 @@ inline void	write_pixel(t_canvas *canvas, int x, int y, t_color color)
 {
 	char	*pxl;
 
-	if (x >= 0 && x < WIN_WIDTH && y >= 0 && y < WIN_HEIGHT)
+	if (x >= 0 && x < canvas->width && y >= 0 && y < canvas->height)
 	{
-		canvas->pixels[y][x] = color;
+		if (x < WIN_WIDTH && y < WIN_HEIGHT)
+			canvas->pixels[y][x] = color;
 		pxl = canvas->addr + (y * canvas->line_length + x
 				* (canvas->bits_per_pixel / 8));
 		*(unsigned int *)pxl = color_to_int(color);
@@ -82,7 +83,8 @@ inline void	write_pixel(t_canvas *canvas, int x, int y, t_color color)
 
 t_color	pixel_at(t_canvas *canvas, int x, int y)
 {
-	if (x >= 0 && x < WIN_WIDTH && y >= 0 && y < WIN_HEIGHT)
+	if (x >= 0 && x < canvas->width && y >= 0 && y < canvas->height
+		&& x < WIN_WIDTH && y < WIN_HEIGHT)
 		return (canvas->pixels[y][x]);
 	return ((t_color){0, 0, 0});
 }
