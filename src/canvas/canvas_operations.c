@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:53:39 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/26 19:22:32 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/26 22:15:00 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,12 @@ t_canvas	*create_canvas(void)
 		return (NULL);
 	canvas->width = WIN_WIDTH;
 	canvas->height = WIN_HEIGHT;
-	setup_mlx(canvas); // should return and free on failure, do fix
+	if (!setup_mlx(canvas))
+		return (NULL);
 	return (canvas);
 }
 
-void	write_pixel(t_canvas *canvas, int x, int y, t_color color)
+inline void	write_pixel(t_canvas *canvas, int x, int y, t_color color)
 {
 	char	*pxl;
 

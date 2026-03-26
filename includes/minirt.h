@@ -25,6 +25,7 @@
 # include <stdio.h>
 # include <mlx.h>
 # include <sys/time.h>
+# include <mlx_int.h>
 
 # include "macros.h"
 # include "shapes.h"
@@ -82,6 +83,18 @@
 # define WHITE   "\033[0;37m"
 # define BWHITE  "\033[1;37m"
 # define RESET "\033[0m"
+
+typedef struct s_world_render
+{
+	t_ray	ray;
+	t_color	color;
+	t_tuple	camera_origin;
+	float	world_x;
+	float	world_y;
+	float	world_x_start;
+	int		start_time;
+	int 	end_time;
+}	t_world_render;
 
 typedef struct s_world
 {
@@ -170,9 +183,6 @@ t_canvas			*create_canvas(void);
 void				write_pixel(t_canvas *canvas, int x, int y, t_color color);
 t_color				pixel_at(t_canvas *canvas, int x, int y);
 void				free_canvas(t_canvas *canvas);
-
-// value table print tester
-void				print_elements(t_world *elements);
 
 // pls give these functions a family
 t_color				color_from_rgb(int r, int g, int b);

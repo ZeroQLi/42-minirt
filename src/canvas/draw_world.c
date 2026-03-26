@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-static t_ray	ray_for_pixel(t_camera *c, float world_x, float world_y,
+static inline t_ray	ray_for_pixel(t_camera *c, float world_x, float world_y,
 	t_tuple origin)
 {
 	t_tuple		pixel;
@@ -157,42 +157,69 @@ t_color	color_at(t_world *w, t_ray ray)
 	return (shade_hit(w, comp));
 }
 
-void	render(t_camera *c, t_world *w, t_canvas *canvas)
+static int get_time(bool stopwatch)
 {
-	int		x;
-	int		y;
-	t_ray	ray;
-	t_color	color;
-	t_tuple	camera_origin;
-	float	world_x;
-	float	world_y;
-	float	world_x_start;
-	struct timeval	start, end;
+	struct timeval	start;
+	struct timeval	end;
 
-	y = 0;
-	camera_origin = matrix4_tuple_multiply(c->inv_transform, create_point(0, 0, 0));
-	world_x_start = c->half_width - (0.5f * c->pixel_size);
-	world_y = c->half_height - (0.5f * c->pixel_size);
-	gettimeofday(&start, NULL);
-	while (y < c->vsize)
+	if (stopwatch)
 	{
-		x = 0;
-		world_x = world_x_start;
-		while (x < c->hsize)
-		{
-			ray = ray_for_pixel(c, world_x, world_y, camera_origin);
-			color = color_at(w, ray);
-			write_pixel(canvas, x, y, color);
-			world_x -= c->pixel_size;
-			x++;
-		}
-		world_y -= c->pixel_size;
-		y++;
-		mlx_put_image_to_window(canvas->mlx, canvas->mlx_win, canvas->img, 0, 0);
-		mlx_string_put(canvas->mlx, canvas->mlx_win, WIN_WIDTH / 2, WIN_HEIGHT / 2, 0xFFFFFF, "Rendering...");
+		gettimeofday(&start, NULL);
+		return (start.tv_sec);
 	}
-	gettimeofday(&end, NULL);
-	ft_printf("Time elapsed: %d Seconds\n", end.tv_sec - start.tv_sec);
-	mlx_clear_window(canvas->mlx, canvas->mlx_win);
-	mlx_put_image_to_window(canvas->mlx, canvas->mlx_win, canvas->img, 0, 0);
+	else
+	{
+		gettimeofday(&end, NULL);
+		return (end.tv_sec);
+	}
+	return (0);
+}
+
+static void	init_world_pos(t_world_render *rend, t_camera *c)
+{
+	rend->camera_origin = matrix4_tuple_multiply(c->inv_transform, create_point(0, 0, 0));
+	rend->world_x_start = c->half_width - (0.5f * c->pixel_size);
+	rend->world_y = c->half_height - (0.5f * c->pixel_size);
+}
+
+static void	draw_centered_text(t_canvas *cnv, char *text, int color)
+{
+	int	x;
+	int	y;
+	int	text_width;
+
+	text_width = (int)ft_strlen(text) * 6;
+	x = (cnv->width - text_width) / 2;
+	if (x < 0)
+		x = 0;
+	y = (cnv->height + 13) / 2;
+	mlx_string_put(cnv->mlx, cnv->mlx_win, x, y, color, text);
+}
+
+void	render(t_camera *c, t_world *w, t_canvas *cnv)
+{
+	int				x;
+	int				y;
+	t_world_render	r;
+
+	init_world_pos(&r, c);
+	r.start_time = get_time(YES);
+	y = -1;
+	while (++y < c->vsize)
+	{
+		x = -1;
+		r.world_x = r.world_x_start;
+		while (++x < c->hsize)
+		{
+			r.ray = ray_for_pixel(c, r.world_x, r.world_y, r.camera_origin);
+			r.color = color_at(w, r.ray);
+			write_pixel(cnv, x, y, r.color);
+			r.world_x -= c->pixel_size;
+		}
+		r.world_y -= c->pixel_size;
+		mlx_put_image_to_window(cnv->mlx, cnv->mlx_win, cnv->img, 0, 0);
+		draw_centered_text(cnv, "Rendering...", 0xFFFFFF);
+	}
+	r.end_time = get_time(NO);
+	ft_printf("Time elapsed: %d Seconds\n", r.end_time - r.start_time);
 }

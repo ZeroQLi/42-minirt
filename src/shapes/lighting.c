@@ -6,13 +6,13 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:25:26 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/26 19:24:56 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/26 22:11:06 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
 
-static void	compute_diffuse(t_lighting *lighting, t_color color)
+static inline void	compute_diffuse(t_lighting *lighting, t_color color)
 {
 	float	factor;
 	t_tuple	reflectv;

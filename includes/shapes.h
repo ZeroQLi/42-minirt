@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:22:17 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/26 19:28:08 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:40:00 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ typedef struct s_sphere
 	int					cb;
 	t_shape_transform	tf;
 	t_tuple				position; // actual position
-	t_material			material; // store the material properties for the sphere
+	t_material			material; // store the material properties for sphere
 	struct s_sphere		*next;
 }	t_sphere;
 

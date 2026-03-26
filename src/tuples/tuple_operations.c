@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 15:09:32 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/26 18:55:13 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/26 21:38:35 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ t_tuple	add_tuples(t_tuple a, t_tuple b)
 
 	if (is_equal(a.w + b.w, 2.0))
 	{
-		ft_dprintf(2, "Error: Cannot add two points together.\n");
-		exit(1); // or handle error differently (REMOVE/CHANGE LATER)
+		error_msg(YES, "Cannot add two points together.", 2);
+		return (create_vector(0, 0, 0));
 	}
 	result.x = a.x + b.x;
 	result.y = a.y + b.y;
@@ -49,8 +49,8 @@ t_tuple	sub_tuples(t_tuple a, t_tuple b)
 
 	if (is_equal(a.w - b.w, -1.0))
 	{
-		ft_dprintf(2, "Error: Cannot subtract a point from a vector.\n");
-		exit(1); // REMOVE/CHANGE LATER
+		error_msg(YES, "Cannot subtract a point from a vector.", 2);
+		return (create_vector(0, 0, 0));
 	}
 	result.x = a.x - b.x;
 	result.y = a.y - b.y;

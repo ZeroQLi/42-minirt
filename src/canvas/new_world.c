@@ -162,78 +162,83 @@ t_color	ambient_from_world(t_lighting lighting, t_ambient *amb)
 				ambient_color), lighting.material.ambient * amb->al_ratio));
 }
 
+static void	init_spheres(t_sphere *sp)
+{
+	t_matrix4	transform;
+	t_sphere	*tmp;
+
+	tmp = sp;
+	while (tmp)
+	{
+		tmp->position = create_point(tmp->px, tmp->py, tmp->pz);
+		tmp->material = create_material(tmp->cr, tmp->cg, tmp->cb);
+		transform = translation(tmp->position.x, tmp->position.y,
+					tmp->position.z);
+		transform = matrix_multiply(transform, scaling(tmp->diameter,
+					tmp->diameter, tmp->diameter));
+		set_transform(&tmp->tf, transform);
+		tmp = tmp->next;
+	}
+}
+
+static void	init_planes(t_plane *pl)
+{
+	t_matrix4	transform;
+	t_plane		*tmp;
+
+	tmp = pl;
+	while (tmp)
+	{
+		tmp->position = create_point(tmp->px, tmp->py, tmp->pz);
+		tmp->rotation = scalar_normalize(create_vector(tmp->rx, tmp->ry,
+					tmp->rz));
+		tmp->material = create_material(tmp->cr, tmp->cg, tmp->cb);
+		transform = translation(tmp->position.x, tmp->position.y,
+					tmp->position.z);
+		transform = matrix_multiply(transform,
+					align_y_to_vector(tmp->rotation));
+		set_transform(&tmp->tf, transform);
+		tmp = tmp->next;
+	}
+}
+
+static void	init_cylinders(t_cylinder *cy)
+{
+	t_matrix4	transform;
+	t_cylinder	*tmp;
+
+	tmp = cy;
+	while (tmp)
+	{
+		tmp->position = create_point(tmp->px, tmp->py, tmp->pz);
+		tmp->rotation = scalar_normalize(create_vector(tmp->rx, tmp->ry,
+					tmp->rz));
+		tmp->material = create_material(tmp->cr, tmp->cg, tmp->cb);
+		transform = translation(tmp->position.x, tmp->position.y,
+					tmp->position.z);
+		transform = matrix_multiply(transform,
+					align_y_to_vector(tmp->rotation));
+		transform = matrix_multiply(transform, scaling(tmp->diameter,
+					1.0f, tmp->diameter));
+		set_transform(&tmp->tf, transform);
+		tmp->closed = YES;
+		tmp = tmp->next;
+	}
+}
+
 // Initializes the world space used to create a scene
 // Moving all the values that were parsed into the actual objects
 // (i aint reworking the parser again 😒)
 void	new_world(t_world *w)
 {
-	t_sphere	*tmp;
-	t_plane		*tmp_pl;
-	t_cylinder	*tmp_cyl;
-
 	camera(w->cam);
 	w->l->light.p_light = point_light(create_point(w->l->px, w->l->py,
 				w->l->pz), multiply_colors(color_from_rgb(w->l->cr,
 					w->l->cg, w->l->cb), w->l->emission));
 	if (w->sp)
-	{
-		tmp = w->sp;
-		while (tmp)
-		{
-			t_matrix4	transform;
-
-			tmp->position = create_point(tmp->px, tmp->py, tmp->pz);
-			tmp->material = create_material(tmp->cr, tmp->cg,
-					tmp->cb);
-			transform = translation(tmp->position.x, tmp->position.y,
-					tmp->position.z);
-			transform = matrix_multiply(transform, scaling(tmp->diameter,
-						tmp->diameter, tmp->diameter));
-			set_transform(&tmp->tf, transform);
-			tmp = tmp->next;
-		}
-	}
+		init_spheres(w->sp);
 	if (w->pl)
-	{
-		t_matrix4	transform;
-
-		tmp_pl = w->pl;
-		while (tmp_pl)
-		{
-			tmp_pl->position = create_point(tmp_pl->px, tmp_pl->py, tmp_pl->pz);
-			tmp_pl->rotation = scalar_normalize(create_vector(tmp_pl->rx,
-						tmp_pl->ry, tmp_pl->rz));
-			tmp_pl->material = create_material(tmp_pl->cr, tmp_pl->cg,
-					tmp_pl->cb);
-			transform = translation(tmp_pl->position.x, tmp_pl->position.y,
-					tmp_pl->position.z);
-			transform = matrix_multiply(transform,
-					align_y_to_vector(tmp_pl->rotation));
-			set_transform(&tmp_pl->tf, transform);
-			tmp_pl = tmp_pl->next;
-		}
-	}
+		init_planes(w->pl);
 	if (w->cy)
-	{
-		tmp_cyl = w->cy;
-		while (tmp_cyl)
-		{
-			t_matrix4	transform;
-
-			tmp_cyl->position = create_point(tmp_cyl->px, tmp_cyl->py, tmp_cyl->pz);
-			tmp_cyl->rotation = scalar_normalize(create_vector(tmp_cyl->rx,
-						tmp_cyl->ry, tmp_cyl->rz));
-			tmp_cyl->material = create_material(tmp_cyl->cr, tmp_cyl->cg,
-					tmp_cyl->cb);
-			transform = translation(tmp_cyl->position.x, tmp_cyl->position.y,
-					tmp_cyl->position.z);
-			transform = matrix_multiply(transform,
-					align_y_to_vector(tmp_cyl->rotation));
-			transform = matrix_multiply(transform, scaling(tmp_cyl->diameter,
-						1.0f, tmp_cyl->diameter));
-			set_transform(&tmp_cyl->tf, transform);
-			tmp_cyl->closed = YES;
-			tmp_cyl = tmp_cyl->next;
-		}
-	}
+		init_cylinders(w->cy);
 }

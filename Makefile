@@ -63,7 +63,7 @@ MLX_DIR := ./mlx
 
 # Compiler n flags
 CC		=		cc
-CFLAGS	= -Wall -Wextra -Werror -O3 -Ofast -Iincludes/ -lm -I$(MLX_DIR)
+CFLAGS	= -Wall -Wextra -Werror -O3 -Ofast -Wno-unused-result -mavx -mavx2 -flto -funroll-loops -fno-signed-zeros -Iincludes/ -lm -I$(MLX_DIR)
 
 MLX_LIB = $(MLX_DIR)/libmlx.a
 
@@ -80,7 +80,7 @@ MAKEFLAGS += --no-print-directory
 # Build magicc
 all: $(OBJ_PATH) $(LIBFT) $(MLX_LIB) $(NAME)
 
-$(NAME): $(OBJ) $(LIBFT) $(MLX_LIB) 
+$(NAME): $(OBJ) $(LIBFT) $(MLX_LIB)
 	@echo "$(WHITE)Compiling $(BWHITE)$(NAME)$(WHITE) program...$(RESET)"
 	@$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) $(LIBFT) -lm -o $(NAME)
 	@echo "$(BWHITE)$(NAME)$(WHITE) program is $(BGREEN)ready! $(RESET)✅"
@@ -91,6 +91,7 @@ $(LIBFT):
 	@echo "$(WHITE)libft is $(BGREEN)ready! $(RESET)✅"
 
 $(OBJ_PATH)%.o : src/%.c
+	@echo "$(WHITE)Compiling $(BWHITE)$<$(WHITE)...$(RESET)"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_PATH):

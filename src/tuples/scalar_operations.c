@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 19:36:02 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/26 18:55:05 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/26 21:38:55 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ t_tuple	scalar_divide(t_tuple a, float num)
 
 	if (fabsf(num) < EPSILON)
 	{
-		ft_dprintf(2, "Error: Division by zero\n");
-		exit(1); // REMOVE/CHANGE LATER
+		error_msg(YES, "Division by zero", 2);
+		return (create_vector(0, 0, 0));
 	}
 	result.x = a.x / num;
 	result.y = a.y / num;
