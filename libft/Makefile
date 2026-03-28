@@ -1,5 +1,5 @@
 NAME = libft.a
-OBJ_PATH = obj/
+OBJ_PATH = .obj/
 
 COMP = cc
 

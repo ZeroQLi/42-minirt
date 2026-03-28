@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:22:17 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/26 19:40:00 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/28 16:37:33 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,5 +165,11 @@ t_material		create_material(int cr, int cg, int cb);
 t_point_light	point_light(t_tuple position, t_color intensity);
 t_color			ambient_from_world(t_lighting lighting, t_ambient *amb);
 t_color			lighting(t_lighting *lighting, t_ambient *amb);
+
+t_matrix4		align_y_to_vector(t_tuple axis);
+
+void			init_spheres(t_sphere *sp);
+void			init_planes(t_plane *pl);
+void			init_cylinders(t_cylinder *cy);
 
 #endif

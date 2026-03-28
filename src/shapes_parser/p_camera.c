@@ -29,7 +29,7 @@ int	parse_camera(char **t, t_data *d)
 			&cam->rx, &cam->ry, &cam->rz) || cam->fov < 0 || cam->fov > 180)
 	{
 		free(cam);
-		return (error_msg(YES, "Invalid camera format", 0));
+		return (error_msg(NO, "Invalid camera format", 0));
 	}
 	d->world->cam = cam;
 	cam->hsize = WIN_WIDTH;

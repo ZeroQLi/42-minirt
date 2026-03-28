@@ -17,7 +17,7 @@
 int	error_msg(bool err, char *str, int fd)
 {
 	if (err)
-		ft_putendl_fd(BRED "Error" RESET, fd);
-	ft_putendl_fd(str, fd);
+		ft_putendl_fd(BRED "Error" RESET, 2);
+	ft_putendl_fd(str, 2);
 	return (fd);
 }

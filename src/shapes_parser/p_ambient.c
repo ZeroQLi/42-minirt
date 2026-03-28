@@ -29,7 +29,7 @@ int	parse_ambient(char **t, t_data *d)
 		|| !parse_rgb(t[2], &amb->cr, &amb->cg, &amb->cb))
 	{
 		free(amb);
-		return (error_msg(YES, "Invalid ambient format", 0));
+		return (error_msg(NO, "Invalid ambient format", 0));
 	}
 	d->world->amb = amb;
 	return (1);

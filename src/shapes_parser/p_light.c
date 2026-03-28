@@ -29,7 +29,9 @@ int	parse_light(char **t, t_data *d)
 		|| l->emission > 1.0 || !parse_rgb(t[3], &l->cr, &l->cg, &l->cb))
 	{
 		free(l);
-		return (error_msg(YES, "Invalid light format", 0));
+		if (l->emission < 0.0 || l->emission > 1.0)
+			error_msg(YES, "Light brightness value must be between 0-1", 0);
+		return (error_msg(NO, "Invalid light format", 0));
 	}
 	d->world->l = l;
 	return (1);

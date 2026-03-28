@@ -26,7 +26,9 @@ int	parse_sphere(char **t, t_data *d)
 		|| sp->diameter <= 0 || !parse_rgb(t[3], &sp->cr, &sp->cg, &sp->cb))
 	{
 		free(sp);
-		return (error_msg(YES, "Invalid sphere format", 0));
+		if (sp->diameter <= 0)
+			error_msg(YES, "Sphere size must be bigger than 0", 0);
+		return (error_msg(NO, "Invalid sphere format", 0));
 	}
 	add_sphere(d->world, sp);
 	return (1);

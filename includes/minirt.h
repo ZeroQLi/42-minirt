@@ -92,7 +92,7 @@ typedef struct s_world_render
 	float	world_y;
 	float	world_x_start;
 	int		start_time;
-	int 	end_time;
+	int		end_time;
 }	t_world_render;
 
 typedef struct s_world
@@ -191,5 +191,8 @@ t_color				color_at(t_world *w, t_ray ray);
 void				render(t_camera *c, t_world *w, t_canvas *canvas);
 t_matrix4			view_transform(t_tuple from, t_tuple to, t_tuple up);
 void				camera(t_camera *cam);
+bool				is_shadowed(t_world *w, t_precomp comp);
+int					get_time(bool stopwatch);
+void				draw_centered_text(t_canvas *cnv, char *text, int color);
 
 #endif

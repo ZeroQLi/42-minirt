@@ -6,11 +6,16 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:25:26 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/26 22:11:06 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/28 17:27:05 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
+
+t_color	color_from_rgb(int r, int g, int b)
+{
+	return (create_color(r / 255.0f, g / 255.0f, b / 255.0f));
+}
 
 static inline void	compute_diffuse(t_lighting *lighting, t_color color)
 {

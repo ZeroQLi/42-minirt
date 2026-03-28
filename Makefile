@@ -4,8 +4,8 @@ SRC_DIR2 = $(SRC_DIR)shapes_parser/
 SRC_DIR3 = $(SRC_DIR)tuples/
 SRC_DIR4 = $(SRC_DIR)matrix/
 SRC_DIR5 = $(SRC_DIR)canvas/
-SRC_DIR6 = $(SRC_DIR)shapes/
-OBJ_PATH = src/obj/
+SRC_DIR6 = $(SRC_DIR5)shape_intersections/
+OBJ_PATH = src/.obj/
 LIBFT_PATH = libft/
 
 # Program & build names
@@ -44,15 +44,21 @@ $(SRC_DIR4)inversion.c \
 $(SRC_DIR4)translations.c \
 
 SRC5 = $(SRC_DIR5)canvas_operations.c \
-$(SRC_DIR5)intersections.c \
+$(SRC_DIR5)intersections_list.c \
+$(SRC_DIR5)intersect_world.c \
+$(SRC_DIR5)init_shapes.c \
 $(SRC_DIR5)rays.c \
+$(SRC_DIR5)shadow.c \
+$(SRC_DIR5)render_info.c \
 $(SRC_DIR5)reflections.c \
 $(SRC_DIR5)new_world.c \
-$(SRC_DIR5)sort_intersections.c \
-$(SRC_DIR5)draw_world.c
+$(SRC_DIR5)draw_world.c \
+$(SRC_DIR5)transform.c \
+$(SRC_DIR5)lighting.c \
 
-SRC6 = $(SRC_DIR6)spheres.c \
-$(SRC_DIR6)lighting.c \
+SRC6 = $(SRC_DIR6)intersect_cylinder.c \
+$(SRC_DIR6)intersect_plane.c \
+$(SRC_DIR6)intersect_sphere.c
 
 # Object files
 OBJ = $(SRC:src/%.c=$(OBJ_PATH)%.o) $(SRC2:src/%.c=$(OBJ_PATH)%.o) $(SRC3:src/%.c=$(OBJ_PATH)%.o) $(SRC4:src/%.c=$(OBJ_PATH)%.o) $(SRC5:src/%.c=$(OBJ_PATH)%.o) $(SRC6:src/%.c=$(OBJ_PATH)%.o)
@@ -91,11 +97,12 @@ $(LIBFT):
 	@echo "$(WHITE)libft is $(BGREEN)ready! $(RESET)✅"
 
 $(OBJ_PATH)%.o : src/%.c
+	@mkdir -p $(dir $@)
 	@echo "$(WHITE)Compiling $(BWHITE)$<$(WHITE)...$(RESET)"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_PATH):
-	@mkdir -p $(OBJ_PATH) $(OBJ_PATH)shapes_parser/ $(OBJ_PATH)tuples/ $(OBJ_PATH)matrix/ $(OBJ_PATH)canvas/ $(OBJ_PATH)shapes/
+	@mkdir -p $(OBJ_PATH) $(OBJ_PATH)shapes_parser/ $(OBJ_PATH)tuples/ $(OBJ_PATH)matrix/ $(OBJ_PATH)canvas/ $(OBJ_PATH)shapes/ $(OBJ_PATH)canvas/shape_intersections/
 
 $(MLX_LIB):
 	@echo "$(WHITE)Compiling $(BWHITE)MinilibX$(WHITE)...$(RESET)"

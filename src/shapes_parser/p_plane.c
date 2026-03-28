@@ -26,7 +26,7 @@ int	parse_plane(char **t, t_data *d)
 		|| !parse_rgb(t[3], &pl->cr, &pl->cg, &pl->cb))
 	{
 		free(pl);
-		return (error_msg(YES, "Invalid plane format", 0));
+		return (error_msg(NO, "Invalid plane format", 0));
 	}
 	add_plane(d->world, pl);
 	return (1);

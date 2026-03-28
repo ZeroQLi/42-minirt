@@ -19,29 +19,19 @@ static int	key_press(int key, t_data *data)
 	return (0);
 }
 
-t_color	color_from_rgb(int r, int g, int b)
+static int	rebuild_canvas_image(t_data *d)
 {
-	return (create_color(r / 255.0f, g / 255.0f, b / 255.0f));
-}
+	int	endian;
 
-t_matrix4	view_transform(t_tuple from, t_tuple to, t_tuple up)
-{
-	t_tuple		forward;
-	t_tuple		left;
-	t_tuple		true_up;
-	t_matrix4	orientation;
-
-	forward = scalar_normalize(sub_tuples(to, from));
-	left = cross_product(forward, scalar_normalize(up));
-	true_up = cross_product(left, forward);
-	orientation = (t_matrix4){.data = {
-	{left.x, left.y, left.z, 0},
-	{true_up.x, true_up.y, true_up.z, 0},
-	{-forward.x, -forward.y, -forward.z, 0},
-	{0, 0, 0, 1}
-	}};
-	return (matrix_multiply(orientation,
-			translation(-from.x, -from.y, -from.z)));
+	if (d->canvas->img)
+		mlx_destroy_image(d->canvas->mlx, d->canvas->img);
+	d->canvas->img = mlx_new_image(d->canvas->mlx, d->canvas->width,
+			d->canvas->height);
+	if (!d->canvas->img)
+		return (0);
+	d->canvas->addr = mlx_get_data_addr(d->canvas->img,
+			&d->canvas->bits_per_pixel, &d->canvas->line_length, &endian);
+	return (1);
 }
 
 static int	on_configure(void *param)
@@ -50,7 +40,6 @@ static int	on_configure(void *param)
 	t_xvar				*x;
 	t_win_list			*w;
 	XWindowAttributes	wa;
-	int					endian;
 
 	d = (t_data *)param;
 	x = (t_xvar *)d->canvas->mlx;
@@ -58,26 +47,22 @@ static int	on_configure(void *param)
 	if (!XGetWindowAttributes(x->display, w->window, &wa))
 		return (0);
 	if (wa.width <= 0 || wa.height <= 0 || (wa.width == d->canvas->width
-				&& wa.height == d->canvas->height))
+			&& wa.height == d->canvas->height))
 		return (0);
 	d->canvas->width = wa.width;
 	d->canvas->height = wa.height;
 	d->world->cam->hsize = wa.width;
 	d->world->cam->vsize = wa.height;
-	if (d->canvas->img)
-		mlx_destroy_image(d->canvas->mlx, d->canvas->img);
-	d->canvas->img = mlx_new_image(d->canvas->mlx, d->canvas->width,
-			d->canvas->height);
-	d->canvas->addr = mlx_get_data_addr(d->canvas->img,
-			&d->canvas->bits_per_pixel, &d->canvas->line_length, &endian);
+	if (!rebuild_canvas_image(d))
+		return (0);
 	camera(d->world->cam);
 	render(d->world->cam, d->world, d->canvas);
 	mlx_put_image_to_window(d->canvas->mlx, d->canvas->mlx_win,
-			d->canvas->img, 0, 0);
+		d->canvas->img, 0, 0);
 	return (0);
 }
 
-static inline void	canvas_board(t_data *data)
+static inline void	play(t_data *data)
 {
 	data->canvas = create_canvas();
 	if (!data->canvas)
@@ -86,8 +71,8 @@ static inline void	canvas_board(t_data *data)
 	render(data->world->cam, data->world, data->canvas);
 	mlx_clear_window(data->canvas->mlx, data->canvas->mlx_win);
 	mlx_put_image_to_window(data->canvas->mlx, data->canvas->mlx_win,
-			data->canvas->img, 0, 0);
-	ft_printf(BGREEN "rendered\n" RESET);
+		data->canvas->img, 0, 0);
+	ft_printf(BGREEN "Done!\n" RESET);
 	mlx_hook(data->canvas->mlx_win, 22, 1L << 17, on_configure, data);
 	mlx_hook(data->canvas->mlx_win, 17, 0, brain_washer, data);
 	mlx_hook(data->canvas->mlx_win, 2, 1L << 0, key_press, data);
@@ -116,7 +101,7 @@ int	main(int ac, char **av)
 		brain_washer(&data);
 		return (1);
 	}
-	canvas_board(&data); // rename this
+	play(&data);
 	brain_washer(&data);
 	return (0);
 }

@@ -28,7 +28,11 @@ int	parse_cylinder(char **t, t_data *d)
 		|| !parse_rgb(t[5], &cy->cr, &cy->cg, &cy->cb))
 	{
 		free(cy);
-		return (error_msg(YES, "Invalid cylinder format", 0));
+		if (cy->diameter <= 0)
+			error_msg(YES, "Cylinder size must be bigger than 0", 0);
+		else if (cy->height <= 0)
+			error_msg(YES, "Cylinder height must be bigger than 0", 0);
+		return (error_msg(NO, "Invalid cylinder format", 0));
 	}
 	add_cylinder(d->world, cy);
 	return (1);
