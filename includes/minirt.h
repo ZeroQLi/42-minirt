@@ -166,6 +166,7 @@ int					parse_cylinder(char **t, t_data *d);
 int					parse_vec3(char *s, float *x, float *y, float *z);
 int					parse_normal(char *s, float *x, float *y, float *z);
 int					parse_rgb(char *s, int *r, int *g, int *b);
+int					ft_isdigit_str(const char *str);
 
 // scalar operations
 t_tuple				scalar_multiply(t_tuple a, float num);

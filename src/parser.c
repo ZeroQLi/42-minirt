@@ -45,7 +45,7 @@ int	check_element(char *line, t_data *data)
 		return (parse_plane(data->values, data));
 	if (ft_strcmp(data->values[0], "cy") == 0)
 		return (parse_cylinder(data->values, data));
-	return (error_msg(YES, "Unknown identifier", 0));
+	return (error_msg(YES, "Unknown identifier. Who invited bro?", 0));
 }
 
 // Frees buffered line from gnl until EoF, then closes its file descriptor.

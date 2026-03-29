@@ -36,8 +36,7 @@ float	ft_atof(const char *str)
 	len = ft_strlen(c);
 	while (len--)
 		dec /= 10;
-	if (num >= 0)
-		return ((num + dec) * neg);
-	else
-		return ((num + -dec) * neg);
+	if (num < 0)
+		dec = -dec;
+	return ((num + dec) * neg);
 }

@@ -36,5 +36,14 @@ enough to catch you aura farming off-screen. There must only be 1 instance of a\
  There must only be 1 instance of light.\033[0m"
 # define NO_LIGHTS "who took the light out of you? boi \033[1;37mTURN EM BACK \
 ON\033[0m"
+# define ROTATE_ERR "Misconfigured Rotation values (Must have at least one \
+normalized value)"
+# define A_FORMAT "A RATIO R,G,B"
+# define C_FORMAT "C X,Y,Z ANGLE FOV"
+# define L_FORMAT "L X,Y,Z BRIGHTNESS"
+# define L_FORMAT_B "L X,Y,Z BRIGHTNESS R,G,B"
+# define SP_FORMAT "sp X,Y,Z SIZE R,G,B"
+# define PL_FORMAT "pl X,Y,Z ANGLE R,G,B"
+# define CY_FORMAT "cy X,Y,Z ANGLE SIZE HEIGHT R,G,B"
 
 #endif
