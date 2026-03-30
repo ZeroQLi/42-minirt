@@ -19,6 +19,8 @@ int	ft_isdigit_str(const char *str)
 	i = 0;
 	if (str[i] == '-')
 		i++;
+	if (ft_strlen(&str[i]) > 10)
+		return (0);
 	while (str[i])
 	{
 		if (ft_isdigit(str[i]) && str[i + 1] == '.')
@@ -60,7 +62,7 @@ int	parse_normal(char *s, float *x, float *y, float *z)
 		return (error_msg(YES, "Missing/Misconfigured Rotation values", 0));
 	}
 	if (!ft_isdigit_arr(split))
-		return (error_msg(YES, "Rotation values must be a number", 0));
+		return (error_msg(YES, "Rotation values must be a valid number", 0));
 	*x = ft_atof(split[0]);
 	*y = ft_atof(split[1]);
 	*z = ft_atof(split[2]);
@@ -93,7 +95,7 @@ int	parse_rgb(char *s, int *r, int *g, int *b)
 		|| ft_strchr(split[2], '.'))
 		return (error_msg(YES, "RGB values must be whole", 0));
 	if (!ft_isdigit_arr(split))
-		return (error_msg(YES, "RGB values must be a number", 0));
+		return (error_msg(YES, "RGB values must be a valid number", 0));
 	*r = ft_atoi(split[0]);
 	*g = ft_atoi(split[1]);
 	*b = ft_atoi(split[2]);
@@ -116,7 +118,7 @@ int	parse_vec3(char *s, float *x, float *y, float *z)
 		return (error_msg(YES, "Missing/Misconfigured Position values", 0));
 	}
 	if (!ft_isdigit_arr(split))
-		return (error_msg(YES, "Position values must be a number", 0));
+		return (error_msg(YES, "Position values must be a valid number", 0));
 	*x = ft_atof(split[0]);
 	*y = ft_atof(split[1]);
 	*z = ft_atof(split[2]);

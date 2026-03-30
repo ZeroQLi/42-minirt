@@ -25,7 +25,7 @@ int	parse_ambient(char **t, t_data *d)
 	if (!amb)
 		return (error_msg(YES, "malloc FAILED!", 0));
 	if (!ft_isdigit_str(t[1]))
-		return (error_msg(YES, "Ambient ratio must be a number", 0));
+		return (error_msg(YES, "Ambient ratio must be a valid number", 0));
 	amb->al_ratio = ft_atof(t[1]);
 	if (amb->al_ratio < 0.0 || amb->al_ratio > 1.0
 		|| !parse_rgb(t[2], &amb->cr, &amb->cg, &amb->cb))
