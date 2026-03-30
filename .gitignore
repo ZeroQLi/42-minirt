@@ -5,7 +5,11 @@
 minirt
 miniRT
 minirt_bonus
+miniRT_bonus
 obj/
+obj_bonus/
+.obj/
+.obj_bonus/
 mlx/
 
 # Object files

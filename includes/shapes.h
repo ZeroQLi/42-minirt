@@ -124,6 +124,7 @@ typedef struct s_light
 	int				cg;
 	int				cb;
 	t_lighting		light;
+	struct s_light	*next;
 	// float			fade_size; // will try to utilize?
 	// struct s_light	*next;
 }	t_light;

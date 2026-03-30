@@ -5,7 +5,7 @@ SRC_DIR3 = $(SRC_DIR)tuples/
 SRC_DIR4 = $(SRC_DIR)matrix/
 SRC_DIR5 = $(SRC_DIR)canvas/
 SRC_DIR6 = $(SRC_DIR5)shape_intersections/
-BONUS_DIR = bonus/src/shapes/
+BONUS_DIR = bonus/
 OBJ_PATH = src/.obj/
 OBJ_BONUS_PATH = src/.obj_bonus/
 LIBFT_PATH = libft/
@@ -22,6 +22,9 @@ $(SRC_DIR)error.c \
 $(SRC_DIR)cleanup_linux.c \
 $(SRC_DIR)utils.c \
 
+SRC_BONUS = $(filter-out $(SRC_DIR)cleanup_linux.c,$(SRC)) \
+$(BONUS_DIR)cleanup/cleanup_bonus.c
+
 SRC2 = $(SRC_DIR2)p_ambient.c \
 $(SRC_DIR2)p_camera.c \
 $(SRC_DIR2)p_cylinder.c \
@@ -31,6 +34,12 @@ $(SRC_DIR2)p_sphere.c \
 $(SRC_DIR2)parse_utils.c \
 $(SRC_DIR2)add_lists.c \
 $(SRC_DIR2)free_lists.c \
+
+SRC2_BONUS = $(filter-out $(SRC_DIR2)p_light.c $(SRC_DIR2)add_lists.c \
+$(SRC_DIR2)free_lists.c,$(SRC2)) \
+$(BONUS_DIR)parser/p_light_bonus.c \
+$(BONUS_DIR)parser/add_lists_bonus.c \
+$(BONUS_DIR)parser/free_lists_bonus.c
 
 SRC3 = $(SRC_DIR3)tuple_utils.c \
 $(SRC_DIR3)tuple_operations.c \
@@ -59,8 +68,18 @@ $(SRC_DIR5)draw_world.c \
 $(SRC_DIR5)transform.c \
 $(SRC_DIR5)lighting.c \
 
-SRC5_BONUS = $(filter-out $(SRC_DIR5)lighting.c,$(SRC5)) \
-$(BONUS_DIR)lighting_bonus.c
+SRC5_BONUS = $(filter-out $(SRC_DIR5)lighting.c $(SRC_DIR5)shadow.c \
+$(SRC_DIR5)new_world.c $(SRC_DIR5)draw_world.c,$(SRC5)) \
+$(BONUS_DIR)canvas/lighting_bonus.c \
+$(BONUS_DIR)canvas/shadow_bonus.c \
+$(BONUS_DIR)canvas/new_world_bonus.c \
+$(BONUS_DIR)canvas/draw_world_bonus.c
+
+SRC_BONUS_SRC = $(filter $(SRC_DIR)%,$(SRC_BONUS))
+SRC_BONUS_BONUS = $(filter $(BONUS_DIR)%,$(SRC_BONUS))
+
+SRC2_BONUS_SRC = $(filter $(SRC_DIR)%,$(SRC2_BONUS))
+SRC2_BONUS_BONUS = $(filter $(BONUS_DIR)%,$(SRC2_BONUS))
 
 SRC5_BONUS_SRC = $(filter $(SRC_DIR5)%,$(SRC5_BONUS))
 SRC5_BONUS_BONUS = $(filter $(BONUS_DIR)%,$(SRC5_BONUS))
@@ -77,8 +96,10 @@ $(SRC4:src/%.c=$(OBJ_PATH)%.o) \
 $(SRC5:src/%.c=$(OBJ_PATH)%.o) \
 $(SRC6:src/%.c=$(OBJ_PATH)%.o)
 
-OBJ_BONUS = $(SRC:src/%.c=$(OBJ_BONUS_PATH)%.o) \
-$(SRC2:src/%.c=$(OBJ_BONUS_PATH)%.o) \
+OBJ_BONUS = $(SRC_BONUS_SRC:src/%.c=$(OBJ_BONUS_PATH)%.o) \
+$(SRC_BONUS_BONUS:bonus/%.c=$(OBJ_BONUS_PATH)%.o) \
+$(SRC2_BONUS_SRC:src/%.c=$(OBJ_BONUS_PATH)%.o) \
+$(SRC2_BONUS_BONUS:bonus/%.c=$(OBJ_BONUS_PATH)%.o) \
 $(SRC3:src/%.c=$(OBJ_BONUS_PATH)%.o) \
 $(SRC4:src/%.c=$(OBJ_BONUS_PATH)%.o) \
 $(SRC5_BONUS_SRC:src/%.c=$(OBJ_BONUS_PATH)%.o) \
@@ -144,7 +165,7 @@ $(OBJ_PATH):
 	@mkdir -p $(OBJ_PATH) $(OBJ_PATH)shapes_parser/ $(OBJ_PATH)tuples/ $(OBJ_PATH)matrix/ $(OBJ_PATH)canvas/ $(OBJ_PATH)shapes/ $(OBJ_PATH)canvas/shape_intersections/
 
 $(OBJ_BONUS_PATH):
-	@mkdir -p $(OBJ_BONUS_PATH) $(OBJ_BONUS_PATH)shapes_parser/ $(OBJ_BONUS_PATH)tuples/ $(OBJ_BONUS_PATH)matrix/ $(OBJ_BONUS_PATH)canvas/ $(OBJ_BONUS_PATH)shapes/ $(OBJ_BONUS_PATH)canvas/shape_intersections/ $(OBJ_BONUS_PATH)bonus/src/shapes/
+	@mkdir -p $(OBJ_BONUS_PATH) $(OBJ_BONUS_PATH)shapes_parser/ $(OBJ_BONUS_PATH)tuples/ $(OBJ_BONUS_PATH)matrix/ $(OBJ_BONUS_PATH)canvas/ $(OBJ_BONUS_PATH)shapes/ $(OBJ_BONUS_PATH)canvas/shape_intersections/ $(OBJ_BONUS_PATH)cleanup/ $(OBJ_BONUS_PATH)parser/ $(OBJ_BONUS_PATH)canvas/
 
 $(MLX_LIB):
 	@echo "$(WHITE)Compiling $(BWHITE)MinilibX$(WHITE)...$(RESET)"
@@ -163,25 +184,26 @@ fclean: clean
 
 re: fclean all
 
-# Only recompiles the src files and the program, ignoring libft as its always the same.
-remake:
-	@rm -f $(NAME)
-	@rm -rf $(OBJ_PATH)
-	@make all
-
 # Calls the sonnovagun of the subject to norm check the src folder + header file
 # Will only print any errors found (which it shouldn't)
 norm:
-	norminette includes/ src/ | grep -e Error -e Global
+	norminette includes/ src/ libft/ bonus/ | grep -e Error -e Global
 
 # fires valgrind with leaks flags and parses additional input arguments (LAGGY)
 leak: all
 	@valgrind --leak-check=full --leak-resolution=high -s --track-origins=yes \
 	--num-callers=500 --show-mismatched-frees=yes --show-leak-kinds=all \
-	--track-fds=yes --trace-children=yes --gen-suppressions=no \
+	--track-fds=yes --gen-suppressions=no \
 	--error-limit=no --undef-value-errors=yes --expensive-definedness-checks=yes \
 	--read-var-info=yes --keep-debuginfo=yes ./$(NAME) $(filter-out $@,$(MAKECMDGOALS))
+
+leak_bonus: bonus
+	@valgrind --leak-check=full --leak-resolution=high -s --track-origins=yes \
+	--num-callers=500 --show-mismatched-frees=yes --show-leak-kinds=all \
+	--track-fds=yes --gen-suppressions=no \
+	--error-limit=no --undef-value-errors=yes --expensive-definedness-checks=yes \
+	--read-var-info=yes --keep-debuginfo=yes ./$(NAME_BONUS) $(filter-out $@,$(MAKECMDGOALS))
 %:
 	@:
 
-.PHONY: all bonus clean fclean re remake norm leak
+.PHONY: all bonus clean fclean re norm leak leak_bonus

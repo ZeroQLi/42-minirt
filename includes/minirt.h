@@ -136,9 +136,11 @@ int					array_len(char **arr);
 void				add_sphere(t_world *w, t_sphere *new);
 void				add_cylinder(t_world *w, t_cylinder *new);
 void				add_plane(t_world *w, t_plane *new);
+void				add_light(t_world *w, t_light *new);
 void				free_spheres(t_sphere *sp);
 void				free_cylinders(t_cylinder *sp);
 void				free_planes(t_plane *sp);
+void				free_lights(t_light *l);
 void				free_all_shapes(t_world *w);
 
 //--------------------------//
@@ -193,6 +195,8 @@ void				render(t_camera *c, t_world *w, t_canvas *canvas);
 t_matrix4			view_transform(t_tuple from, t_tuple to, t_tuple up);
 void				camera(t_camera *cam);
 bool				is_shadowed(t_world *w, t_precomp comp);
+bool				is_shadowed_light(t_world *w, t_precomp comp,
+						t_light *light);
 int					get_time(bool stopwatch);
 void				draw_centered_text(t_canvas *cnv, char *text, int color);
 
