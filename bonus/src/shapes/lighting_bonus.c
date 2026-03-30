@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lighting.c                                         :+:      :+:    :+:   */
+/*   lighting_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:25:26 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/30 19:37:59 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/03/30 19:56:48 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minirt.h"
+#include "../../../includes/minirt.h"
 
 t_color	color_from_rgb(int r, int g, int b)
 {
@@ -19,9 +19,23 @@ t_color	color_from_rgb(int r, int g, int b)
 
 static inline void	compute_diffuse(t_lighting *lighting, t_color color)
 {
+	float	factor;
+	t_tuple	reflectv;
+	t_tuple	normalized_eyev;
+
 	lighting->diffuse = multiply_colors(color, lighting->material.diffuse
 			* lighting->l_dot_n);
-	lighting->specular = create_color(0, 0, 0);
+	normalized_eyev = lighting->eyev;
+	reflectv = reflect(negate_tuple(lighting->lightv), lighting->normalv);
+	lighting->r_dot_e = dot_product(reflectv, normalized_eyev);
+	if (lighting->r_dot_e <= 0)
+		lighting->specular = create_color(0, 0, 0);
+	else
+	{
+		factor = powf(lighting->r_dot_e, lighting->material.shininess);
+		lighting->specular = multiply_colors(lighting->p_light.intensity,
+				lighting->material.specular * factor);
+	}
 }
 
 t_point_light	point_light(t_tuple position, t_color intensity)
@@ -51,7 +65,7 @@ t_color	lighting(t_lighting *lighting, t_ambient *amb)
 	float	l_dot_n;
 
 	color = hadamard_product(lighting->material.color,
-			create_color(1, 1, 1));
+			lighting->p_light.intensity);
 	lighting->lightv = scalar_normalize(sub_tuples(lighting->p_light.position,
 				lighting->h_position));
 	lighting->ambient = ambient_from_world(*lighting, amb);

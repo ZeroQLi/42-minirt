@@ -5,11 +5,14 @@ SRC_DIR3 = $(SRC_DIR)tuples/
 SRC_DIR4 = $(SRC_DIR)matrix/
 SRC_DIR5 = $(SRC_DIR)canvas/
 SRC_DIR6 = $(SRC_DIR5)shape_intersections/
+BONUS_DIR = bonus/src/shapes/
 OBJ_PATH = src/.obj/
+OBJ_BONUS_PATH = src/.obj_bonus/
 LIBFT_PATH = libft/
 
 # Program & build names
 NAME = miniRT
+NAME_BONUS = miniRT_bonus
 LIBFT = $(LIBFT_PATH)libft.a
 
 # Program sauce files
@@ -56,12 +59,31 @@ $(SRC_DIR5)draw_world.c \
 $(SRC_DIR5)transform.c \
 $(SRC_DIR5)lighting.c \
 
+SRC5_BONUS = $(filter-out $(SRC_DIR5)lighting.c,$(SRC5)) \
+$(BONUS_DIR)lighting_bonus.c
+
+SRC5_BONUS_SRC = $(filter $(SRC_DIR5)%,$(SRC5_BONUS))
+SRC5_BONUS_BONUS = $(filter $(BONUS_DIR)%,$(SRC5_BONUS))
+
 SRC6 = $(SRC_DIR6)intersect_cylinder.c \
 $(SRC_DIR6)intersect_plane.c \
 $(SRC_DIR6)intersect_sphere.c
 
 # Object files
-OBJ = $(SRC:src/%.c=$(OBJ_PATH)%.o) $(SRC2:src/%.c=$(OBJ_PATH)%.o) $(SRC3:src/%.c=$(OBJ_PATH)%.o) $(SRC4:src/%.c=$(OBJ_PATH)%.o) $(SRC5:src/%.c=$(OBJ_PATH)%.o) $(SRC6:src/%.c=$(OBJ_PATH)%.o)
+OBJ = $(SRC:src/%.c=$(OBJ_PATH)%.o) \
+$(SRC2:src/%.c=$(OBJ_PATH)%.o) \
+$(SRC3:src/%.c=$(OBJ_PATH)%.o) \
+$(SRC4:src/%.c=$(OBJ_PATH)%.o) \
+$(SRC5:src/%.c=$(OBJ_PATH)%.o) \
+$(SRC6:src/%.c=$(OBJ_PATH)%.o)
+
+OBJ_BONUS = $(SRC:src/%.c=$(OBJ_BONUS_PATH)%.o) \
+$(SRC2:src/%.c=$(OBJ_BONUS_PATH)%.o) \
+$(SRC3:src/%.c=$(OBJ_BONUS_PATH)%.o) \
+$(SRC4:src/%.c=$(OBJ_BONUS_PATH)%.o) \
+$(SRC5_BONUS_SRC:src/%.c=$(OBJ_BONUS_PATH)%.o) \
+$(SRC5_BONUS_BONUS:bonus/%.c=$(OBJ_BONUS_PATH)%.o) \
+$(SRC6:src/%.c=$(OBJ_BONUS_PATH)%.o)
 
 MLX_DIR := ./mlx
 	MLX := mlx
@@ -86,10 +108,17 @@ MAKEFLAGS += --no-print-directory
 # Build magicc
 all: $(OBJ_PATH) $(LIBFT) $(MLX_LIB) $(NAME)
 
+bonus: $(OBJ_BONUS_PATH) $(LIBFT) $(MLX_LIB) $(NAME_BONUS)
+
 $(NAME): $(OBJ) $(LIBFT) $(MLX_LIB)
 	@echo "$(WHITE)Compiling $(BWHITE)$(NAME)$(WHITE) program...$(RESET)"
 	@$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) $(LIBFT) -lm -o $(NAME)
 	@echo "$(BWHITE)$(NAME)$(WHITE) program is $(BGREEN)ready! $(RESET)✅"
+
+$(NAME_BONUS): $(OBJ_BONUS) $(LIBFT) $(MLX_LIB)
+	@echo "$(WHITE)Compiling $(BWHITE)$(NAME_BONUS)$(WHITE) program...$(RESET)"
+	@$(CC) $(CFLAGS) $(OBJ_BONUS) $(MLX_FLAGS) $(LIBFT) -lm -o $(NAME_BONUS)
+	@echo "$(BWHITE)$(NAME_BONUS)$(WHITE) program is $(BGREEN)ready! $(RESET)✅"
 
 $(LIBFT):
 	@echo "$(WHITE)Compiling $(BWHITE)libft$(WHITE) functions...$(RESET)"
@@ -101,8 +130,21 @@ $(OBJ_PATH)%.o : src/%.c
 	@echo "$(WHITE)Compiling $(BWHITE)$<$(WHITE)...$(RESET)"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
+$(OBJ_BONUS_PATH)%.o : src/%.c
+	@mkdir -p $(dir $@)
+	@echo "$(WHITE)Compiling $(BWHITE)$<$(WHITE)...$(RESET)"
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_BONUS_PATH)%.o : bonus/%.c
+	@mkdir -p $(dir $@)
+	@echo "$(WHITE)Compiling $(BWHITE)$<$(WHITE)...$(RESET)"
+	@$(CC) $(CFLAGS) -c $< -o $@
+
 $(OBJ_PATH):
 	@mkdir -p $(OBJ_PATH) $(OBJ_PATH)shapes_parser/ $(OBJ_PATH)tuples/ $(OBJ_PATH)matrix/ $(OBJ_PATH)canvas/ $(OBJ_PATH)shapes/ $(OBJ_PATH)canvas/shape_intersections/
+
+$(OBJ_BONUS_PATH):
+	@mkdir -p $(OBJ_BONUS_PATH) $(OBJ_BONUS_PATH)shapes_parser/ $(OBJ_BONUS_PATH)tuples/ $(OBJ_BONUS_PATH)matrix/ $(OBJ_BONUS_PATH)canvas/ $(OBJ_BONUS_PATH)shapes/ $(OBJ_BONUS_PATH)canvas/shape_intersections/ $(OBJ_BONUS_PATH)bonus/src/shapes/
 
 $(MLX_LIB):
 	@echo "$(WHITE)Compiling $(BWHITE)MinilibX$(WHITE)...$(RESET)"
@@ -110,12 +152,13 @@ $(MLX_LIB):
 	@echo "$(WHITE)MinilibX is $(BGREEN)ready! $(RESET)✅"
 
 clean:
-	@rm -rf $(OBJ_PATH)
+	@rm -rf $(OBJ_PATH) $(OBJ_BONUS_PATH)
 	@make clean -C $(LIBFT_PATH)
 	@echo "$(BGREEN)cleaned like the blackhole you guys are getting if you DON'T GET TO COOKING$(WHITE)"
 
 fclean: clean
 	@rm -f $(NAME)
+	@rm -f $(NAME_BONUS)
 	@rm -f $(LIBFT)
 
 re: fclean all
@@ -134,11 +177,11 @@ norm:
 # fires valgrind with leaks flags and parses additional input arguments (LAGGY)
 leak: all
 	@valgrind --leak-check=full --leak-resolution=high -s --track-origins=yes \
-    --num-callers=500 --show-mismatched-frees=yes --show-leak-kinds=all \
-    --track-fds=yes --trace-children=yes --gen-suppressions=no \
-    --error-limit=no --undef-value-errors=yes --expensive-definedness-checks=yes \
-    --read-var-info=yes --keep-debuginfo=yes ./$(NAME) $(filter-out $@,$(MAKECMDGOALS))
+	--num-callers=500 --show-mismatched-frees=yes --show-leak-kinds=all \
+	--track-fds=yes --trace-children=yes --gen-suppressions=no \
+	--error-limit=no --undef-value-errors=yes --expensive-definedness-checks=yes \
+	--read-var-info=yes --keep-debuginfo=yes ./$(NAME) $(filter-out $@,$(MAKECMDGOALS))
 %:
 	@:
 
-.PHONY: all clean fclean re remake norm leak
+.PHONY: all bonus clean fclean re remake norm leak
