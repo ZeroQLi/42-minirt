@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 15:31:44 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/28 16:59:22 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/31 03:58:11 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,16 @@ typedef struct s_intersection
 	t_type	type;
 }	t_intersection;
 
+typedef struct s_intersection_node
+{
+	t_intersection				value;
+	struct s_intersection_node	*next;
+} 	t_intersection_node;
+
 typedef struct s_intersection_list
 {
-	int				count;
-	t_intersection	*items;
+	t_intersection_node	*head;
+	t_intersection_node	*tail;
 }	t_intersection_list;
 
 typedef struct s_ray
@@ -65,10 +71,13 @@ t_intersection_list	*intersect_plane(t_ray ray, t_plane *plane);
 t_intersection_list	*intersect_cylinder(t_ray ray, t_cylinder *cylinder);
 t_intersection		intersect(float t, void *object, t_type type);
 t_intersection_list	*intersect_list(t_intersection i1, t_intersection i2);
+t_intersection_list	*create_intersections(void);
+bool				intersections_push(t_intersection_list *xs,
+						t_intersection value);
 t_intersection		hit(t_intersection_list *xs);
 t_intersection_list	*intersections_joined(t_intersection_list *s1,
 						t_intersection_list *s2);
-void				sort_intersections(t_intersection_list *xs);
+void				free_intersections(t_intersection_list *xs);
 
 // reflection operations
 t_tuple				normal_at(void *object, t_type type, t_tuple world_point);

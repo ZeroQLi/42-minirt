@@ -6,33 +6,54 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 14:03:05 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/27 23:04:32 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/03/31 03:58:11 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
 
-void	sort_intersections(t_intersection_list *xs)
+static t_intersection_node	*new_intersection_node(t_intersection value)
 {
-	int				i;
-	int				j;
-	t_intersection	key;
+	t_intersection_node	*node;
 
-	if (!xs || !xs->items || xs->count <= 1)
-		return ;
-	i = 1;
-	while (i < xs->count)
-	{
-		key = xs->items[i];
-		j = i - 1;
-		while (j >= 0 && xs->items[j].t > key.t)
-		{
-			xs->items[j + 1] = xs->items[j];
-			j--;
-		}
-		xs->items[j + 1] = key;
-		i++;
-	}
+	node = ft_calloc(1, sizeof(t_intersection_node));
+	if (!node)
+		return (NULL);
+	node->value = value;
+	node->next = NULL;
+	return (node);
+}
+
+static bool	append_intersection(t_intersection_list *xs, t_intersection value)
+{
+	t_intersection_node	*node;
+
+	if (!xs)
+		return (false);
+	node = new_intersection_node(value);
+	if (!node)
+		return (false);
+	if (!xs->head)
+		xs->head = node;
+	else
+		xs->tail->next = node;
+	xs->tail = node;
+	return (true);
+}
+
+t_intersection_list	*create_intersections(void)
+{
+	t_intersection_list	*xs;
+
+	xs = ft_calloc(1, sizeof(t_intersection_list));
+	return (xs);
+}
+
+bool	intersections_push(t_intersection_list *xs, t_intersection value)
+{
+	if (!value.object)
+		return (true);
+	return (append_intersection(xs, value));
 }
 
 // Creates an intersection object with the given t value and sphere reference.
@@ -51,43 +72,47 @@ t_intersection_list	*intersect_list(t_intersection i1, t_intersection i2)
 {
 	t_intersection_list	*xs;
 
-	xs = ft_calloc(1, sizeof(t_intersection_list));
+	xs = create_intersections();
 	if (!xs)
 		return (NULL);
-	xs->items = ft_calloc(2, sizeof(t_intersection));
-	if (!xs->items)
+	if (!intersections_push(xs, i1))
 	{
-		free(xs);
+		free_intersections(xs);
 		return (NULL);
 	}
-	if (!i1.object && !i2.object)
-		xs->count = 0;
-	else
-		xs->count = 2;
-	xs->items[0] = i1;
-	xs->items[1] = i2;
+	if (!intersections_push(xs, i2))
+	{
+		free_intersections(xs);
+		return (NULL);
+	}
 	return (xs);
 }
 
 // return the closest intersection with a positive t value, or a default
 t_intersection	hit(t_intersection_list *xs)
 {
-	int	i;
-	int	hit_index;
+	t_intersection_node	*curr;
+	t_intersection		best;
+	bool				has_hit;
 
-	hit_index = -1;
-	i = 0;
-	while (i < xs->count)
-	{
-		if (xs->items[i].object != NULL && xs->items[i].t >= EPSILON
-			&& (hit_index == -1
-				|| xs->items[i].t < xs->items[hit_index].t))
-			hit_index = i;
-		i++;
-	}
-	if (hit_index == -1)
+	if (!xs)
 		return (intersect(0, NULL, 0));
-	return (xs->items[hit_index]);
+	curr = xs->head;
+	has_hit = false;
+	best = intersect(0, NULL, 0);
+	while (curr)
+	{
+		if (curr->value.object != NULL && curr->value.t >= EPSILON
+			&& (!has_hit || curr->value.t < best.t))
+		{
+			best = curr->value;
+			has_hit = true;
+		}
+		curr = curr->next;
+	}
+	if (!has_hit)
+		return (intersect(0, NULL, 0));
+	return (best);
 }
 
 // Joins two intersection lists into one, combining their counts and items.
@@ -95,26 +120,39 @@ t_intersection	hit(t_intersection_list *xs)
 t_intersection_list	*intersections_joined(t_intersection_list *s1,
 				t_intersection_list *s2)
 {
-	t_intersection_list	*final;
-	int					i;
-	int					j;
-
-	i = -1;
-	j = -1;
-	final = ft_calloc(1, sizeof(t_intersection_list));
-	if (!final)
-		return (NULL);
-	final->count = s1->count + s2->count;
-	final->items = ft_calloc(final->count, sizeof(t_intersection));
-	if (!final->items)
-		return (NULL);
-	while (++i < s1->count)
-		final->items[i] = s1->items[i];
-	while (++j < s2->count)
-		final->items[i++] = s2->items[j];
-	free(s1->items);
-	free(s1);
-	free(s2->items);
+	if (!s1)
+		return (s2);
+	if (!s2)
+		return (s1);
+	if (!s1->head)
+	{
+		free(s1);
+		return (s2);
+	}
+	if (!s2->head)
+	{
+		free(s2);
+		return (s1);
+	}
+	s1->tail->next = s2->head;
+	s1->tail = s2->tail;
 	free(s2);
-	return (final);
+	return (s1);
+}
+
+void	free_intersections(t_intersection_list *xs)
+{
+	t_intersection_node	*curr;
+	t_intersection_node	*next;
+
+	if (!xs)
+		return ;
+	curr = xs->head;
+	while (curr)
+	{
+		next = curr->next;
+		free(curr);
+		curr = next;
+	}
+	free(xs);
 }

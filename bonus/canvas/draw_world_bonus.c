@@ -58,25 +58,19 @@ t_color	color_at(t_world *w, t_ray ray)
 	t_precomp			comp;
 
 	xs = intersect_world(w, ray);
-	if (!xs || xs->count == 0)
+	if (!xs || !xs->head)
 	{
-		if (xs)
-		{
-			free(xs->items);
-			free(xs);
-		}
+		free_intersections(xs);
 		return (create_color(0, 0, 0));
 	}
 	h = hit(xs);
 	if (!h.object)
 	{
-		free(xs->items);
-		free(xs);
+		free_intersections(xs);
 		return (create_color(0, 0, 0));
 	}
 	comp = prepare_computation(h, ray);
-	free(xs->items);
-	free(xs);
+	free_intersections(xs);
 	return (shade_hit(w, comp));
 }
 

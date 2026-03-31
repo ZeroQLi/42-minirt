@@ -12,16 +12,89 @@
 
 #include "../../includes/minirt.h"
 
-static bool	shadow_hit_list(t_intersection_list *xs, float max_t)
+static bool	sphere_shadow_hit(t_ray ray, t_sphere *sphere, float max_t)
 {
-	t_intersection	h;
+	t_tuple	sphere_to_ray;
+	float	a;
+	float	b;
+	float	disc;
+	float	t;
 
-	if (!xs)
+	ray = transform_ray(ray, sphere->tf.inv_transform);
+	sphere_to_ray = sub_tuples(ray.origin, create_point(0, 0, 0));
+	a = dot_product(ray.dir, ray.dir);
+	b = 2.f * dot_product(ray.dir, sphere_to_ray);
+	disc = (b * b) - (4.f * a
+			* (dot_product(sphere_to_ray, sphere_to_ray) - 1.f));
+	if (disc < 0)
 		return (false);
-	h = hit(xs);
-	free(xs->items);
-	free(xs);
-	return (h.object != NULL && h.t < max_t);
+	t = (-b - sqrtf(disc)) / (2.f * a);
+	if (t >= EPSILON && t < max_t)
+		return (true);
+	t = (-b + sqrtf(disc)) / (2.f * a);
+	return (t >= EPSILON && t < max_t);
+}
+
+static bool	plane_shadow_hit(t_ray ray, t_plane *plane, float max_t)
+{
+	float	t;
+
+	ray = transform_ray(ray, plane->tf.inv_transform);
+	if (fabsf(ray.dir.y) < EPSILON)
+		return (false);
+	t = -ray.origin.y / ray.dir.y;
+	return (t >= EPSILON && t < max_t);
+}
+
+static inline bool	check_caps(t_ray ray, float t)
+{
+	float	x;
+	float	z;
+
+	x = ray.origin.x + t * ray.dir.x;
+	z = ray.origin.z + t * ray.dir.z;
+	return (((x * x) + (z * z)) <= 1.0f);
+}
+
+static bool	cylinder_shadow_hit(t_ray ray, t_cylinder *cylinder, float max_t)
+{
+	t_tuple	cylinder_to_ray;
+	float	a;
+	float	b;
+	float	disc;
+	float	t;
+	float	y;
+
+	ray = transform_ray(ray, cylinder->tf.inv_transform);
+	a = (ray.dir.x * ray.dir.x) + (ray.dir.z * ray.dir.z);
+	if (fabsf(a) >= EPSILON)
+	{
+		cylinder_to_ray = sub_tuples(ray.origin, create_point(0, 0, 0));
+		b = 2.f * ((ray.dir.x * cylinder_to_ray.x)
+				+ (ray.dir.z * cylinder_to_ray.z));
+		disc = (b * b) - (4.f * a * ((cylinder_to_ray.x * cylinder_to_ray.x)
+					+ (cylinder_to_ray.z * cylinder_to_ray.z) - 1.f));
+		if (disc >= 0)
+		{
+			t = (-b - sqrtf(disc)) / (2.f * a);
+			y = ray.origin.y + t * ray.dir.y;
+			if (t >= EPSILON && t < max_t
+				&& y >= -cylinder->height && y <= cylinder->height)
+				return (true);
+			t = (-b + sqrtf(disc)) / (2.f * a);
+			y = ray.origin.y + t * ray.dir.y;
+			if (t >= EPSILON && t < max_t
+				&& y >= -cylinder->height && y <= cylinder->height)
+				return (true);
+		}
+	}
+	if (cylinder->closed == NO || fabsf(ray.dir.y) < EPSILON)
+		return (false);
+	t = (-cylinder->height - ray.origin.y) / ray.dir.y;
+	if (t >= EPSILON && t < max_t && check_caps(ray, t))
+		return (true);
+	t = (cylinder->height - ray.origin.y) / ray.dir.y;
+	return (t >= EPSILON && t < max_t && check_caps(ray, t));
 }
 
 static bool	shadow_hits_world(t_world *w, t_ray shadow_ray, float dist)
@@ -31,21 +104,21 @@ static bool	shadow_hits_world(t_world *w, t_ray shadow_ray, float dist)
 	world.sp = w->sp;
 	while (world.sp)
 	{
-		if (shadow_hit_list(intersect_sphere(shadow_ray, world.sp), dist))
+		if (sphere_shadow_hit(shadow_ray, world.sp, dist))
 			return (true);
 		world.sp = world.sp->next;
 	}
 	world.pl = w->pl;
 	while (world.pl)
 	{
-		if (shadow_hit_list(intersect_plane(shadow_ray, world.pl), dist))
+		if (plane_shadow_hit(shadow_ray, world.pl, dist))
 			return (true);
 		world.pl = world.pl->next;
 	}
 	world.cy = w->cy;
 	while (world.cy)
 	{
-		if (shadow_hit_list(intersect_cylinder(shadow_ray, world.cy), dist))
+		if (cylinder_shadow_hit(shadow_ray, world.cy, dist))
 			return (true);
 		world.cy = world.cy->next;
 	}
