@@ -43,7 +43,10 @@ t_color	color_at(t_world *w, t_ray ray)
 	t_intersection		h;
 	t_precomp			comp;
 
-	xs = intersect_world(w, ray);
+	xs = ft_calloc(1, sizeof(t_intersection_list));
+	if (!xs)
+		return (create_color(0, 0, 0));
+	intersect_world(w, ray, xs);
 	if (!xs || !xs->head)
 	{
 		free_intersections(xs);

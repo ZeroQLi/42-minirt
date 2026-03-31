@@ -11,7 +11,24 @@
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
-#include "../../includes/macros.h"
+
+t_intersection_list	*free_intersections(t_intersection_list *xs)
+{
+	t_intersection_node	*curr;
+	t_intersection_node	*next;
+
+	if (!xs)
+		return (NULL);
+	curr = xs->head;
+	while (curr)
+	{
+		next = curr->next;
+		free(curr);
+		curr = next;
+	}
+	free(xs);
+	return (NULL);
+}
 
 char	*free_arr(char ***arr)
 {

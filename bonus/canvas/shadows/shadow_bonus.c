@@ -1,101 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   shadow_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/28 16:42:21 by nanasser          #+#    #+#             */
-/*   Updated: 2026/03/28 16:42:21 by nanasser         ###   ########.fr       */
+/*   Created: 2026/03/31 03:02:31 by nanasser          #+#    #+#             */
+/*   Updated: 2026/03/31 03:02:31 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minirt.h"
-
-static bool	sphere_shadow_hit(t_ray ray, t_sphere *sphere, float max_t)
-{
-	t_tuple	sphere_to_ray;
-	float	a;
-	float	b;
-	float	disc;
-	float	t;
-
-	ray = transform_ray(ray, sphere->tf.inv_transform);
-	sphere_to_ray = sub_tuples(ray.origin, create_point(0, 0, 0));
-	a = dot_product(ray.dir, ray.dir);
-	b = 2.f * dot_product(ray.dir, sphere_to_ray);
-	disc = (b * b) - (4.f * a
-			* (dot_product(sphere_to_ray, sphere_to_ray) - 1.f));
-	if (disc < 0)
-		return (false);
-	t = (-b - sqrtf(disc)) / (2.f * a);
-	if (t >= EPSILON && t < max_t)
-		return (true);
-	t = (-b + sqrtf(disc)) / (2.f * a);
-	return (t >= EPSILON && t < max_t);
-}
-
-static bool	plane_shadow_hit(t_ray ray, t_plane *plane, float max_t)
-{
-	float	t;
-
-	ray = transform_ray(ray, plane->tf.inv_transform);
-	if (fabsf(ray.dir.y) < EPSILON)
-		return (false);
-	t = -ray.origin.y / ray.dir.y;
-	return (t >= EPSILON && t < max_t);
-}
-
-static inline bool	check_caps(t_ray ray, float t)
-{
-	float	x;
-	float	z;
-
-	x = ray.origin.x + t * ray.dir.x;
-	z = ray.origin.z + t * ray.dir.z;
-	return (((x * x) + (z * z)) <= 1.0f);
-}
-
-static bool	cylinder_shadow_hit(t_ray ray, t_cylinder *cylinder, float max_t)
-{
-	t_tuple	cylinder_to_ray;
-	float	a;
-	float	b;
-	float	disc;
-	float	t;
-	float	y;
-
-	ray = transform_ray(ray, cylinder->tf.inv_transform);
-	a = (ray.dir.x * ray.dir.x) + (ray.dir.z * ray.dir.z);
-	if (fabsf(a) >= EPSILON)
-	{
-		cylinder_to_ray = sub_tuples(ray.origin, create_point(0, 0, 0));
-		b = 2.f * ((ray.dir.x * cylinder_to_ray.x)
-				+ (ray.dir.z * cylinder_to_ray.z));
-		disc = (b * b) - (4.f * a * ((cylinder_to_ray.x * cylinder_to_ray.x)
-					+ (cylinder_to_ray.z * cylinder_to_ray.z) - 1.f));
-		if (disc >= 0)
-		{
-			t = (-b - sqrtf(disc)) / (2.f * a);
-			y = ray.origin.y + t * ray.dir.y;
-			if (t >= EPSILON && t < max_t
-				&& y >= -cylinder->height && y <= cylinder->height)
-				return (true);
-			t = (-b + sqrtf(disc)) / (2.f * a);
-			y = ray.origin.y + t * ray.dir.y;
-			if (t >= EPSILON && t < max_t
-				&& y >= -cylinder->height && y <= cylinder->height)
-				return (true);
-		}
-	}
-	if (cylinder->closed == NO || fabsf(ray.dir.y) < EPSILON)
-		return (false);
-	t = (-cylinder->height - ray.origin.y) / ray.dir.y;
-	if (t >= EPSILON && t < max_t && check_caps(ray, t))
-		return (true);
-	t = (cylinder->height - ray.origin.y) / ray.dir.y;
-	return (t >= EPSILON && t < max_t && check_caps(ray, t));
-}
+#include "../../../includes/minirt.h"
 
 static bool	shadow_hits_world(t_world *w, t_ray shadow_ray, float dist)
 {
@@ -104,21 +19,21 @@ static bool	shadow_hits_world(t_world *w, t_ray shadow_ray, float dist)
 	world.sp = w->sp;
 	while (world.sp)
 	{
-		if (sphere_shadow_hit(shadow_ray, world.sp, dist))
+		if (shadow_hit_sphere_bonus(shadow_ray, world.sp, dist))
 			return (true);
 		world.sp = world.sp->next;
 	}
 	world.pl = w->pl;
 	while (world.pl)
 	{
-		if (plane_shadow_hit(shadow_ray, world.pl, dist))
+		if (shadow_hit_plane_bonus(shadow_ray, world.pl, dist))
 			return (true);
 		world.pl = world.pl->next;
 	}
 	world.cy = w->cy;
 	while (world.cy)
 	{
-		if (cylinder_shadow_hit(shadow_ray, world.cy, dist))
+		if (shadow_hit_cylinder_bonus(shadow_ray, world.cy, dist))
 			return (true);
 		world.cy = world.cy->next;
 	}
@@ -144,14 +59,16 @@ t_precomp	prepare_computation(t_intersection i, t_ray ray)
 	return (comps);
 }
 
-bool	is_shadowed(t_world *w, t_precomp comp)
+bool	is_shadowed_light(t_world *w, t_precomp comp, t_light *light)
 {
 	t_tuple			to_light;
 	t_ray			shadow_ray;
 	float			distance;
 	float			inv_distance;
 
-	to_light = sub_tuples(w->l->light.p_light.position, comp.point);
+	if (!light)
+		return (false);
+	to_light = sub_tuples(light->light.p_light.position, comp.point);
 	comp.over_point = add_tuples(comp.point, scalar_multiply(comp.normalv,
 				SHADOW_BIAS));
 	distance = scalar_magnitude(to_light);

@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   plane_shadow_hit.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/08 01:26:16 by nanasser          #+#    #+#             */
-/*   Updated: 2026/01/08 01:26:16 by nanasser         ###   ########.fr       */
+/*   Created: 2026/04/01 00:00:00 by nanasser          #+#    #+#             */
+/*   Updated: 2026/04/01 00:00:00 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minirt.h"
+#include "../../../includes/minirt.h"
 
-// prints the passed error msg and returns the passed int value (ret)
-int	error_msg(bool err, char *str, int fd)
+bool	shadow_hit_plane(t_ray ray, t_plane *plane, float max_t)
 {
-	if (err)
-		ft_putendl_fd(BRED "Error" RESET, 2);
-	ft_putendl_fd(str, 2);
-	return (fd);
+	float	t;
+
+	ray = transform_ray(ray, plane->tf.inv_transform);
+	if (fabsf(ray.dir.y) < EPSILON)
+		return (false);
+	t = -ray.origin.y / ray.dir.y;
+	return (t >= EPSILON && t < max_t);
 }

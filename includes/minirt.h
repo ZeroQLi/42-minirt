@@ -189,7 +189,8 @@ void				free_canvas(t_canvas *canvas);
 // pls give these functions a family
 t_color				color_from_rgb(int r, int g, int b);
 void				new_world(t_world *w);
-t_intersection_list	*intersect_world(t_world *w, t_ray r);
+t_intersection_list	*intersect_world(t_world *w, t_ray r,
+						t_intersection_list *acc);
 t_color				color_at(t_world *w, t_ray ray);
 void				render(t_camera *c, t_world *w, t_canvas *canvas);
 t_matrix4			view_transform(t_tuple from, t_tuple to, t_tuple up);
@@ -199,5 +200,7 @@ bool				is_shadowed_light(t_world *w, t_precomp comp,
 						t_light *light);
 int					get_time(bool stopwatch);
 void				draw_centered_text(t_canvas *cnv, char *text, int color);
+bool				append_intersection(t_intersection_list *xs,
+						t_intersection value);
 
 #endif

@@ -91,7 +91,8 @@ int	main(int ac, char **av)
 		ft_putendl_fd("Must only have o̲n̲e̲ argument", 2);
 		return (1);
 	}
-	if (WIN_HEIGHT < 1 || WIN_WIDTH < 1)
+	if (WIN_HEIGHT < 1 || WIN_WIDTH < 1
+		|| WIN_HEIGHT > 10000 || WIN_WIDTH > 10000)
 	{
 		ft_putendl_fd("You thought you did something there huh", 2);
 		return (1);

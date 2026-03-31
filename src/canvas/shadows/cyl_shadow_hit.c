@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   intersect_cylinder.c                               :+:      :+:    :+:   */
+/*   cyl_shadow_hit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/27 21:07:33 by nanasser          #+#    #+#             */
-/*   Updated: 2026/03/27 21:07:33 by nanasser         ###   ########.fr       */
+/*   Created: 2026/04/01 00:00:00 by nanasser          #+#    #+#             */
+/*   Updated: 2026/04/01 00:00:00 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,50 +22,32 @@ static inline bool	check_caps(t_ray ray, float t)
 	return (((x * x) + (z * z)) <= 1.0f);
 }
 
-static bool	add_cylinder_caps(t_intersection_list *acc, t_ray ray,
-	t_cylinder *cylinder)
-{
-	float	t;
-
-	if (cylinder->closed == NO || fabsf(ray.dir.y) < EPSILON)
-		return (true);
-	t = (-cylinder->height - ray.origin.y) / ray.dir.y;
-	if (check_caps(ray, t) && !intersections_push(acc,
-			intersect(t, cylinder, CYLINDER)))
-		return (false);
-	t = (cylinder->height - ray.origin.y) / ray.dir.y;
-	if (check_caps(ray, t) && !intersections_push(acc,
-			intersect(t, cylinder, CYLINDER)))
-		return (false);
-	return (true);
-}
-
-static inline bool	add_cylinder_side_intersections(t_intersection_list *acc,
-	t_ray ray, t_cylinder *cylinder, float quad[3])
+static bool	cylinder_side_shadow_hit(t_ray ray, t_cylinder *cylinder,
+	float quad[3], float max_t)
 {
 	float	t;
 	float	y;
 
 	if (quad[2] < 0)
-		return (true);
+		return (false);
 	t = (-quad[1] - sqrtf(quad[2])) / (2.f * quad[0]);
 	y = ray.origin.y + t * ray.dir.y;
-	if (y >= -cylinder->height && y <= cylinder->height
-		&& !intersections_push(acc, intersect(t, cylinder, CYLINDER)))
-		return (false);
+	if (t >= EPSILON && t < max_t
+		&& y >= -cylinder->height && y <= cylinder->height)
+		return (true);
 	t = (-quad[1] + sqrtf(quad[2])) / (2.f * quad[0]);
 	y = ray.origin.y + t * ray.dir.y;
-	if (y >= -cylinder->height && y <= cylinder->height
-		&& !intersections_push(acc, intersect(t, cylinder, CYLINDER)))
-		return (false);
-	return (true);
+	if (t >= EPSILON && t < max_t
+		&& y >= -cylinder->height && y <= cylinder->height)
+		return (true);
+	return (false);
 }
 
-bool	intersect_cylinder(t_intersection_list *acc, t_ray ray,
-	t_cylinder *cylinder)
+bool	shadow_hit_cylinder(t_ray ray, t_cylinder *cylinder, float max_t)
 {
 	t_tuple	cylinder_to_ray;
 	float	quad[3];
+	float	t;
 
 	ray = transform_ray(ray, cylinder->tf.inv_transform);
 	quad[0] = (ray.dir.x * ray.dir.x) + (ray.dir.z * ray.dir.z);
@@ -77,8 +59,14 @@ bool	intersect_cylinder(t_intersection_list *acc, t_ray ray,
 		quad[2] = (quad[1] * quad[1]) - (4.f * quad[0]
 				* ((cylinder_to_ray.x * cylinder_to_ray.x)
 					+ (cylinder_to_ray.z * cylinder_to_ray.z) - 1.f));
-		if (!add_cylinder_side_intersections(acc, ray, cylinder, quad))
-			return (false);
+		if (cylinder_side_shadow_hit(ray, cylinder, quad, max_t))
+			return (true);
 	}
-	return (add_cylinder_caps(acc, ray, cylinder));
+	if (cylinder->closed == NO || fabsf(ray.dir.y) < EPSILON)
+		return (false);
+	t = (-cylinder->height - ray.origin.y) / ray.dir.y;
+	if (t >= EPSILON && t < max_t && check_caps(ray, t))
+		return (true);
+	t = (cylinder->height - ray.origin.y) / ray.dir.y;
+	return (t >= EPSILON && t < max_t && check_caps(ray, t));
 }

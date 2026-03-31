@@ -60,7 +60,10 @@ $(SRC_DIR5)intersections_list.c \
 $(SRC_DIR5)intersect_world.c \
 $(SRC_DIR5)init_shapes.c \
 $(SRC_DIR5)rays.c \
-$(SRC_DIR5)shadow.c \
+$(SRC_DIR5)shadows/shadow.c \
+$(SRC_DIR5)shadows/sphere_shadow_hit.c \
+$(SRC_DIR5)shadows/plane_shadow_hit.c \
+$(SRC_DIR5)shadows/cyl_shadow_hit.c \
 $(SRC_DIR5)render_info.c \
 $(SRC_DIR5)reflections.c \
 $(SRC_DIR5)new_world.c \
@@ -68,10 +71,16 @@ $(SRC_DIR5)draw_world.c \
 $(SRC_DIR5)transform.c \
 $(SRC_DIR5)lighting.c \
 
-SRC5_BONUS = $(filter-out $(SRC_DIR5)lighting.c $(SRC_DIR5)shadow.c \
-$(SRC_DIR5)new_world.c $(SRC_DIR5)draw_world.c,$(SRC5)) \
+SRC5_BONUS = $(filter-out $(SRC_DIR5)lighting.c $(SRC_DIR5)shadows/shadow.c \
+$(SRC_DIR5)new_world.c $(SRC_DIR5)draw_world.c \
+$(SRC_DIR5)shadows/sphere_shadow_hit.c \
+$(SRC_DIR5)shadows/plane_shadow_hit.c \
+$(SRC_DIR5)shadows/cyl_shadow_hit.c,$(SRC5)) \
 $(BONUS_DIR)canvas/lighting_bonus.c \
-$(BONUS_DIR)canvas/shadow_bonus.c \
+$(BONUS_DIR)canvas/shadows/shadow_bonus.c \
+$(BONUS_DIR)canvas/shadows/sphere_shadow_hit_bonus.c \
+$(BONUS_DIR)canvas/shadows/plane_shadow_hit_bonus.c \
+$(BONUS_DIR)canvas/shadows/cyl_shadow_hit_bonus.c \
 $(BONUS_DIR)canvas/new_world_bonus.c \
 $(BONUS_DIR)canvas/draw_world_bonus.c
 

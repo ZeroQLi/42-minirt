@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
-#include "../includes/macros.h"
 
 // Checks if the file has a .rt extension.
 int	check_ext(char *file)

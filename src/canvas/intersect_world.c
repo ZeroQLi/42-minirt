@@ -12,137 +12,65 @@
 
 #include "../../includes/minirt.h"
 
-static bool	add_sphere_intersections(t_intersection_list *acc, t_ray ray,
-	t_sphere *sphere)
+bool	intersections_push(t_intersection_list *xs, t_intersection value)
 {
-	t_tuple	sphere_to_ray;
-	float	a;
-	float	b;
-	float	disc;
-
-	ray = transform_ray(ray, sphere->tf.inv_transform);
-	sphere_to_ray = sub_tuples(ray.origin, create_point(0, 0, 0));
-	a = dot_product(ray.dir, ray.dir);
-	b = 2.f * dot_product(ray.dir, sphere_to_ray);
-	disc = (b * b) - (4.f * a
-			* (dot_product(sphere_to_ray, sphere_to_ray) - 1.f));
-	if (disc < 0)
+	if (!value.object)
 		return (true);
-	if (!intersections_push(acc,
-			intersect((-b - sqrtf(disc)) / (2.f * a), sphere, SPHERE)))
-		return (false);
-	if (!intersections_push(acc,
-			intersect((-b + sqrtf(disc)) / (2.f * a), sphere, SPHERE)))
-		return (false);
-	return (true);
+	return (append_intersection(xs, value));
 }
 
-static bool	add_plane_intersections(t_intersection_list *acc, t_ray ray,
-	t_plane *plane)
+// return the closest intersection with a positive t value, or a default
+t_intersection	hit(t_intersection_list *xs)
 {
-	ray = transform_ray(ray, plane->tf.inv_transform);
-	if (fabsf(ray.dir.y) < EPSILON)
-		return (true);
-	return (intersections_push(acc,
-			intersect(-ray.origin.y / ray.dir.y, plane, PLANE)));
-}
+	t_intersection_node	*curr;
+	t_intersection		best;
+	bool				has_hit;
 
-static inline bool	check_caps(t_ray ray, float t)
-{
-	float	x;
-	float	z;
-
-	x = ray.origin.x + t * ray.dir.x;
-	z = ray.origin.z + t * ray.dir.z;
-	return (((x * x) + (z * z)) <= 1.0f);
-}
-
-static bool	add_cylinder_caps(t_intersection_list *acc, t_ray ray,
-	t_cylinder *cylinder)
-{
-	float	t;
-
-	if (cylinder->closed == NO || fabsf(ray.dir.y) < EPSILON)
-		return (true);
-	t = (-cylinder->height - ray.origin.y) / ray.dir.y;
-	if (check_caps(ray, t) && !intersections_push(acc,
-				intersect(t, cylinder, CYLINDER)))
-		return (false);
-	t = (cylinder->height - ray.origin.y) / ray.dir.y;
-	if (check_caps(ray, t) && !intersections_push(acc,
-				intersect(t, cylinder, CYLINDER)))
-		return (false);
-	return (true);
-}
-
-static bool	add_cylinder_intersections(t_intersection_list *acc, t_ray ray,
-	t_cylinder *cylinder)
-
-
-{
-	t_tuple	cylinder_to_ray;
-	float	a;
-	float	b;
-	float	disc;
-	float	t;
-	float	y;
-
-	ray = transform_ray(ray, cylinder->tf.inv_transform);
-	a = (ray.dir.x * ray.dir.x) + (ray.dir.z * ray.dir.z);
-	if (fabsf(a) >= EPSILON)
+	if (!xs)
+		return (intersect(0, NULL, 0));
+	curr = xs->head;
+	has_hit = false;
+	best = intersect(0, NULL, 0);
+	while (curr)
 	{
-		cylinder_to_ray = sub_tuples(ray.origin, create_point(0, 0, 0));
-		b = 2.f * ((ray.dir.x * cylinder_to_ray.x)
-				+ (ray.dir.z * cylinder_to_ray.z));
-		disc = (b * b) - (4.f * a * ((cylinder_to_ray.x * cylinder_to_ray.x)
-					+ (cylinder_to_ray.z * cylinder_to_ray.z) - 1.f));
-		if (disc >= 0)
+		if (curr->value.object != NULL && curr->value.t >= EPSILON
+			&& (!has_hit || curr->value.t < best.t))
 		{
-			t = (-b - sqrtf(disc)) / (2.f * a);
-			y = ray.origin.y + t * ray.dir.y;
-			if (y >= -cylinder->height && y <= cylinder->height
-				&& !intersections_push(acc, intersect(t, cylinder, CYLINDER)))
-				return (false);
-			t = (-b + sqrtf(disc)) / (2.f * a);
-			y = ray.origin.y + t * ray.dir.y;
-			if (y >= -cylinder->height && y <= cylinder->height
-				&& !intersections_push(acc, intersect(t, cylinder, CYLINDER)))
-				return (false);
+			best = curr->value;
+			has_hit = true;
 		}
+		curr = curr->next;
 	}
-	return (add_cylinder_caps(acc, ray, cylinder));
+	if (!has_hit)
+		return (intersect(0, NULL, 0));
+	return (best);
 }
 
-t_intersection_list	*intersect_world(t_world *w, t_ray r)
+t_intersection_list	*intersect_world(t_world *w, t_ray r,
+			t_intersection_list *acc)
 {
-	t_intersection_list	*acc;
-	t_sphere			*sp;
-	t_plane				*pl;
-	t_cylinder			*cy;
+	t_world				world;
 
-	acc = create_intersections();
-	if (!acc)
-		return (NULL);
-	sp = w->sp;
-	while (sp)
+	world.sp = w->sp;
+	while (world.sp && acc)
 	{
-		if (!add_sphere_intersections(acc, r, sp))
-			return (free_intersections(acc), NULL);
-		sp = sp->next;
+		if (!intersect_sphere(acc, r, world.sp))
+			return (free_intersections(acc));
+		world.sp = world.sp->next;
 	}
-	pl = w->pl;
-	while (pl)
+	world.pl = w->pl;
+	while (world.pl && acc)
 	{
-		if (!add_plane_intersections(acc, r, pl))
-			return (free_intersections(acc), NULL);
-		pl = pl->next;
+		if (!intersect_plane(acc, r, world.pl))
+			return (free_intersections(acc));
+		world.pl = world.pl->next;
 	}
-	cy = w->cy;
-	while (cy)
+	world.cy = w->cy;
+	while (world.cy && acc)
 	{
-		if (!add_cylinder_intersections(acc, r, cy))
-			return (free_intersections(acc), NULL);
-		cy = cy->next;
+		if (!intersect_cylinder(acc, r, world.cy))
+			return (free_intersections(acc));
+		world.cy = world.cy->next;
 	}
 	return (acc);
 }
