@@ -11,6 +11,7 @@ obj_bonus/
 .obj/
 .obj_bonus/
 mlx/
+minilibx-linux/
 
 # Object files
 *.o

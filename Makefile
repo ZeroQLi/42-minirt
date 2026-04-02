@@ -115,9 +115,9 @@ $(SRC5_BONUS_SRC:src/%.c=$(OBJ_BONUS_PATH)%.o) \
 $(SRC5_BONUS_BONUS:bonus/%.c=$(OBJ_BONUS_PATH)%.o) \
 $(SRC6:src/%.c=$(OBJ_BONUS_PATH)%.o)
 
-MLX_DIR := ./mlx
-	MLX := mlx
-	MLX_FLAGS = -L$(MLX_DIR) -l$(MLX) -L/usr/lib/X11 -lXext -lX11
+MLX_DIR := ./minilibx-linux
+	MLX := minilibx-linux
+	MLX_FLAGS = -L$(MLX_DIR) -lmlx -L/usr/lib/X11 -lXext -lX11
 
 # Compiler n flags
 CC		=		cc
@@ -184,6 +184,7 @@ $(MLX_LIB):
 clean:
 	@rm -rf $(OBJ_PATH) $(OBJ_BONUS_PATH)
 	@make clean -C $(LIBFT_PATH)
+	@make clean -C $(MLX_DIR)
 	@echo "$(BGREEN)cleaned like the blackhole you guys are getting if you DON'T GET TO COOKING$(WHITE)"
 
 fclean: clean
@@ -207,11 +208,9 @@ leak: all
 	--read-var-info=yes --keep-debuginfo=yes ./$(NAME) $(filter-out $@,$(MAKECMDGOALS))
 
 leak_bonus: bonus
-	@valgrind --leak-check=full --leak-resolution=high -s --track-origins=yes \
+	@valgrind --leak-check=full -s --track-origins=yes \
 	--num-callers=500 --show-mismatched-frees=yes --show-leak-kinds=all \
-	--track-fds=yes --gen-suppressions=no \
-	--error-limit=no --undef-value-errors=yes --expensive-definedness-checks=yes \
-	--read-var-info=yes --keep-debuginfo=yes ./$(NAME_BONUS) $(filter-out $@,$(MAKECMDGOALS))
+	--track-fds=yes ./$(NAME_BONUS) $(filter-out $@,$(MAKECMDGOALS))
 %:
 	@:
 

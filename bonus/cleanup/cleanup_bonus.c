@@ -79,7 +79,6 @@ int	brain_washer(t_data	*data)
 		free(data->world->cam);
 	if (data->world)
 		free(data->world);
-	ft_printf(GREEN "SUCCCESS 👍\n" RESET);
 	exit(0);
 	return (0);
 }

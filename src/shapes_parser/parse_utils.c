@@ -44,7 +44,10 @@ static int	ft_isdigit_arr(char **arr)
 	while (arr[i])
 	{
 		if (!ft_isdigit_str(arr[i]))
+		{
+			free_arr(&arr);
 			return (0);
+		}
 		i++;
 	}
 	return (1);
@@ -93,7 +96,10 @@ int	parse_rgb(char *s, int *r, int *g, int *b)
 	}
 	else if (ft_strchr(split[0], '.') || ft_strchr(split[1], '.')
 		|| ft_strchr(split[2], '.'))
+	{
+		free_arr(&split);
 		return (error_msg(YES, "RGB values must be whole", 0));
+	}
 	if (!ft_isdigit_arr(split))
 		return (error_msg(YES, "RGB values must be a valid number", 0));
 	*r = ft_atoi(split[0]);

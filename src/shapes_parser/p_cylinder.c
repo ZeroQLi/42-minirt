@@ -18,12 +18,12 @@ int	parse_cylinder(char **t, t_data *d)
 
 	if (array_len(t) != 6)
 		return (error_msg(YES, "Cylinder format must be: " CY_FORMAT, 0));
-	cy = ft_calloc(1, sizeof(t_cylinder));
-	if (!cy)
-		return (error_msg(YES, "malloc fail *sigh* yes i sighed in text", 0));
 	if (!ft_isdigit_str(t[3]) || !ft_isdigit_str(t[4]))
 		return (error_msg(YES, "Diameter & Height values must be a valid number\
 ", 0));
+	cy = ft_calloc(1, sizeof(t_cylinder));
+	if (!cy)
+		return (error_msg(YES, "malloc fail *sigh* yes i sighed in text", 0));
 	cy->diameter = ft_atof(t[3]) / 2;
 	cy->height = ft_atof(t[4]) / 2;
 	if (!parse_vec3(t[1], &cy->px, &cy->py, &cy->pz) || !parse_normal(t[2],
