@@ -1,5 +1,3 @@
-*This project has been created as part of the 42 curriculum by nanasser, mtangalv*
-
 # Minirt
 
 A raytracer implemented in C from scratch, utilizing the `minilibx` library for graphics rendering.
@@ -68,14 +66,17 @@ pl 0,0,0  0,0,1  0,255,0
 ## Resources
 
 The main theory behind minirt is **Ray Tracing**. The graphical method of modeling the transport of light in a physical space in a digital enviroment. It involves the use of several rendering alghorithms to draw a visual digital image on the screen.
-
 In addition. We incorprate the phong lighting model to incoporate specular lighting to mimic real life specular lighting as close as possible.
 
-The main source for our project was the excellent book, *Ray tracing Challenge* by Jamis Buck.
+The main source for our project was the excellent book, *Ray tracing Challenge* by Jamis Buck. Highly recommend the book to everyone looking to embark on their project.
 
 All references and resources have been provided below:
-
 - **Ray Tracing challenge by Jamis Buck**: http://raytracerchallenge.com/
 - **Ray Tracing Theory**: https://en.wikipedia.org/wiki/Ray_tracing_(graphics)
 - **Phong Lighting Model**: https://en.wikipedia.org/wiki/Phong_reflection_model
 - **minilibx**: https://harm-smits.github.io/42docs/libs/minilibx
+
+# Gallery
+![A row of balls in uv lighting](https://github.com/ZeroQLi/42-minirt/blob/airport/images/infinityballs.png)
+![3 spheres in a plane](https://github.com/ZeroQLi/42-minirt/blob/airport/images/spheres.png)
+![Spheres running from a really big cylinder](https://github.com/ZeroQLi/42-minirt/blob/airport/images/suhaib.png)
