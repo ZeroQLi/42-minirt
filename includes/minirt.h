@@ -183,7 +183,6 @@ t_tuple				cross_product(t_tuple a, t_tuple b);
 // canvas operations
 t_canvas			*create_canvas(void);
 void				write_pixel(t_canvas *canvas, int x, int y, t_color color);
-t_color				pixel_at(t_canvas *canvas, int x, int y);
 void				free_canvas(t_canvas *canvas);
 
 // pls give these functions a family
@@ -202,5 +201,6 @@ int					get_time(bool stopwatch);
 void				draw_centered_text(t_canvas *cnv, char *text, int color);
 bool				append_intersection(t_intersection_list *xs,
 						t_intersection value);
+int					set_vec_normals(float *x, float *y, float *z);
 
 #endif

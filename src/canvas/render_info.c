@@ -12,6 +12,7 @@
 
 #include "../../includes/minirt.h"
 
+// Gets the current start and (later) end time in seconds. 
 int	get_time(bool stopwatch)
 {
 	struct timeval	start;

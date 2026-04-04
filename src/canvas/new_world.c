@@ -12,6 +12,7 @@
 
 #include "../../includes/minirt.h"
 
+// Computes a rotation matrix that aligns the y-axis to the given vector.
 t_matrix4	align_y_to_vector(t_tuple axis)
 {
 	t_tuple		y_axis;
@@ -40,6 +41,7 @@ t_matrix4	align_y_to_vector(t_tuple axis)
 	return (rot);
 }
 
+// Initializes the camera transform and other precomputed values for rendering.
 void	camera(t_camera *cam)
 {
 	float	half_view;
@@ -68,6 +70,7 @@ void	camera(t_camera *cam)
 	cam->pixel_size = (cam->half_width * 2) / cam->hsize;
 }
 
+// Builds the ambient term from material color, ambient color, and ambient ratio
 t_color	ambient_from_world(t_lighting lighting, t_ambient *amb)
 {
 	t_color	ambient_color;

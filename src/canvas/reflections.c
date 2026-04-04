@@ -6,12 +6,13 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 14:17:13 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/26 22:14:10 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/04/04 17:14:44 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
 
+// Calculates the normal vectors of a point on a cylinder.
 static t_tuple	normal_at_cylinder(t_cylinder *cyl, t_tuple world_point)
 {
 	t_tuple		object_point;
@@ -38,6 +39,7 @@ static t_tuple	normal_at_cylinder(t_cylinder *cyl, t_tuple world_point)
 	return (scalar_normalize(w_normal));
 }
 
+// Calculates the normal vectors of a point on a sphere.
 static inline t_tuple	normal_at_sphere(t_sphere *sphere, t_tuple world_point)
 {
 	t_tuple		object_point;
@@ -55,6 +57,7 @@ static inline t_tuple	normal_at_sphere(t_sphere *sphere, t_tuple world_point)
 	return (scalar_normalize(w_normal));
 }
 
+// Calculates the normal vector at a given point on a plane.
 static inline t_tuple	normal_at_plane(t_plane *plane)
 {
 	t_tuple		object_normal;
@@ -68,6 +71,8 @@ static inline t_tuple	normal_at_plane(t_plane *plane)
 	return (scalar_normalize(w_normal));
 }
 
+// Checks the intersected object and calculates the normal vector at a given
+// point on an object, transforming it from object space to world space.
 t_tuple	normal_at(void *object, t_type type, t_tuple world_point)
 {
 	if (!object)

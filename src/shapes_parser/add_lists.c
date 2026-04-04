@@ -12,24 +12,6 @@
 
 #include "../../includes/minirt.h"
 
-// FOR BONUS //
-// void	add_light(t_world *w, t_light *new)
-// {
-// 	t_light	*tmp;
-
-// 	if (!w->l)
-// 	{
-// 		w->l = new;
-//		new->next = NULL;
-// 		return ;
-// 	}
-// 	tmp = w->l;
-// 	while (tmp->next)
-// 		tmp = tmp->next;
-// 	tmp->next = new;
-//	new->next = NULL;
-// }
-
 void	add_plane(t_world *w, t_plane *new)
 {
 	t_plane	*tmp;

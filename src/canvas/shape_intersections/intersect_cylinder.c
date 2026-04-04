@@ -12,6 +12,7 @@
 
 #include "../../../includes/minirt.h"
 
+// Checks if the intersection at t is within the radius of the cylinder's caps.
 static inline bool	check_caps(t_ray ray, float t)
 {
 	float	x;
@@ -22,6 +23,8 @@ static inline bool	check_caps(t_ray ray, float t)
 	return (((x * x) + (z * z)) <= 1.0f);
 }
 
+// Computes the intersections of a ray with the caps of a closed cylinder, if
+// the ray is not parallel to the caps.
 static bool	add_cylinder_caps(t_intersection_list *acc, t_ray ray,
 	t_cylinder *cylinder)
 {
@@ -61,6 +64,8 @@ static inline bool	add_cylinder_side_intersections(t_intersection_list *acc,
 	return (true);
 }
 
+// Computes the intersections of a ray with a cylinder, including both the
+// curved surface and the caps if the cylinder is closed.
 bool	intersect_cylinder(t_intersection_list *acc, t_ray ray,
 	t_cylinder *cylinder)
 {

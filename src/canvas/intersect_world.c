@@ -19,7 +19,8 @@ bool	intersections_push(t_intersection_list *xs, t_intersection value)
 	return (append_intersection(xs, value));
 }
 
-// return the closest intersection with a positive t value, or a default
+// Return the closest intersection with a positive t value, or a default
+// intersection if there are no hits.
 t_intersection	hit(t_intersection_list *xs)
 {
 	t_intersection_node	*curr;
@@ -46,6 +47,8 @@ t_intersection	hit(t_intersection_list *xs)
 	return (best);
 }
 
+// Computes all intersections of a ray with the objects in the world and
+// stores them in the provided list.
 t_intersection_list	*intersect_world(t_world *w, t_ray r,
 			t_intersection_list *acc)
 {

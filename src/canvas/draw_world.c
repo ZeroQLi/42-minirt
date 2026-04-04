@@ -12,6 +12,7 @@
 
 #include "minirt.h"
 
+// Generates a ray from the camera through the specified pixel coordinates.
 static inline t_ray	ray_for_pixel(t_camera *c, float world_x, float world_y,
 	t_tuple origin)
 {
@@ -22,6 +23,8 @@ static inline t_ray	ray_for_pixel(t_camera *c, float world_x, float world_y,
 	return (create_ray(origin, sub_tuples(pixel, origin)));
 }
 
+// Determines if a point is in shadow by casting a ray towards the light
+// and checking for intersections with objects in the world.
 static t_color	shade_hit(t_world *w, t_precomp comp)
 {
 	t_lighting		ctx;
@@ -37,6 +40,8 @@ static t_color	shade_hit(t_world *w, t_precomp comp)
 	return (lighting(&ctx, w->amb));
 }
 
+// Computes the color seen along a ray by finding the closest intersection
+// and shading it accordingly.
 t_color	color_at(t_world *w, t_ray ray)
 {
 	t_intersection_list	*xs;
@@ -63,6 +68,8 @@ t_color	color_at(t_world *w, t_ray ray)
 	return (shade_hit(w, comp));
 }
 
+// Stores the precomputed world position for the camera and initializes
+// the starting world coordinates for ray generation.
 static void	init_world_pos(t_world_render *rend, t_camera *c)
 {
 	rend->camera_origin = matrix4_tuple_multiply(c->inv_transform,
@@ -71,6 +78,8 @@ static void	init_world_pos(t_world_render *rend, t_camera *c)
 	rend->world_y = c->half_height - (0.5f * c->pixel_size);
 }
 
+// Main rendering loop that iterates over each pixel, casts rays,
+// and computes colors.
 void	render(t_camera *c, t_world *w, t_canvas *cnv)
 {
 	int				x;

@@ -12,6 +12,8 @@
 
 #include "../../../includes/minirt.h"
 
+// Checks whether any object intersects the shadow ray
+// before it reaches the light source.
 static bool	shadow_hits_world(t_world *w, t_ray shadow_ray, float dist)
 {
 	t_world	world;
@@ -40,6 +42,9 @@ static bool	shadow_hits_world(t_world *w, t_ray shadow_ray, float dist)
 	return (false);
 }
 
+// Prepares the necessary computations for shading an intersection, like
+// determining if the intersection is inside the object and calculating
+// the normal and eye vectors.
 t_precomp	prepare_computation(t_intersection i, t_ray ray)
 {
 	t_precomp	comps;
@@ -59,6 +64,8 @@ t_precomp	prepare_computation(t_intersection i, t_ray ray)
 	return (comps);
 }
 
+// Determines if a point is in shadow by casting a ray towards the light
+// and checking for intersections with objects in the world.
 bool	is_shadowed(t_world *w, t_precomp comp)
 {
 	t_tuple			to_light;
@@ -78,6 +85,8 @@ bool	is_shadowed(t_world *w, t_precomp comp)
 	return (shadow_hits_world(w, shadow_ray, distance));
 }
 
+// Returns the color at a given point by checking if it's in shadow and
+// calculating the lighting accordingly.
 t_material	material_at(void *object, t_type type)
 {
 	if (!object)

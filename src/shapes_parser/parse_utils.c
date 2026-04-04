@@ -56,7 +56,6 @@ static int	ft_isdigit_arr(char **arr)
 int	parse_normal(char *s, float *x, float *y, float *z)
 {
 	char	**split;
-	float	mag;
 
 	split = ft_split(s, ',');
 	if (!split || !split[0] || !split[1] || !split[2] || split[3])
@@ -70,16 +69,7 @@ int	parse_normal(char *s, float *x, float *y, float *z)
 	*y = ft_atof(split[1]);
 	*z = ft_atof(split[2]);
 	free_arr(&split);
-	if (*x < -1.0f || *x > 1.0f || *y < -1.0f || *y > 1.0f
-		|| *z < -1.0f || *z > 1.0f)
-		return (error_msg(YES, "Rotation values must be between -1 to 1", 0));
-	mag = sqrtf((*x * *x) + (*y * *y) + (*z * *z));
-	if (mag < EPSILON)
-		return (error_msg(YES, ROTATE_ERR, 0));
-	*x /= mag;
-	*y /= mag;
-	*z /= mag;
-	return (1);
+	return (set_vec_normals(x, y, z));
 }
 
 int	parse_rgb(char *s, int *r, int *g, int *b)

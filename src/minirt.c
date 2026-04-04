@@ -62,6 +62,7 @@ static int	on_configure(void *param)
 	return (0);
 }
 
+// Fires up the mlx canvas and gets to the rendering magic
 static inline void	play(t_data *data)
 {
 	data->canvas = create_canvas();

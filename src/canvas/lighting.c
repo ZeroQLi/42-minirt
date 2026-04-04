@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:25:26 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/04/02 21:22:32 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/04/04 17:23:02 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_material	create_material(int cr, int cg, int cb)
 	return (material);
 }
 
+// Calculates the color at a point on a surface using the Phong lighting model.
 t_color	lighting(t_lighting *lighting, t_ambient *amb)
 {
 	t_color	color;

@@ -20,7 +20,7 @@ SRC = $(SRC_DIR)minirt.c \
 $(SRC_DIR)parser.c \
 $(SRC_DIR)error.c \
 $(SRC_DIR)cleanup_linux.c \
-$(SRC_DIR)utils.c \
+$(SRC_DIR)utils.c
 
 SRC_BONUS = $(filter-out $(SRC_DIR)cleanup_linux.c,$(SRC)) \
 $(BONUS_DIR)cleanup/cleanup_bonus.c
@@ -34,6 +34,7 @@ $(SRC_DIR2)p_sphere.c \
 $(SRC_DIR2)parse_utils.c \
 $(SRC_DIR2)add_lists.c \
 $(SRC_DIR2)free_lists.c \
+$(SRC_DIR2)vec_normalizer.c
 
 SRC2_BONUS = $(filter-out $(SRC_DIR2)p_light.c $(SRC_DIR2)add_lists.c \
 $(SRC_DIR2)free_lists.c,$(SRC2)) \
@@ -45,7 +46,7 @@ SRC3 = $(SRC_DIR3)tuple_utils.c \
 $(SRC_DIR3)tuple_operations.c \
 $(SRC_DIR3)scalar_operations.c \
 $(SRC_DIR3)vector_operations.c \
-$(SRC_DIR3)color_operations.c \
+$(SRC_DIR3)color_operations.c
 
 SRC4 = $(SRC_DIR4)matrix_utils.c \
 $(SRC_DIR4)matrix_operations.c \
@@ -53,7 +54,7 @@ $(SRC_DIR4)matrix_init.c \
 $(SRC_DIR4)determinants.c \
 $(SRC_DIR4)cofactors.c \
 $(SRC_DIR4)inversion.c \
-$(SRC_DIR4)translations.c \
+$(SRC_DIR4)translations.c
 
 SRC5 = $(SRC_DIR5)canvas_operations.c \
 $(SRC_DIR5)intersections_list.c \
@@ -69,7 +70,7 @@ $(SRC_DIR5)reflections.c \
 $(SRC_DIR5)new_world.c \
 $(SRC_DIR5)draw_world.c \
 $(SRC_DIR5)transform.c \
-$(SRC_DIR5)lighting.c \
+$(SRC_DIR5)lighting.c
 
 SRC5_BONUS = $(filter-out $(SRC_DIR5)lighting.c $(SRC_DIR5)shadows/shadow.c \
 $(SRC_DIR5)new_world.c $(SRC_DIR5)draw_world.c \

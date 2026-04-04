@@ -12,19 +12,6 @@
 
 #include "../../includes/minirt.h"
 
-// FOR BONUS //
-// void	free_lights(t_plane *sp)
-// {
-// 	t_light *next;
-
-// 	while (sp)
-// 	{
-// 		next = sp->next;
-// 		free(sp);
-// 		sp = next;
-// 	}
-// }
-
 void	free_planes(t_plane *pl)
 {
 	t_plane	*next;

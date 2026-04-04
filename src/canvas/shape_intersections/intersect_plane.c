@@ -12,6 +12,9 @@
 
 #include "../../../includes/minirt.h"
 
+// Computes the intersection of a ray with a plane. If the ray is parallel
+// to the plane, it returns true without adding an intersection.
+// Otherwise, it calculates the intersection point and adds it to the list.
 bool	intersect_plane(t_intersection_list *acc, t_ray ray,
 	t_plane *plane)
 {

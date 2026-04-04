@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 19:36:02 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/26 21:38:55 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/04/04 14:50:20 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_tuple	scalar_normalize(t_tuple a)
 	mag = scalar_magnitude(a);
 	if (fabsf(mag) < EPSILON)
 	{
-		error_msg(YES, "Cannot normalize zero vector", 2);
+		error_msg(NO, "Cannot normalize zero vector", 2);
 		return (create_vector(0, 0, 0));
 	}
 	result.x = a.x / mag;

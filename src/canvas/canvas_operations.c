@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:53:39 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/26 22:15:00 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/04/04 16:48:48 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ static unsigned int	color_to_int(t_color color)
 	return ((r << 16) | (g << 8) | b);
 }
 
+// Initializes mlx, creates a blank image, and stores the ptr to the image.
+// We directly place pixels through the pixel's canvas address
+// instead of using mlx_pixel_put, which is very slow.
 static int	setup_mlx(t_canvas *canvas)
 {
 	int	endian;
@@ -79,12 +82,4 @@ inline void	write_pixel(t_canvas *canvas, int x, int y, t_color color)
 				* (canvas->bits_per_pixel / 8));
 		*(unsigned int *)pxl = color_to_int(color);
 	}
-}
-
-t_color	pixel_at(t_canvas *canvas, int x, int y)
-{
-	if (x >= 0 && x < canvas->width && y >= 0 && y < canvas->height
-		&& x < WIN_WIDTH && y < WIN_HEIGHT)
-		return (canvas->pixels[y][x]);
-	return ((t_color){0, 0, 0});
 }
