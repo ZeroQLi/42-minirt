@@ -121,7 +121,7 @@ MLX_DIR := ./minilibx-linux
 
 # Compiler n flags
 CC		=		cc
-CFLAGS	= -Wall -Wextra -Werror -O3 -Ofast -Wno-unused-result -mavx -mavx2 -flto -funroll-loops -fno-signed-zeros -Iincludes/ -lm -I$(MLX_DIR)
+CFLAGS	= -Wall -Wextra -Werror -O3 -Ofast -Iincludes/ -lm -I$(MLX_DIR)
 
 MLX_LIB = $(MLX_DIR)/libmlx.a
 
