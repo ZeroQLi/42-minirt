@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-// Generates a ray from the camera through the specified pixel coordinates.
+// Shoots a ray from the camera through the specified pixel coordinates.
 static inline t_ray	ray_for_pixel(t_camera *c, float world_x, float world_y,
 	t_tuple origin)
 {

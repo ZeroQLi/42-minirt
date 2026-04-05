@@ -6,7 +6,7 @@
 /*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 20:22:17 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/03/28 16:37:33 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/04/05 16:54:27 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,6 @@ typedef struct s_sphere
 	float				px;
 	float				py;
 	float				pz;
-	float				rx; // range [-1, 1]
-	float				ry;
-	float				rz;
 	float				diameter;
 	int					cr; // RGB range [0-255]
 	int					cg;
@@ -125,8 +122,6 @@ typedef struct s_light
 	int				cb;
 	t_lighting		light;
 	struct s_light	*next;
-	// float			fade_size; // will try to utilize?
-	// struct s_light	*next;
 }	t_light;
 
 typedef struct s_camera
