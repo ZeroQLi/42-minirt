@@ -14,9 +14,11 @@
 
 int	ft_isdigit_str(const char *str)
 {
-	int	i;
+	int		i;
+	bool	is_dec;
 
 	i = 0;
+	is_dec = NO;
 	if (str[i] == '-')
 		i++;
 	if (ft_strlen(&str[i]) > 10)
@@ -26,8 +28,9 @@ int	ft_isdigit_str(const char *str)
 		if (ft_isdigit(str[i]) && str[i + 1] == '.')
 		{
 			i++;
-			if (!ft_isdigit(str[i + 1]))
+			if (!ft_isdigit(str[i + 1]) || is_dec == YES)
 				return (0);
+			is_dec = YES;
 		}
 		else if (!ft_isdigit(str[i]) && str[i] != '\n' && str[i] != '\r')
 			return (0);

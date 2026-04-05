@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lighting.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:25:26 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/04/05 22:36:54 by mtangalv         ###   ########.fr       */
+/*   Updated: 2026/04/06 01:12:12 by nanasser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_color	lighting(t_lighting *lighting, t_ambient *amb)
 	float	l_dot_n;
 
 	color = hadamard_product(lighting->material.color,
-			create_color(1, 1, 1));
+			lighting->p_light.intensity);
 	lighting->lightv = scalar_normalize(sub_tuples(lighting->p_light.position,
 				lighting->h_position));
 	lighting->ambient = ambient_from_world(*lighting, amb);
