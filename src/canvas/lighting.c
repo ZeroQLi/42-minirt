@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lighting.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nanasser <nanasser@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: mtangalv <mtangalv@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:25:26 by mtangalv          #+#    #+#             */
-/*   Updated: 2026/04/04 17:23:02 by nanasser         ###   ########.fr       */
+/*   Updated: 2026/04/05 22:36:54 by mtangalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
